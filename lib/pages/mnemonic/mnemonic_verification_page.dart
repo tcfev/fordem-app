@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:app/app_state.dart';
-import 'package:app/pages/home/screens/home_screen.dart';
-import 'package:app/utils/prefs.dart';
+import 'package:fordem/app_state.dart';
+import 'package:fordem/pages/home/home_page.dart';
+import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -123,7 +123,7 @@ class _MnemonicVerificationPageState extends State<MnemonicVerificationPage> {
                 if (mounted) {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
+                      builder: (context) => const HomePage(),
                     ),
                   );
                 }

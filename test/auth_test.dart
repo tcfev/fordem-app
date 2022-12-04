@@ -1,5 +1,5 @@
-import 'package:app/cryptography/keypair.dart';
-import 'package:app/grpc/grpc.dart';
+import 'package:fordem/cryptography/keypair.dart';
+import 'package:fordem/grpc/grpc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hex/hex.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
@@ -42,13 +42,13 @@ void main() {
         pointycastle.SHA256Digest().process(keyPair.publicKey.value);
 
     final signature = keyPair.generateSignature(message);
-    final result = await auth.signIn(
+    final result = await authentication.signIn(
       publicKey: keyPair.publicKey.value,
       digitalSignature: signature,
     );
 
     final decodedToken = JwtDecoder.decode(result.value);
 
-    expect(decodedToken['unique_name'], publicKey.toUpperCase());
+    expect(decodedToken['unique_name'], '63ea5cbe1e46e45082639f3a');
   });
 }

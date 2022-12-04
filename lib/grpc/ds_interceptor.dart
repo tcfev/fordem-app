@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:app/cryptography/keypair.dart';
+import 'package:fordem/cryptography/keypair.dart';
 import 'package:grpc/grpc.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:hex/hex.dart';

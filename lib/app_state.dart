@@ -1,5 +1,5 @@
-import 'package:app/cryptography/keypair.dart';
-import 'package:app/grpc/grpc.dart';
+import 'package:fordem/cryptography/keypair.dart';
+import 'package:fordem/grpc/grpc.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
 
 class AppState {
@@ -19,7 +19,7 @@ class AppState {
 
         final signature = keyPair.generateSignature(message);
 
-        final jwtoken = await auth.signIn(
+        final jwtoken = await authentication.signIn(
           publicKey: keyPair.publicKey.value,
           digitalSignature: signature,
         );

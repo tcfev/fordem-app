@@ -1,5 +1,5 @@
-import 'package:app/pages/mnemonic/mnemonic_generation_page.dart';
-import 'package:app/utils/prefs.dart';
+import 'package:fordem/pages/mnemonic/mnemonic_generation_page.dart';
+import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

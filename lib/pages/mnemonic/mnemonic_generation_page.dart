@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:app/pages/mnemonic/mnemonic_verification_page.dart';
+import 'package:fordem/pages/mnemonic/mnemonic_verification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet/wallet.dart' as wallet;
 import 'package:gap/gap.dart';
