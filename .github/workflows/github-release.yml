@@ -47,7 +47,7 @@ jobs:
       - name: Create Zip File
         run: cd build/web && zip -r ../../build/web.zip .
       - name: Build Android APK
-        run: flutter build apk --release --split-per-abi --dart-define VERSION=${{ steps.version.outputs.tag }} --build-name ${{ steps.version.outputs.buildname }} --build-number  ${{ steps.version.outputs.buildnumber }}
+        run: flutter build apk --release --split-per-abi --dart-define VERSION=${{ steps.version.outputs.tag }} --build-name ${{ steps.version.outputs.buildname }} --build-number ${{ steps.version.outputs.buildnumber }}
       - name: Build Android Bundle
         run: flutter build appbundle --dart-define VERSION=${{ steps.version.outputs.tag }} --build-name ${{ steps.version.outputs.buildname }} --build-number ${{ steps.version.outputs.buildnumber }}
       - name: Create a Release in GitHub
