@@ -22,13 +22,11 @@ const mnemonic = [
 
 final keyPair = KeyPair.fromMnemonic(mnemonic);
 
-// const _publicKey =
-//     '02ac25fb61187e3e70a8243ca669ee82aa1d682c573cbda9d614e41916f1312891';
+const _publicKey =
+    '02ac25fb61187e3e70a8243ca669ee82aa1d682c573cbda9d614e41916f1312891';
 
 // const _privateKey =
 //     'dbd15fa59c1256fcf97f0f3c51d42a247b065abd4dd8b757c2c5df67ea4a4deb';
-
-const _address = 'F60B1C0B032DE269A687E2C202B3420550844B8D';
 
 void main() {
   test('Generate Keypair', () {
@@ -53,6 +51,6 @@ void main() {
 
     final decodedToken = JwtDecoder.decode(result.value);
 
-    expect(decodedToken['unique_name'], _address);
+    expect(decodedToken['unique_name'], _publicKey.toUpperCase());
   });
 }
