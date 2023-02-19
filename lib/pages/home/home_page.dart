@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('ForDem'),
-        centerTitle: true,
       ),
       body: PageView(
         controller: _pageController,

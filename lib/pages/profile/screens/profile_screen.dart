@@ -1,4 +1,4 @@
-import 'package:fordem/pages/mnemonic/mnemonic_generation_page.dart';
+import 'package:fordem/pages/mnemonic/mnemonic_main_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -25,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               if (mounted) {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => const MnemonicGenerationPage(),
+                    builder: (context) => const MnemonicMainPage(),
                   ),
                 );
               }

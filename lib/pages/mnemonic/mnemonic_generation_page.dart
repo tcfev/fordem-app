@@ -46,8 +46,8 @@ class _MnemonicGenerationPageState extends State<MnemonicGenerationPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome to ForDem'),
-        centerTitle: true,
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('ForDem'),
         actions: [
           IconButton(
             onPressed: () {

@@ -97,8 +97,8 @@ class _MnemonicVerificationPageState extends State<MnemonicVerificationPage> {
 
     return Scaffold(
       appBar: AppBar(
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Verify Mnemonic'),
-        centerTitle: true,
         actions: [
           Builder(builder: (context) {
             return IconButton(

@@ -1,6 +1,6 @@
 import 'package:fordem/app_state.dart';
 import 'package:fordem/config.dart' as config;
-import 'package:fordem/pages/mnemonic/mnemonic_generation_page.dart';
+import 'package:fordem/pages/mnemonic/mnemonic_main_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:fordem/pages/home/home_page.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       theme: theme,
       home: (mnemonic != null && mnemonic.isNotEmpty)
           ? const HomePage()
-          : const MnemonicGenerationPage(),
+          : const MnemonicMainPage(),
     );
   }
 }

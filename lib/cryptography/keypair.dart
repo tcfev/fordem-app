@@ -11,11 +11,11 @@ class KeyPair {
   }) {
     final seed = wallet.mnemonicToSeed(mnemonic, passphrase: passphrase);
     final master = wallet.ExtendedPrivateKey.master(seed, wallet.xprv);
-    final root = master.forPath("m/44'/195'/0'/0/0");
+    final root = master.forPath("m/44'/60'/0'/0/0");
 
     final privateKey =
         wallet.PrivateKey((root as wallet.ExtendedPrivateKey).key);
-    final publicKey = wallet.tron.createPublicKey(privateKey);
+    final publicKey = wallet.ethereum.createPublicKey(privateKey);
 
     return KeyPair._(privateKey, publicKey);
   }
@@ -24,6 +24,6 @@ class KeyPair {
   final wallet.PublicKey publicKey;
 
   Uint8List generateSignature(Uint8List message) {
-    return wallet.tron.generateSignature(privateKey, message);
+    return wallet.ethereum.generateSignature(privateKey, message);
   }
 }
