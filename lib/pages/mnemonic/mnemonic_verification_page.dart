@@ -1,9 +1,11 @@
 import 'dart:ui';
 
+import 'package:fordem/config.dart' as config;
 import 'package:fordem/app_state.dart';
 import 'package:fordem/pages/home/home_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:fordem/utils/style.dart';
 import 'package:gap/gap.dart';
 
 class MnemonicVerificationPage extends StatefulWidget {
@@ -134,28 +136,42 @@ class _MnemonicVerificationPageState extends State<MnemonicVerificationPage> {
           })
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(8.0),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 8.0,
-            runSpacing: 8.0,
-            children: selected,
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(8.0),
+              children: [
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: selected,
+                ),
+                const Gap(16),
+                const Divider(),
+                const Gap(16),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: notselected,
+                ),
+                const Gap(32),
+                const Text(
+                  'Please select the words from below in the correct order. Selected words will show up in the top.',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
-          const Gap(16),
-          const Divider(),
-          const Gap(16),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 8.0,
-            runSpacing: 8.0,
-            children: notselected,
-          ),
-          const Gap(32),
-          const Text(
-            'Please select the words from below in the correct order. Selected words will show up in the top.',
-            textAlign: TextAlign.center,
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              config.version,
+              style: cascadiaCode,
+            ),
           ),
         ],
       ),

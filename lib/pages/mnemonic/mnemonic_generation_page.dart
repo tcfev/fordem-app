@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:fordem/config.dart' as config;
 import 'package:fordem/pages/mnemonic/mnemonic_verification_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fordem/utils/style.dart';
 import 'package:wallet/wallet.dart' as wallet;
 import 'package:gap/gap.dart';
 
@@ -62,20 +64,34 @@ class _MnemonicGenerationPageState extends State<MnemonicGenerationPage> {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(8.0),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Gap(32),
-          const Text(
-            'Please write down the words below on a paper and keep it somewhere safe to be able recover your account in the future.',
-            textAlign: TextAlign.center,
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(8.0),
+              children: [
+                const Gap(32),
+                const Text(
+                  'Please write down the words below on a paper and keep it somewhere safe to be able recover your account in the future.',
+                  textAlign: TextAlign.center,
+                ),
+                const Gap(64),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: words,
+                ),
+              ],
+            ),
           ),
-          const Gap(64),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 8.0,
-            runSpacing: 8.0,
-            children: words,
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              config.version,
+              style: cascadiaCode,
+            ),
           ),
         ],
       ),
