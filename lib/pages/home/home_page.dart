@@ -38,7 +38,6 @@ class _HomePageState extends State<HomePage> {
         controller: _pageController,
         children: const [
           Feed(local: true),
-          Feed(local: false),
           ProfileScreen(),
         ],
       ),
@@ -48,11 +47,7 @@ class _HomePageState extends State<HomePage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.feed),
-            label: 'Local',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.feed),
-            label: 'Public',
+            label: 'Feed',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

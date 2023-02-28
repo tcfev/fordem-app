@@ -5,10 +5,13 @@ import 'dart:typed_data';
 
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/generated/accountapi.dart';
+import 'package:fordem/grpc/generated/google/protobuf/empty.dart';
+import 'package:fordem/grpc/generated/instance.dart';
 import 'package:fordem/grpc/generated/status.dart';
 import 'package:fordem/grpc/generated/statusapi.dart';
 import 'package:fordem/grpc/generated/timeline.dart';
 import 'package:fordem/grpc/generated/authentication.dart';
+import 'package:fordem/grpc/generated/instanceapi.dart';
 import 'package:grpc/grpc_or_grpcweb.dart';
 
 //import 'package:window_location_href/window_location_href.dart';
@@ -20,16 +23,27 @@ export 'package:fordem/grpc/generated/accountapi.dart';
 export 'package:fordem/grpc/generated/status.dart';
 export 'package:fordem/grpc/generated/statusapi.dart';
 export 'package:fordem/grpc/generated/timeline.dart';
+export 'package:fordem/grpc/generated/instance.dart';
 
-const _serverAddress = String.fromEnvironment('SERVER_ADDRESS',
-    defaultValue:
-        'backend.mangoriver-4d99c329.canadacentral.azurecontainerapps.io');
+const _serverAddress =
+    String.fromEnvironment('SERVER_ADDRESS', defaultValue: 'me.fck.ir');
 const _serverPort = int.fromEnvironment('SERVER_PORT', defaultValue: 443);
 
 final status = _StatusApi._();
 final account = _AccountApi._();
-final timeline = _Timeline._();
 final authentication = Authentication._();
+
+class Client {
+  Client(this.host, {this.port = 443})
+      : instance = Instnace._(host, port),
+        timeline = Timeline._(host, port);
+
+  final String host;
+  final int port;
+
+  final Instnace instance;
+  final Timeline timeline;
+}
 
 String _getAddress() {
   // final location = href;
@@ -95,17 +109,41 @@ class Authentication {
   }
 }
 
-class _Timeline {
-  _Timeline._()
+class Instnace {
+  Instnace._(this.host, this.port)
+      : _client = InstanceApiClient(
+          GrpcOrGrpcWebClientChannel.toSingleEndpoint(
+            host: host,
+            port: port,
+            transportSecure: true,
+          ),
+        );
+
+  final InstanceApiClient _client;
+  final String host;
+  final int port;
+
+  Future<Instance> getInstance() {
+    return _client.getInstance(
+      Empty(),
+      options: _getCallOptions(),
+    );
+  }
+}
+
+class Timeline {
+  Timeline._(this.host, this.port)
       : _client = TimelineClient(
           GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-            host: _getAddress(),
-            port: _getPort(),
+            host: host,
+            port: port,
             transportSecure: true,
           ),
         );
 
   final TimelineClient _client;
+  final String host;
+  final int port;
 
   Future<Statuses> getPublic({required bool local}) async {
     return _client.getPublic(

@@ -54,8 +54,9 @@ class _MnemonicGenerationPageState extends State<MnemonicGenerationPage> {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   fullscreenDialog: true,
-                  builder: (context) =>
-                      MnemonicVerificationPage(mnemonic: _mnemonic),
+                  builder: (context) => MnemonicVerificationPage(
+                    mnemonic: _mnemonic,
+                  ),
                 ),
               );
             },

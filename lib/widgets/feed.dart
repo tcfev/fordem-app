@@ -1,3 +1,4 @@
+import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 import 'package:flutter/material.dart';
 import 'package:fordem/widgets/status_card.dart';
@@ -16,7 +17,9 @@ class _FeedState extends State<Feed> {
 
   @override
   void initState() {
-    _future = grpc.timeline.getPublic(local: widget.local);
+    _future = grpc.Client(AppState.server ?? '')
+        .timeline
+        .getPublic(local: widget.local);
     super.initState();
   }
 

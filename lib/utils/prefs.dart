@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _mnemonicKey = 'mnemonic';
+const _serverKey = 'server';
+const _jwtKey = 'jwt';
 
 class Prefs {
   const Prefs._();
@@ -12,6 +14,22 @@ class Prefs {
   static Future<bool?> setMnemonic(List<String> mnemonic) {
     final json = jsonEncode(mnemonic);
     return Prefs.setString(_mnemonicKey, json);
+  }
+
+  static Future<String?> getServer() {
+    return Prefs.getString(_serverKey);
+  }
+
+  static Future<bool?> setServer(String server) {
+    return Prefs.setString(_serverKey, server);
+  }
+
+  static Future<String?> getJwt() {
+    return Prefs.getString(_jwtKey);
+  }
+
+  static Future<bool?> setJwt(String jwt) {
+    return Prefs.setString(_jwtKey, jwt);
   }
 
   static Future<List<String>?> getMnemonic() async {

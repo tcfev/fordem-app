@@ -1,18 +1,12 @@
 import 'package:fordem/app_state.dart';
-import 'package:fordem/config.dart' as config;
-import 'package:fordem/pages/mnemonic/mnemonic_main_page.dart';
+import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
-import 'package:fordem/pages/home/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final mnemonic = await Prefs.getMnemonic();
   AppState.mnemonic = mnemonic;
-
-  await AppState.signIn();
-
-  print(config.version);
 
   runApp(const MyApp());
 }
@@ -35,15 +29,11 @@ class MyApp extends StatelessWidget {
       ),
     );
 
-    final mnemonic = AppState.mnemonic;
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ForDem',
       theme: theme,
-      home: (mnemonic != null && mnemonic.isNotEmpty)
-          ? const HomePage()
-          : const MnemonicMainPage(),
+      home: const WelcomePage(),
     );
   }
 }

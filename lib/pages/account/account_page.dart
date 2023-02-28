@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 import 'package:fordem/utils/style.dart';
 import 'package:fordem/widgets/status_card.dart';
@@ -38,7 +39,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     final account = widget.account;
-    final publicKey = account.publicKey;
+    final address = account.id;
     final statuses = _statuses;
 
     return Scaffold(
@@ -65,20 +66,17 @@ class _AccountPageState extends State<AccountPage> {
             SliverToBoxAdapter(
               child: ListTile(
                 title: Text(
-                  '${account.displayName} (@${account.username})',
+                  address,
+                  style: cascadiaCode,
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.copy),
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(text: address));
+                  },
                 ),
               ),
             ),
-            if (publicKey != null)
-              SliverToBoxAdapter(
-                child: ListTile(
-                  subtitle: Text(
-                    publicKey,
-                    style: cascadiaCode,
-                  ),
-                  title: const Text('Public Key'),
-                ),
-              ),
             if (statuses != null) const SliverToBoxAdapter(child: Divider()),
             if (statuses != null)
               SliverPadding(

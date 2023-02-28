@@ -7,6 +7,7 @@ class AppState {
 
   static String? jwt;
   static List<String>? mnemonic;
+  static String? server;
 
   static Future<void> signIn() async {
     final m = mnemonic;

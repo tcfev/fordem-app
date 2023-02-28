@@ -35,6 +35,7 @@ dependencies:
   fixnum: any
   grpc: any
   protobuf: any
+  eip55: any
   wallet: any
   window_location_href: any
   shared_preferences: any
