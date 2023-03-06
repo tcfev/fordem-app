@@ -191,7 +191,10 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
     }
 
     final url = 'https://$host/oauth/authorize?redirect_uri=$_returnUrl';
-    launchUrlString(url);
+    launchUrlString(
+      url,
+      mode: LaunchMode.externalApplication,
+    );
   }
 }
 
