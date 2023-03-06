@@ -11,25 +11,32 @@ class AppState {
 
   static Future<void> signIn() async {
     final m = mnemonic;
-    if (m != null && m.isNotEmpty) {
-      try {
-        final keyPair = KeyPair.fromMnemonic(m);
+    final s = server;
 
-        final message =
-            pointycastle.SHA256Digest().process(keyPair.publicKey.value);
+    if (s == null || s.isEmpty) {
+      return;
+    }
+    if (m == null || m.isEmpty) {
+      return;
+    }
 
-        final signature = keyPair.generateSignature(message);
+    try {
+      final keyPair = KeyPair.fromMnemonic(m);
 
-        final jwtoken = await authentication.signIn(
-          publicKey: keyPair.publicKey.value,
-          digitalSignature: signature,
-        );
+      final message =
+          pointycastle.SHA256Digest().process(keyPair.publicKey.value);
 
-        jwt = jwtoken.value;
-      } catch (exp) {
-        //
-        print(exp);
-      }
+      final signature = keyPair.generateSignature(message);
+
+      final jwtoken = await Client(s).authentication.signIn(
+            publicKey: keyPair.publicKey.value,
+            digitalSignature: signature,
+          );
+
+      jwt = jwtoken.value;
+    } catch (exp) {
+      //
+      print(exp);
     }
   }
 }

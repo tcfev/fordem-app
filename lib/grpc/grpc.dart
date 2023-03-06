@@ -31,11 +31,11 @@ const _serverPort = int.fromEnvironment('SERVER_PORT', defaultValue: 443);
 
 final status = _StatusApi._();
 final account = _AccountApi._();
-final authentication = Authentication._();
 
 class Client {
   Client(this.host, {this.port = 443})
       : instance = Instnace._(host, port),
+        authentication = Authentication._(host, port),
         timeline = Timeline._(host, port);
 
   final String host;
@@ -43,6 +43,7 @@ class Client {
 
   final Instnace instance;
   final Timeline timeline;
+  final Authentication authentication;
 }
 
 String _getAddress() {
@@ -85,16 +86,18 @@ CallOptions? _getCallOptions() {
 }
 
 class Authentication {
-  Authentication._()
+  Authentication._(this.host, this.port)
       : _client = AuthenticationClient(
           GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-            host: _getAddress(),
-            port: _getPort(),
+            host: host,
+            port: port,
             transportSecure: true,
           ),
         );
 
   final AuthenticationClient _client;
+  final String host;
+  final int port;
 
   Future<JsonWebToken> signIn({
     required Uint8List publicKey,

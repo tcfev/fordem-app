@@ -7,35 +7,43 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:wallet/wallet.dart' as wallet;
 
 const mnemonic = [
-  'pudding',
-  'long',
-  'decline',
-  'call',
-  'forward',
-  'space',
-  'meat',
-  'huge',
-  'merry',
-  'announce',
-  'license',
-  'coconut',
+  'smoke',
+  'goat',
+  'bus',
+  'ketchup',
+  'doctor',
+  'artwork',
+  'lizard',
+  'actress',
+  'armed',
+  'fringe',
+  'sing',
+  'pond'
 ];
+
+const _server =
+    'backend.mangoriver-4d99c329.canadacentral.azurecontainerapps.io';
 
 final keyPair = KeyPair.fromMnemonic(mnemonic);
 
 const _publicKey =
-    '02ac25fb61187e3e70a8243ca669ee82aa1d682c573cbda9d614e41916f1312891';
+    '0343514470f2fa1e4b1aa118780ad720ec9f4b5cd9847dfb87c79869b697c47be0';
 
 const _privateKey =
-    'dbd15fa59c1256fcf97f0f3c51d42a247b065abd4dd8b757c2c5df67ea4a4deb';
+    'd344d17d189b2ab67d765fcfda1ab49a81055d4def80d24c970053628cd9daeb';
+
+const _address = '0xEE916a0CF3943453888fb38283Ed98cb73c4abc0';
 
 void main() {
   test('Generate Keypair', () {
     final sk = keyPair.privateKey.value.toRadixString(16).toLowerCase();
     final pk = HEX.encode(keyPair.publicKey.value).toLowerCase();
+    final address =
+        wallet.ethereum.createAddress(keyPair.publicKey).toLowerCase();
 
     expect(sk, _privateKey);
     expect(pk, _publicKey);
+    expect(address, _address.toLowerCase());
   });
 
   test('Generate JWT', () async {
@@ -45,13 +53,13 @@ void main() {
     final signature = keyPair.generateSignature(message);
     final address = wallet.ethereum.createAddress(keyPair.publicKey);
 
-    final result = await authentication.signIn(
-      publicKey: keyPair.publicKey.value,
-      digitalSignature: signature,
-    );
+    final result = await Client(_server).authentication.signIn(
+          publicKey: keyPair.publicKey.value,
+          digitalSignature: signature,
+        );
 
     final decodedToken = JwtDecoder.decode(result.value);
 
-    expect(decodedToken['unique_name'], address);
+    expect(decodedToken['unique_name'], address.toLowerCase());
   });
 }

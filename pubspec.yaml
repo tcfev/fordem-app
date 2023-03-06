@@ -36,6 +36,7 @@ dependencies:
   grpc: any
   protobuf: any
   eip55: any
+  sec: any
   wallet: any
   window_location_href: any
   shared_preferences: any
