@@ -3,6 +3,10 @@ import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 import 'package:fordem/pages/home/home_page.dart';
 import 'package:fordem/utils/prefs.dart';
+import 'package:protocol_handler/protocol_handler.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+const _returnUrl = 'fordem://addNewInstance';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -11,9 +15,67 @@ class WelcomePage extends StatefulWidget {
   State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class _WelcomePageState extends State<WelcomePage> {
+class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
   final _controller = TextEditingController(text: AppState.host);
   grpc.Instance? _instance;
+
+  void _init() async {
+    await protocolHandler.getInitialUrl();
+    setState(() {});
+  }
+
+  @override
+  void onProtocolUrlReceived(String url) {
+    String log = 'Url received: $url)';
+    print(log);
+
+    final host = AppState.host;
+    final instance = _instance;
+
+    if (host == null) {
+      _instance = null;
+      setState(() {});
+
+      return;
+    }
+
+    if (instance == null) {
+      return;
+    }
+
+    final jwt = _getCode(url);
+
+    if (jwt == null) {
+      return;
+    }
+
+    Prefs.setJwt(jwt);
+    AppState.jwt = jwt;
+
+    final route = MaterialPageRoute(
+      builder: (context) => HomePage(
+        title: instance.title,
+      ),
+    );
+
+    if (mounted) {
+      Navigator.of(context).pushReplacement(route);
+    }
+  }
+
+  @override
+  void initState() {
+    protocolHandler.addListener(this);
+    super.initState();
+
+    _init();
+  }
+
+  @override
+  void dispose() {
+    protocolHandler.removeListener(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,27 +181,26 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   void _next() {
-    final server = AppState.host;
-    final instance = _instance;
+    final host = AppState.host;
 
-    if (server == null) {
-      setState(() {
-        _instance = null;
-      });
+    if (host == null) {
+      _instance = null;
+      setState(() {});
 
       return;
     }
 
-    if (instance == null) {
-      return;
-    }
-
-    final route = MaterialPageRoute(
-      builder: (context) => HomePage(
-        title: instance.title,
-      ),
-    );
-
-    Navigator.of(context).pushReplacement(route);
+    final url = 'https://$host/oauth/authorize?redirect_uri=$_returnUrl';
+    launchUrlString(url);
   }
+}
+
+String? _getCode(String? url) {
+  if (url == null) {
+    return null;
+  }
+  final u = Uri.tryParse(url);
+  final code = u?.queryParameters['code'];
+
+  return code;
 }

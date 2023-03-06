@@ -31,20 +31,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  hex: any
-  fixnum: any
-  grpc: any
-  protobuf: any
+  cached_network_image: any
   eip55: any
+  fixnum: any
+  flutter_html: any
+  flutter_math_fork: ^0.6.3+1
+  gap: any
+  grpc: any
+  hex: any
+  pointycastle: any
+  protobuf: any
+  protocol_handler: ^0.1.5
   sec: any
+  shared_preferences: any
+  url_launcher: any
   wallet: any
   window_location_href: any
-  shared_preferences: any
-  cached_network_image: any
-  pointycastle: any
-  gap: any
-  flutter_math_fork: ^0.6.3+1
-  flutter_html: any
 
 dev_dependencies:
   flutter_test:

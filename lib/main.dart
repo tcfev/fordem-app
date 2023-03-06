@@ -2,12 +2,23 @@ import 'package:fordem/app_state.dart';
 import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:protocol_handler/protocol_handler.dart';
+import 'package:window_location_href/window_location_href.dart' as href;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final mnemonic = await Prefs.getMnemonic();
+
+  final platform = href.platform;
+
+  if (platform == href.Platform.linux ||
+      platform == href.Platform.macOS ||
+      platform == href.Platform.windows) {
+    await protocolHandler.register('fordem');
+  }
+
+  final jwt = await Prefs.getJwt();
   final host = await Prefs.getHost();
-  AppState.mnemonic = mnemonic;
+  AppState.jwt = jwt;
   AppState.host = host;
 
   runApp(const MyApp());

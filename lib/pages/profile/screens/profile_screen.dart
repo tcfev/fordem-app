@@ -1,4 +1,5 @@
-import 'package:fordem/pages/mnemonic/mnemonic_main_page.dart';
+import 'package:fordem/app_state.dart';
+import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -21,11 +22,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const Gap(32),
           ElevatedButton(
             onPressed: () async {
-              await Prefs.removeMnemonic();
+              AppState.jwt = null;
+              await Prefs.removeJwt();
               if (mounted) {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (context) => const MnemonicMainPage(),
+                    builder: (context) => const WelcomePage(),
                   ),
                 );
               }
