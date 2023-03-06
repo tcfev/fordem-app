@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 import 'package:fordem/pages/home/home_page.dart';
+import 'package:fordem/utils/prefs.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  final _controller = TextEditingController();
+  final _controller = TextEditingController(text: AppState.host);
   grpc.Instance? _instance;
 
   @override
@@ -21,49 +22,80 @@ class _WelcomePageState extends State<WelcomePage> {
     final body = ins == null ? _buildForm() : _buildInstnace(ins);
 
     return Scaffold(
-      body: body,
+      body: SafeArea(child: body),
     );
   }
 
   Widget _buildInstnace(grpc.Instance i) {
-    return Column(
-      children: [
-        Expanded(
-          child: ListView(
-            children: [
-              ListTile(
-                title: Text(i.title),
-                subtitle: Text(i.description),
-              ),
-            ],
+    const padding = EdgeInsets.all(4.0);
+
+    return Padding(
+      padding: padding,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                ListTile(
+                  title: Text(i.title),
+                  subtitle: Text(i.description),
+                ),
+              ],
+            ),
           ),
-        ),
-        ElevatedButton(
-          onPressed: _next,
-          child: const Text('Next'),
-        )
-      ],
+          Padding(
+            padding: padding,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 320),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _next,
+                  child: const Text('Next'),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
   Widget _buildForm() {
-    return Form(
-      child: Builder(builder: (context) {
-        return Column(children: [
-          Expanded(
-            child: TextFormField(
-              onSaved: _check,
-              controller: _controller,
+    const padding = EdgeInsets.all(4.0);
+
+    return Padding(
+      padding: padding,
+      child: Form(
+        child: Builder(builder: (context) {
+          return Column(children: [
+            Expanded(
+              child: Padding(
+                padding: padding,
+                child: TextFormField(
+                  onSaved: _check,
+                  controller: _controller,
+                ),
+              ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Form.of(context).save();
-            },
-            child: const Text('Check'),
-          ),
-        ]);
-      }),
+            Padding(
+              padding: padding,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 320),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Form.of(context).save();
+                    },
+                    child: const Text('Check'),
+                  ),
+                ),
+              ),
+            ),
+          ]);
+        }),
+      ),
     );
   }
 
@@ -75,7 +107,8 @@ class _WelcomePageState extends State<WelcomePage> {
 
     try {
       final ins = await grpc.Client(h).instance.getInstance();
-      AppState.server = h;
+      await Prefs.setHost(h);
+      AppState.host = h;
 
       setState(() {
         _instance = ins;
@@ -86,7 +119,8 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   void _next() {
-    final server = AppState.server;
+    final server = AppState.host;
+    final instance = _instance;
 
     if (server == null) {
       setState(() {
@@ -96,7 +130,16 @@ class _WelcomePageState extends State<WelcomePage> {
       return;
     }
 
-    final route = MaterialPageRoute(builder: (context) => const HomePage());
+    if (instance == null) {
+      return;
+    }
+
+    final route = MaterialPageRoute(
+      builder: (context) => HomePage(
+        title: instance.title,
+      ),
+    );
+
     Navigator.of(context).pushReplacement(route);
   }
 }

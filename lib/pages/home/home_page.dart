@@ -5,7 +5,9 @@ import 'package:fordem/pages/profile/screens/profile_screen.dart';
 import 'package:fordem/widgets/feed.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, required this.title}) : super(key: key);
+
+  final String title;
 
   @override
   State<HomePage> createState() => _HomePageState();

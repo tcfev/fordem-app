@@ -7,11 +7,11 @@ class AppState {
 
   static String? jwt;
   static List<String>? mnemonic;
-  static String? server;
+  static String? host;
 
   static Future<void> signIn() async {
     final m = mnemonic;
-    final s = server;
+    final s = host;
 
     if (s == null || s.isEmpty) {
       return;

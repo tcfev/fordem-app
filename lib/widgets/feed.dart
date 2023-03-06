@@ -17,7 +17,7 @@ class _FeedState extends State<Feed> {
 
   @override
   void initState() {
-    _future = grpc.Client(AppState.server ?? '')
+    _future = grpc.Client(AppState.host ?? '')
         .timeline
         .getPublic(local: widget.local);
     super.initState();

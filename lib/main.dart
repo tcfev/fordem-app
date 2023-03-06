@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final mnemonic = await Prefs.getMnemonic();
+  final host = await Prefs.getHost();
   AppState.mnemonic = mnemonic;
+  AppState.host = host;
 
   runApp(const MyApp());
 }
@@ -26,6 +28,13 @@ class MyApp extends StatelessWidget {
         border: OutlineInputBorder(),
         alignLabelWithHint: true,
         isDense: true,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          minimumSize: MaterialStateProperty.all(
+            const Size(0, 48),
+          ),
+        ),
       ),
     );
 

@@ -125,7 +125,9 @@ class _MnemonicVerificationPageState extends State<MnemonicVerificationPage> {
                 if (mounted) {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => const HomePage(),
+                      builder: (context) => const HomePage(
+                        title: 'ForDem',
+                      ),
                     ),
                   );
                 }
