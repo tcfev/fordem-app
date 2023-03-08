@@ -26,17 +26,17 @@ jobs:
           fetch-depth: 0
       - id: version
         run: |
-          commits=$(git log --oneline | wc -l)
-          version=$(printf ci%06d $commits)
-          echo "commits=$commits" >> "$GITHUB_OUTPUT"
-          echo "version=$version" >> "$GITHUB_OUTPUT"
+          run_number=${{ github.run_number }}
+          tag=${GITHUB_SHA::7}
+          echo "run_number=$run_number" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
       - uses: subosito/flutter-action@v2
         with:
           channel: "master"
       - run: flutter pub get
       - run: flutter test
       - name: Build Web
-        run: flutter build web --dart-define VERSION=0.1.0.${{ steps.version.outputs.commits }}
+        run: flutter build web --dart-define VERSION=${{ steps.version.outputs.tag }}
       - name: Upload GitHub Pages Artifacts
         uses: actions/upload-pages-artifact@v1
         with:
