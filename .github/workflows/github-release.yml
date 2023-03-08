@@ -16,12 +16,12 @@ jobs:
           fetch-depth: 0
       - id: version
         run: |
-          commits=$(git log --oneline | wc -l)
-          tag=0.1.0.$(printf ci%06d $commits)
-          echo "commits=$commits" >> "$GITHUB_OUTPUT"
+          run_number=${{ github.run_number }}
+          tag=${GITHUB_SHA::7}
+          echo "run_number=$run_number" >> "$GITHUB_OUTPUT"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "buildname=$tag" >> "$GITHUB_OUTPUT"
-          echo "buildnumber=$commits" >> "$GITHUB_OUTPUT"
+          echo "buildnumber=$run_number" >> "$GITHUB_OUTPUT"
       - name: Update KeyStore password in gradle properties
         run: sed -i 's/#{ANDROID_KEYSTORE_PASS}#/${{ secrets.ANDROID_KEYSTORE_PASS }}/g' android/key.properties
       - name: Update KeyStore key password in gradle properties
@@ -57,27 +57,26 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.version.outputs.tag }}
           commit: ${{ github.sha }}
-#      - name: Upload app bundle
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: appbundle
-#          path: build/app/outputs/bundle/release/app-release.aab
+      - name: Upload app bundle
+        uses: actions/upload-artifact@v2
+        with:
+          name: appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
 
-# release:
-#   name: Release app to internal track
-#   needs: [ build ]
-#   runs-on: ubuntu-latest
-#   steps:
-#   - uses: actions/checkout@v1
-#   - name: Get appbundle from artifacts
-#     uses: actions/download-artifact@v2
-#     with:
-#       name: appbundle
-#   - name: Release app to internal track
-#     uses: r0adkll/upload-google-play@v1
-#     with:
-#       serviceAccountJsonPlainText: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
-#       packageName: org.fordem.app
-#       releaseFile: app-release.aab
-#       track: internal
-#       whatsNewDirectory: distribution/whatsnew
+  release:
+    name: Release app to internal track
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get appbundle from artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: appbundle
+      - name: Release app to internal track
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
+          packageName: org.fordem.app
+          releaseFile: app-release.aab
+          track: internal
