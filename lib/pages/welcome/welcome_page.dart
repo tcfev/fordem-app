@@ -20,8 +20,12 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
   grpc.Instance? _instance;
 
   void _init() async {
-    await protocolHandler.getInitialUrl();
-    setState(() {});
+    try {
+      await protocolHandler.getInitialUrl();
+      setState(() {});
+    } catch (exp) {
+      //
+    }
   }
 
   @override
