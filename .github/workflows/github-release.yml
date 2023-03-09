@@ -24,8 +24,8 @@ jobs:
           echo "buildnumber=$run_number" >> "$GITHUB_OUTPUT"
       - name: Update gradle key.properties
         run: |
-          echo 'keyPassword=${{ secrets.ANDROID_KEYSTORE_PASS }}' >> android/key.properties
-          echo 'storePassword=${{ secrets.ANDROID_KEYSTORE_PASS }}' >> android/key.properties
+          echo 'keyPassword=${{ secrets.ANDROID_KEYSTORE_PASS }}\n' >> android/key.properties
+          echo 'storePassword=${{ secrets.ANDROID_KEYSTORE_PASS }}\n' >> android/key.properties
       - name: Retrieve the signing key and decode it to a file
         env:
           ANDROID_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
