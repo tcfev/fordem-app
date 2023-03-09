@@ -22,10 +22,10 @@ jobs:
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "buildname=$tag" >> "$GITHUB_OUTPUT"
           echo "buildnumber=$run_number" >> "$GITHUB_OUTPUT"
-      - name: Update KeyStore password in gradle properties
-        run: sed -i 's/#{ANDROID_KEYSTORE_PASS}#/${{ secrets.ANDROID_KEYSTORE_PASS }}/g' android/key.properties
-      - name: Update KeyStore key password in gradle properties
-        run: sed -i 's/#{ANDROID_KEYSTORE_KEY_PASS}#/${{ secrets.ANDROID_KEYSTORE_KEY_PASS }}/g' android/key.properties
+      - name: Update gradle key.properties
+        run: |
+          echo 'keyPassword=${{ secrets.ANDROID_KEYSTORE_PASS }}' >> android/key.properties
+          echo 'storePassword=${{ secrets.ANDROID_KEYSTORE_PASS }}' >> android/key.properties
       - name: Retrieve the signing key and decode it to a file
         env:
           ANDROID_SIGNING_KEY: ${{ secrets.ANDROID_SIGNING_KEY }}
