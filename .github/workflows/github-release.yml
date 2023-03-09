@@ -18,10 +18,12 @@ jobs:
         run: |
           run_number=${{ github.run_number }}
           tag=${GITHUB_SHA::7}
+          release=$(printf ci%06d $run_number)
           echo "run_number=$run_number" >> "$GITHUB_OUTPUT"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "buildname=$tag" >> "$GITHUB_OUTPUT"
           echo "buildnumber=$run_number" >> "$GITHUB_OUTPUT"
+          echo "release=$release" >> "$GITHUB_OUTPUT"
       - name: Update gradle key.properties
         run: |
           echo $'\n' >> android/key.properties
@@ -56,7 +58,7 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab,build/web.tar.gz,build/web.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.version.outputs.tag }} - ${{ steps.version.outputs.buildnumber }}
+          tag: ${{ steps.version.outputs.release }}
           commit: ${{ github.sha }}
       - name: Upload app bundle
         uses: actions/upload-artifact@v2
