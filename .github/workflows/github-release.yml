@@ -55,7 +55,7 @@ jobs:
         with:
           artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab,build/web.tar.gz,build/web.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.version.outputs.tag }}
+          tag: ${{ steps.version.outputs.tag }} - ${{ steps.version.outputs.buildnumber }}
           commit: ${{ github.sha }}
       - name: Upload app bundle
         uses: actions/upload-artifact@v2
