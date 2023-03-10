@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
-import 'package:fordem/utils/style.dart';
+//import 'package:fordem/utils/style.dart';
 import 'package:fordem/widgets/status_card.dart';
 
 class AccountPage extends StatefulWidget {
@@ -38,6 +38,8 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final small = theme.textTheme.bodySmall;
     final account = widget.account;
     final address = account.id;
     final statuses = _statuses;
@@ -64,16 +66,37 @@ class _AccountPageState extends State<AccountPage> {
               ),
             ),
             SliverToBoxAdapter(
-              child: ListTile(
-                title: Text(
-                  address,
-                  style: cascadiaCode,
-                ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.copy),
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: address));
-                  },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text.rich(
+                  TextSpan(children: [
+                    TextSpan(text: address),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      baseline: TextBaseline.ideographic,
+                      child: IconButton(
+                        tooltip: 'Copy',
+                        icon: const Icon(Icons.copy),
+                        iconSize: 12,
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: address));
+
+                          final snackBar = SnackBar(
+                            content: const Text('Address copied.'),
+                            action: SnackBarAction(
+                                label: 'OK',
+                                onPressed: () {
+                                  ScaffoldMessenger.of(context)
+                                      .removeCurrentSnackBar();
+                                }),
+                          );
+
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                      ),
+                    )
+                  ]),
+                  style: small,
                 ),
               ),
             ),
