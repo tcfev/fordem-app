@@ -16,7 +16,9 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
-  final _controller = TextEditingController(text: AppState.host);
+  final _controller = TextEditingController(
+    text: AppState.host ?? 'app.fordem.org',
+  );
   grpc.Instance? _instance;
 
   void _init() async {
@@ -180,7 +182,7 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
         _instance = ins;
       });
     } catch (exp) {
-      //
+      //print(exp);
     }
   }
 

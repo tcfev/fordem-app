@@ -21,8 +21,7 @@ const mnemonic = [
   'pond'
 ];
 
-const _server =
-    'backend.mangoriver-4d99c329.canadacentral.azurecontainerapps.io';
+const _server = 'app.fordem.org';
 
 final keyPair = KeyPair.fromMnemonic(mnemonic);
 
