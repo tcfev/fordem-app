@@ -2,6 +2,7 @@ import 'package:fordem/app_state.dart';
 import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:fordem/utils/style.dart';
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:window_location_href/window_location_href.dart' as href;
 
@@ -29,26 +30,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ThemeData(
-      useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.deepPurple,
-        brightness: Brightness.dark,
-      ),
-      inputDecorationTheme: const InputDecorationTheme(
-        border: OutlineInputBorder(),
-        alignLabelWithHint: true,
-        isDense: true,
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(
-            const Size(0, 48),
-          ),
-        ),
-      ),
-    );
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ForDem',
