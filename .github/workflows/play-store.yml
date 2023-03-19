@@ -1,4 +1,4 @@
-name: GitHub Release
+name: Play Store Internal
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build and Release
+    name: Play Store
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -43,20 +43,12 @@ jobs:
           channel: "master"
       - run: flutter pub get
       - run: flutter test
-      - name: Build Web App
-        run: flutter build web --dart-define VERSION=${{ steps.version.outputs.tag }}
-      - name: Create Tar File
-        run: tar -C build/web/ -zcvf build/web.tar.gz .
-      - name: Create Zip File
-        run: cd build/web && zip -r ../../build/web.zip .
-      - name: Build Android APK
-        run: flutter build apk --release --split-per-abi --dart-define VERSION=${{ steps.version.outputs.tag }} --build-name ${{ steps.version.outputs.buildname }} --build-number ${{ steps.version.outputs.buildnumber }}
       - name: Build Android Bundle
         run: flutter build appbundle --dart-define VERSION=${{ steps.version.outputs.tag }} --build-name ${{ steps.version.outputs.buildname }} --build-number ${{ steps.version.outputs.buildnumber }}
-      - name: Create a Release in GitHub
-        uses: ncipollo/release-action@v1
+      - name: Release app to internal track
+        uses: r0adkll/upload-google-play@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab,build/web.tar.gz,build/web.zip"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.version.outputs.release }}
-          commit: ${{ github.sha }}
+          serviceAccountJsonPlainText: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
+          packageName: org.fordem.app
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab
+          track: internal
