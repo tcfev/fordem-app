@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 
 class CreateStatusPage extends StatefulWidget {
@@ -30,12 +31,12 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
 
     final text = _controller.text;
 
-    final status = await grpc.status.createStatus(
-      status: text,
-      visibility: _visibility,
-      poll: poll,
-      sensitive: false,
-    );
+    final status = await grpc.Client(AppState.host ?? '').status.createStatus(
+          status: text,
+          visibility: _visibility,
+          poll: poll,
+          sensitive: false,
+        );
 
     print(status);
   }

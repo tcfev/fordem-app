@@ -25,17 +25,12 @@ export 'package:fordem/grpc/generated/statusapi.dart';
 export 'package:fordem/grpc/generated/timeline.dart';
 export 'package:fordem/grpc/generated/instance.dart';
 
-const _serverAddress =
-    String.fromEnvironment('SERVER_ADDRESS', defaultValue: 'me.fck.ir');
-const _serverPort = int.fromEnvironment('SERVER_PORT', defaultValue: 443);
-
-final status = _StatusApi._();
-final account = _AccountApi._();
-
 class Client {
   Client(this.host, {this.port = 443})
       : instance = Instnace._(host, port),
         authentication = Authentication._(host, port),
+        status = StatusApi._(host, port),
+        account = AccountApi._(host, port),
         timeline = Timeline._(host, port);
 
   final String host;
@@ -44,35 +39,12 @@ class Client {
   final Instnace instance;
   final Timeline timeline;
   final Authentication authentication;
-}
+  final StatusApi status;
+  final AccountApi account;
 
-String _getAddress() {
-  // final location = href;
-  // if (location != null) {
-  //   final url = Uri.tryParse(location)!;
-
-  //   return url.host;
-  // }
-
-  return _serverAddress;
-}
-
-int _getPort() {
-  // final location = href;
-  // if (location != null) {
-  //   final url = Uri.tryParse(location)!;
-
-  //   return url.port;
-  // }
-
-  return _serverPort;
-}
-
-String getPath(String relative) {
-  final host = _getAddress();
-  final port = _getPort();
-
-  return 'https://$host:$port/$relative';
+  String getPath(String relative) {
+    return 'https://$host:$port/$relative';
+  }
 }
 
 CallOptions? _getCallOptions() {
@@ -156,17 +128,19 @@ class Timeline {
   }
 }
 
-class _StatusApi {
-  _StatusApi._()
+class StatusApi {
+  StatusApi._(this.host, this.port)
       : _client = StatusApiClient(
           GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-            host: _getAddress(),
-            port: _getPort(),
+            host: host,
+            port: port,
             transportSecure: true,
           ),
         );
 
   final StatusApiClient _client;
+  final String host;
+  final int port;
 
   Future<Status> createStatus({
     required String status,
@@ -199,17 +173,19 @@ class _StatusApi {
   }
 }
 
-class _AccountApi {
-  _AccountApi._()
+class AccountApi {
+  AccountApi._(this.host, this.port)
       : _client = AccountApiClient(
           GrpcOrGrpcWebClientChannel.toSingleEndpoint(
-            host: _getAddress(),
-            port: _getPort(),
+            host: host,
+            port: port,
             transportSecure: true,
           ),
         );
 
   final AccountApiClient _client;
+  final String host;
+  final int port;
 
   Future<Statuses> getStatuses({
     required String accountId,
