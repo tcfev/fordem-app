@@ -44,7 +44,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
         );
 
     if (mounted) {
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(status);
     }
   }
 
