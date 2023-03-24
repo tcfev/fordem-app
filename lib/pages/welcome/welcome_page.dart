@@ -20,6 +20,7 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
     text: AppState.host ?? 'app.fordem.org',
   );
   grpc.Instance? _instance;
+  bool _isChecking = false;
 
   void _init() async {
     try {
@@ -98,73 +99,98 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
   Widget _buildInstnace(grpc.Instance i) {
     const padding = EdgeInsets.all(4.0);
 
-    return Padding(
-      padding: padding,
-      child: Column(
-        children: [
-          Expanded(
-            child: ListView(
+    return Column(
+      children: [
+        Image.asset('images/welcome.png'),
+        Expanded(
+          child: Padding(
+            padding: padding,
+            child: Column(
               children: [
-                ListTile(
-                  title: Text(i.title),
-                  subtitle: Text(i.description),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      ListTile(
+                        title: Text(i.title),
+                        subtitle: Text(i.description),
+                      ),
+                    ],
+                  ),
                 ),
+                Padding(
+                  padding: padding,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _next,
+                      child: const Text('Next'),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
-          Padding(
-            padding: padding,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 320),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _next,
-                  child: const Text('Next'),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildForm() {
     const padding = EdgeInsets.all(4.0);
 
-    return Padding(
-      padding: padding,
-      child: Form(
-        child: Builder(builder: (context) {
-          return Column(children: [
-            Expanded(
-              child: Padding(
-                padding: padding,
-                child: TextFormField(
-                  onSaved: _check,
-                  controller: _controller,
-                ),
-              ),
-            ),
-            Padding(
-              padding: padding,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 320),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Form.of(context).save();
-                    },
-                    child: const Text('Check'),
+    return Column(
+      children: [
+        Image.asset('images/welcome.png'),
+        Expanded(
+          child: Padding(
+            padding: padding,
+            child: Form(
+              child: Builder(builder: (context) {
+                return Column(children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: padding,
+                          child: TextFormField(
+                            onSaved: _check,
+                            controller: _controller,
+                            enabled: !_isChecking,
+                            decoration: const InputDecoration(
+                              prefixText: 'https://',
+                            ),
+                          ),
+                        ),
+                        if (_isChecking)
+                          const Padding(
+                            padding: padding,
+                            child: LinearProgressIndicator(
+                              minHeight: 2,
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
+                  Padding(
+                    padding: padding,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _isChecking
+                            ? null
+                            : () {
+                                Form.of(context).save();
+                              },
+                        child: const Text('Check'),
+                      ),
+                    ),
+                  ),
+                ]);
+              }),
             ),
-          ]);
-        }),
-      ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -173,6 +199,13 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
     if (h == null) {
       return;
     }
+
+    if (_isChecking) {
+      return;
+    }
+
+    _isChecking = true;
+    setState(() {});
 
     try {
       final ins = await grpc.Client(h).instance.getInstance();
@@ -185,6 +218,9 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
     } catch (exp) {
       //print(exp);
     }
+
+    _isChecking = true;
+    setState(() {});
   }
 
   void _next() {

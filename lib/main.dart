@@ -1,8 +1,8 @@
 import 'package:fordem/app_state.dart';
+import 'package:fordem/pages/home/home_page.dart';
 import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
-import 'package:fordem/utils/style.dart';
 import 'package:protocol_handler/protocol_handler.dart';
 import 'package:window_location_href/window_location_href.dart' as href;
 
@@ -18,9 +18,14 @@ void main() async {
   }
 
   final jwt = await Prefs.getJwt();
-  final host = await Prefs.getHost();
   AppState.jwt = jwt;
-  AppState.host = host;
+
+  if (platform == href.Platform.web) {
+    AppState.host = Uri.tryParse(href.href ?? 'fordem.org')?.host;
+  } else {
+    final host = await Prefs.getHost();
+    AppState.host = host;
+  }
 
   runApp(const MyApp());
 }
@@ -30,11 +35,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final platform = href.platform;
+
+    final theme = ThemeData(
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.deepPurple,
+        brightness: Brightness.dark,
+      ),
+      inputDecorationTheme: const InputDecorationTheme(
+        border: OutlineInputBorder(),
+        alignLabelWithHint: true,
+        isDense: true,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          minimumSize: MaterialStateProperty.all(
+            const Size(0, 48),
+          ),
+        ),
+      ),
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ForDem',
       theme: theme,
-      home: const WelcomePage(),
+      home: platform == href.Platform.web
+          ? const HomePage(title: 'ForDem')
+          : const WelcomePage(),
     );
   }
 }

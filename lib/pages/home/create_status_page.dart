@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 
 class CreateStatusPage extends StatefulWidget {
@@ -11,7 +12,8 @@ class CreateStatusPage extends StatefulWidget {
 class _CreateStatusPageState extends State<CreateStatusPage> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
-  var _visibility = grpc.Visibility.public;
+  grpc.Visibility _visibility = grpc.Visibility.public;
+  bool _sensitive = false;
 
   void _submit() async {
     if (!_formKey.currentState!.validate()) {
@@ -28,16 +30,22 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
     poll.options.add('C');
     poll.options.add('D');
 
-    final text = _controller.text;
+    final text = _controller.text.trim();
 
-    final status = await grpc.status.createStatus(
-      status: text,
-      visibility: _visibility,
-      poll: poll,
-      sensitive: false,
-    );
+    if (text.isEmpty) {
+      return;
+    }
 
-    print(status);
+    final status = await grpc.Client(AppState.host ?? '').status.createStatus(
+          status: text,
+          visibility: _visibility,
+          poll: poll,
+          sensitive: _sensitive,
+        );
+
+    if (mounted) {
+      Navigator.of(context).pop(status);
+    }
   }
 
   @override
@@ -93,6 +101,17 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                       },
                       decoration:
                           const InputDecoration(labelText: 'Visibility'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SwitchListTile(
+                      title: const Text('Sensitive Content'),
+                      value: _sensitive,
+                      onChanged: (value) {
+                        _sensitive = value;
+                        setState(() {});
+                      },
                     ),
                   ),
                 ],

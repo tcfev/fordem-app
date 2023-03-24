@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 //import 'package:fordem/utils/style.dart';
 import 'package:fordem/widgets/status_card.dart';
@@ -26,8 +27,9 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   void _load() async {
-    final statuses =
-        await grpc.account.getStatuses(accountId: widget.account.id);
+    final statuses = await grpc.Client(AppState.host ?? '')
+        .account
+        .getStatuses(accountId: widget.account.id);
 
     _statuses = statuses;
 
