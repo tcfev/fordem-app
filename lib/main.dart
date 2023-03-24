@@ -1,4 +1,5 @@
 import 'package:fordem/app_state.dart';
+import 'package:fordem/pages/home/home_page.dart';
 import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,14 @@ void main() async {
   }
 
   final jwt = await Prefs.getJwt();
-  final host = await Prefs.getHost();
   AppState.jwt = jwt;
-  AppState.host = host;
+
+  if (platform == href.Platform.web) {
+    AppState.host = Uri.tryParse(href.href ?? 'fordem.org')?.host;
+  } else {
+    final host = await Prefs.getHost();
+    AppState.host = host;
+  }
 
   runApp(const MyApp());
 }
@@ -29,6 +35,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final platform = href.platform;
+
     final theme = ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
@@ -53,7 +61,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'ForDem',
       theme: theme,
-      home: const WelcomePage(),
+      home: platform == href.Platform.web
+          ? const HomePage(title: 'ForDem')
+          : const WelcomePage(),
     );
   }
 }
