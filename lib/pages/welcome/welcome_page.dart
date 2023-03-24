@@ -24,6 +24,7 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
 
   void _init() async {
     try {
+      // todo: @zanzendegi why do you want to do with this?
       await protocolHandler.getInitialUrl();
       setState(() {});
     } catch (exp) {

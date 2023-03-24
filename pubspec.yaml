@@ -47,6 +47,9 @@ dependencies:
   url_launcher: any
   wallet: any
   window_location_href: any
+  image_picker: ^0.8.7
+  video_player: ^2.6.0
+  flutter_speed_dial: ^6.2.0
 
 dev_dependencies:
   flutter_test:

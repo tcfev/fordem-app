@@ -1,7 +1,8 @@
-export 'package:grpc/grpc.dart';
-
 import 'dart:async';
 import 'dart:typed_data';
+
+export 'package:grpc/grpc.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/generated/accountapi.dart';
@@ -12,10 +13,6 @@ import 'package:fordem/grpc/generated/statusapi.dart';
 import 'package:fordem/grpc/generated/timeline.dart';
 import 'package:fordem/grpc/generated/authentication.dart';
 import 'package:fordem/grpc/generated/instanceapi.dart';
-import 'package:grpc/grpc_or_grpcweb.dart';
-
-//import 'package:window_location_href/window_location_href.dart';
-
 export 'package:fordem/grpc/generated/google/protobuf/empty.dart';
 export 'package:fordem/grpc/generated/account.dart';
 export 'package:fordem/grpc/generated/poll.dart';
