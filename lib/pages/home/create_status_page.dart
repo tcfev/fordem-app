@@ -142,7 +142,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
     if (retrieveError != null) {
       return retrieveError;
     }
-    if (_textController == null) {
+    if (_videoController == null) {
       return const Text(
         'You have not yet picked a video',
         textAlign: TextAlign.center,
