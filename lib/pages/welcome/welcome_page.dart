@@ -91,7 +91,27 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
     final body = ins == null ? _buildForm() : _buildInstnace(ins);
 
     return Scaffold(
-      body: SafeArea(child: body),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            //snap: true,
+            pinned: false,
+            expandedHeight: 240,
+            flexibleSpace: FlexibleSpaceBar(
+              expandedTitleScale: 3,
+              background: Image.asset(
+                'images/welcome.png',
+                fit: BoxFit.cover,
+              ),
+              collapseMode: CollapseMode.parallax,
+            ),
+          ),
+          SliverFillRemaining(
+            child: body,
+          ),
+        ],
+      ),
     );
   }
 
@@ -100,7 +120,6 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
 
     return Column(
       children: [
-        Image.asset('images/welcome.png'),
         Expanded(
           child: Padding(
             padding: padding,
@@ -139,7 +158,6 @@ class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
 
     return Column(
       children: [
-        Image.asset('images/welcome.png'),
         Expanded(
           child: Padding(
             padding: padding,
