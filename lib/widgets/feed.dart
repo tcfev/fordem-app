@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 import 'package:flutter/material.dart';
@@ -13,39 +15,66 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
-  late final Future<grpc.Statuses> _future;
   final client = grpc.Client(AppState.host ?? '');
+  final List<grpc.Status> _statuses = [];
+  StreamSubscription<grpc.Status>? _subscription;
+  final _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
-    client.streaming.getStatusStream().listen((event) {
+    _subscription = client.streaming.getStatusStream().listen((event) {
       print(event);
+
+      _statuses.insert(0, event);
+      if (mounted) {
+        setState(() {});
+      }
     });
 
-    _future = client.timeline.getPublic(local: widget.local);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _refreshKey.currentState?.activate();
+    });
+
+    _refresh();
+
     super.initState();
+  }
+
+  Future<void> _refresh() async {
+    _statuses.clear();
+
+    if (mounted) {
+      setState(() {});
+    }
+
+    final data = await client.timeline.getPublic(local: widget.local);
+
+    _statuses.addAll(data.data);
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _future,
-      builder: (context, snapshot) {
-        final data = snapshot.data;
-
-        if (data == null) {
-          return const Center(child: Text('Loading...'));
-        }
-
-        return ListView.builder(
-          itemCount: data.data.length,
-          padding: const EdgeInsets.all(4.0),
-          itemBuilder: ((context, index) {
-            final status = data.data[index];
-            return StatusCard(status: status);
-          }),
-        );
-      },
+    return RefreshIndicator(
+      key: _refreshKey,
+      onRefresh: _refresh,
+      child: ListView.builder(
+        itemCount: _statuses.length,
+        padding: const EdgeInsets.all(4.0),
+        itemBuilder: (context, index) {
+          final status = _statuses[index];
+          return StatusCard(status: status);
+        },
+      ),
     );
   }
 }
