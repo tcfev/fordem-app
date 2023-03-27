@@ -1,7 +1,9 @@
-export 'package:grpc/grpc.dart';
-
 import 'dart:async';
 import 'dart:typed_data';
+
+export 'package:grpc/grpc.dart';
+import 'package:fordem/grpc/generated/streaming.dart';
+import 'package:grpc/grpc_or_grpcweb.dart';
 
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/generated/accountapi.dart';
@@ -12,10 +14,6 @@ import 'package:fordem/grpc/generated/statusapi.dart';
 import 'package:fordem/grpc/generated/timeline.dart';
 import 'package:fordem/grpc/generated/authentication.dart';
 import 'package:fordem/grpc/generated/instanceapi.dart';
-import 'package:grpc/grpc_or_grpcweb.dart';
-
-//import 'package:window_location_href/window_location_href.dart';
-
 export 'package:fordem/grpc/generated/google/protobuf/empty.dart';
 export 'package:fordem/grpc/generated/account.dart';
 export 'package:fordem/grpc/generated/poll.dart';
@@ -31,6 +29,7 @@ class Client {
         authentication = Authentication._(host, port),
         status = StatusApi._(host, port),
         account = AccountApi._(host, port),
+        streaming = Streaming._(host, port),
         timeline = Timeline._(host, port);
 
   final String host;
@@ -41,6 +40,7 @@ class Client {
   final Authentication authentication;
   final StatusApi status;
   final AccountApi account;
+  final Streaming streaming;
 
   String getPath(String relative) {
     return 'https://$host:$port/$relative';
@@ -73,12 +73,12 @@ class Authentication {
 
   Future<JsonWebToken> signIn({
     required Uint8List publicKey,
-    required Uint8List digitalSignature,
+    required Uint8List signature,
   }) {
     return _client.signIn(
       SignInRequest()
         ..publicKey = publicKey
-        ..digitalSignature = digitalSignature,
+        ..signature = signature,
       options: _getCallOptions(),
     );
   }
@@ -123,6 +123,28 @@ class Timeline {
   Future<Statuses> getPublic({required bool local}) async {
     return _client.getPublic(
       GetPublicTimelineRequest()..local = local,
+      options: _getCallOptions(),
+    );
+  }
+}
+
+class Streaming {
+  Streaming._(this.host, this.port)
+      : _client = StreamingClient(
+          GrpcOrGrpcWebClientChannel.toSingleEndpoint(
+            host: host,
+            port: port,
+            transportSecure: true,
+          ),
+        );
+
+  final StreamingClient _client;
+  final String host;
+  final int port;
+
+  Stream<Status> getStatusStream() {
+    return _client.getStatusStream(
+      Empty(),
       options: _getCallOptions(),
     );
   }

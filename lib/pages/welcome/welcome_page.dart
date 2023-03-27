@@ -17,7 +17,7 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> with ProtocolListener {
   final _controller = TextEditingController(
-    text: AppState.host ?? 'app.fordem.org',
+    text: AppState.host ?? 'fordem.org',
   );
   grpc.Instance? _instance;
   bool _isChecking = false;

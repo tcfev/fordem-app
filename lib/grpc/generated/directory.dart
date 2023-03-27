@@ -15,8 +15,8 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'account.dart' as $3;
-import 'directory.dart' as $13;
+import 'account.dart' as $1;
+import 'directory.dart' as $15;
 
 /// Get Directory Request
 class GetDirectoryRequest extends $pb.GeneratedMessage {
@@ -175,14 +175,14 @@ class DirectoryClient extends $grpc.Client {
 
   /// Method Descriptors.
   static final _$getAccounts =
-      $grpc.ClientMethod<$13.GetDirectoryRequest, $3.Accounts>(
+      $grpc.ClientMethod<$15.GetDirectoryRequest, $1.Accounts>(
           '/Directory/GetAccounts',
-          ($13.GetDirectoryRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Accounts.fromBuffer(value));
+          ($15.GetDirectoryRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Accounts.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$3.Accounts> getAccounts($13.GetDirectoryRequest request,
+  $grpc.ResponseFuture<$1.Accounts> getAccounts($15.GetDirectoryRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getAccounts, request, options: options);
   }

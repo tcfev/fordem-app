@@ -15,8 +15,8 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'application.dart' as $10;
-import 'apps.dart' as $9;
+import 'application.dart' as $12;
+import 'apps.dart' as $11;
 import 'google/protobuf/empty.dart' as $2;
 
 /// Create Application Request
@@ -169,25 +169,25 @@ class AppsClient extends $grpc.Client {
 
   /// Method Descriptors.
   static final _$createApplication =
-      $grpc.ClientMethod<$9.CreateApplicationRequest, $10.Application>(
+      $grpc.ClientMethod<$11.CreateApplicationRequest, $12.Application>(
           '/Apps/CreateApplication',
-          ($9.CreateApplicationRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $10.Application.fromBuffer(value));
+          ($11.CreateApplicationRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $12.Application.fromBuffer(value));
   static final _$verifyCredentials =
-      $grpc.ClientMethod<$2.Empty, $10.Application>(
+      $grpc.ClientMethod<$2.Empty, $12.Application>(
           '/Apps/VerifyCredentials',
           ($2.Empty value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $10.Application.fromBuffer(value));
+          ($core.List<$core.int> value) => $12.Application.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$10.Application> createApplication(
-      $9.CreateApplicationRequest request,
+  $grpc.ResponseFuture<$12.Application> createApplication(
+      $11.CreateApplicationRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createApplication, request, options: options);
   }
 
-  $grpc.ResponseFuture<$10.Application> verifyCredentials($2.Empty request,
+  $grpc.ResponseFuture<$12.Application> verifyCredentials($2.Empty request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$verifyCredentials, request, options: options);
   }

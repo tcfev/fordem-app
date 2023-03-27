@@ -15,7 +15,7 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'authentication.dart' as $11;
+import 'authentication.dart' as $13;
 
 /// Json Web Token
 class JsonWebToken extends $pb.GeneratedMessage {
@@ -103,7 +103,7 @@ class SignInRequest extends $pb.GeneratedMessage {
         ..a<$core.List<$core.int>>(1, '', $pb.PbFieldType.OY,
             protoName: 'publicKey')
         ..a<$core.List<$core.int>>(2, '', $pb.PbFieldType.OY,
-            protoName: 'digitalSignature')
+            protoName: 'signature')
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -145,23 +145,23 @@ class SignInRequest extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(2)
 
-  /// Digital Signature
-  $core.List<$core.int> get digitalSignature => $_getN(1);
+  /// Signature
+  $core.List<$core.int> get signature => $_getN(1);
 
-  /// Digital Signature
+  /// Signature
   @$pb.TagNumber(2)
-  set digitalSignature($core.List<$core.int> v) {
+  set signature($core.List<$core.int> v) {
     $_setBytes(1, v);
   }
 
   @$pb.TagNumber(2)
 
-  /// Has Digital Signature
-  $core.bool hasDigitalSignature() => $_has(1);
+  /// Has Signature
+  $core.bool hasSignature() => $_has(1);
   @$pb.TagNumber(2)
 
-  /// Clear Digital Signature
-  void clearDigitalSignature() => clearField(2);
+  /// Clear Signature
+  void clearSignature() => clearField(2);
 }
 
 // -------- Clients --------
@@ -180,14 +180,14 @@ class AuthenticationClient extends $grpc.Client {
 
   /// Method Descriptors.
   static final _$signIn =
-      $grpc.ClientMethod<$11.SignInRequest, $11.JsonWebToken>(
+      $grpc.ClientMethod<$13.SignInRequest, $13.JsonWebToken>(
           '/Authentication/SignIn',
-          ($11.SignInRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $11.JsonWebToken.fromBuffer(value));
+          ($13.SignInRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $13.JsonWebToken.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$11.JsonWebToken> signIn($11.SignInRequest request,
+  $grpc.ResponseFuture<$13.JsonWebToken> signIn($13.SignInRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$signIn, request, options: options);
   }

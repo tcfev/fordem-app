@@ -13,7 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.dart' as $30;
+import 'google/protobuf/timestamp.dart' as $37;
 
 /// Featured Tag
 class FeaturedTag extends $pb.GeneratedMessage {
@@ -41,8 +41,8 @@ class FeaturedTag extends $pb.GeneratedMessage {
         ..aOS(3, '', protoName: 'url')
         ..a<$core.int>(4, 'statuses_count', $pb.PbFieldType.OU3,
             protoName: 'statusesCount')
-        ..aOM<$30.Timestamp>(5, 'last_status_at',
-            protoName: 'lastStatusAt', subBuilder: $30.Timestamp.create)
+        ..aOM<$37.Timestamp>(5, 'last_status_at',
+            protoName: 'lastStatusAt', subBuilder: $37.Timestamp.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -145,7 +145,7 @@ class FeaturedTag extends $pb.GeneratedMessage {
 
   /// Last Status At
   $core.DateTime? get lastStatusAt =>
-      $_has(4) ? $_getN<$30.Timestamp>(4).toDateTime() : null;
+      $_has(4) ? $_getN<$37.Timestamp>(4).toDateTime() : null;
 
   /// Last Status At
   @$pb.TagNumber(5)
@@ -154,7 +154,7 @@ class FeaturedTag extends $pb.GeneratedMessage {
       clearField(5);
       return;
     }
-    setField(5, $30.Timestamp.fromDateTime(v));
+    setField(5, $37.Timestamp.fromDateTime(v));
   }
 
   @$pb.TagNumber(5)
@@ -167,7 +167,7 @@ class FeaturedTag extends $pb.GeneratedMessage {
   void clearLastStatusAt() => clearField(5);
   @$pb.TagNumber(5)
   $core.DateTime ensureLastStatusAt() =>
-      $_ensure<$30.Timestamp>(4).toDateTime();
+      $_ensure<$37.Timestamp>(4).toDateTime();
 }
 
 /// Featured Tags

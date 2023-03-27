@@ -15,10 +15,10 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'common.dart' as $26;
-import 'google/protobuf/wrappers.dart' as $4;
+import 'common.dart' as $4;
+import 'google/protobuf/wrappers.dart' as $3;
 import 'status.dart' as $7;
-import 'timeline.dart' as $25;
+import 'timeline.dart' as $34;
 
 /// Get Public Timeline Request
 class GetPublicTimelineRequest extends $pb.GeneratedMessage {
@@ -241,55 +241,55 @@ class TimelineClient extends $grpc.Client {
 
   /// Method Descriptors.
   static final _$getPublic =
-      $grpc.ClientMethod<$25.GetPublicTimelineRequest, $7.Statuses>(
+      $grpc.ClientMethod<$34.GetPublicTimelineRequest, $7.Statuses>(
           '/Timeline/GetPublic',
-          ($25.GetPublicTimelineRequest value) => value.writeToBuffer(),
+          ($34.GetPublicTimelineRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $7.Statuses.fromBuffer(value));
-  static final _$getByTag = $grpc.ClientMethod<$4.StringValue, $7.Statuses>(
+  static final _$getByTag = $grpc.ClientMethod<$3.StringValue, $7.Statuses>(
       '/Timeline/GetByTag',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Statuses.fromBuffer(value));
   static final _$getHome =
-      $grpc.ClientMethod<$26.DefaultPaginationParameters, $7.Statuses>(
+      $grpc.ClientMethod<$4.DefaultPaginationParameters, $7.Statuses>(
           '/Timeline/GetHome',
-          ($26.DefaultPaginationParameters value) => value.writeToBuffer(),
+          ($4.DefaultPaginationParameters value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $7.Statuses.fromBuffer(value));
-  static final _$getList = $grpc.ClientMethod<$4.StringValue, $7.Statuses>(
+  static final _$getList = $grpc.ClientMethod<$3.StringValue, $7.Statuses>(
       '/Timeline/GetList',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Statuses.fromBuffer(value));
   static final _$getDirect =
-      $grpc.ClientMethod<$26.DefaultPaginationParameters, $7.Statuses>(
+      $grpc.ClientMethod<$4.DefaultPaginationParameters, $7.Statuses>(
           '/Timeline/GetDirect',
-          ($26.DefaultPaginationParameters value) => value.writeToBuffer(),
+          ($4.DefaultPaginationParameters value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $7.Statuses.fromBuffer(value));
 
   /// Method Stubs.
 
   $grpc.ResponseFuture<$7.Statuses> getPublic(
-      $25.GetPublicTimelineRequest request,
+      $34.GetPublicTimelineRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPublic, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Statuses> getByTag($4.StringValue request,
+  $grpc.ResponseFuture<$7.Statuses> getByTag($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getByTag, request, options: options);
   }
 
   $grpc.ResponseFuture<$7.Statuses> getHome(
-      $26.DefaultPaginationParameters request,
+      $4.DefaultPaginationParameters request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getHome, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Statuses> getList($4.StringValue request,
+  $grpc.ResponseFuture<$7.Statuses> getList($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getList, request, options: options);
   }
 
   $grpc.ResponseFuture<$7.Statuses> getDirect(
-      $26.DefaultPaginationParameters request,
+      $4.DefaultPaginationParameters request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getDirect, request, options: options);
   }

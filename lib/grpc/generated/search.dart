@@ -13,9 +13,9 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'account.dart' as $3;
+import 'account.dart' as $1;
 import 'status.dart' as $7;
-import 'tag.dart' as $27;
+import 'tag.dart' as $5;
 
 /// Search Result
 class SearchResult extends $pb.GeneratedMessage {
@@ -38,12 +38,12 @@ class SearchResult extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i =
       $pb.BuilderInfo('SearchResult', createEmptyInstance: create)
-        ..pc<$3.Account>(1, '', $pb.PbFieldType.PM,
-            protoName: 'accounts', subBuilder: $3.Account.create)
+        ..pc<$1.Account>(1, '', $pb.PbFieldType.PM,
+            protoName: 'accounts', subBuilder: $1.Account.create)
         ..pc<$7.Status>(2, '', $pb.PbFieldType.PM,
             protoName: 'statuses', subBuilder: $7.Status.create)
-        ..pc<$27.Tag>(3, '', $pb.PbFieldType.PM,
-            protoName: 'hashtags', subBuilder: $27.Tag.create)
+        ..pc<$5.Tag>(3, '', $pb.PbFieldType.PM,
+            protoName: 'hashtags', subBuilder: $5.Tag.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -66,7 +66,7 @@ class SearchResult extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
 
   /// Accounts
-  $core.List<$3.Account> get accounts => $_getList(0);
+  $core.List<$1.Account> get accounts => $_getList(0);
 
   /// Accounts
 
@@ -80,7 +80,7 @@ class SearchResult extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
 
   /// Hashtags
-  $core.List<$27.Tag> get hashtags => $_getList(2);
+  $core.List<$5.Tag> get hashtags => $_getList(2);
 
   /// Hashtags
 }

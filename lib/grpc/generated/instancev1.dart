@@ -13,9 +13,9 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'account.dart' as $3;
-import 'instance.dart' as $14;
-import 'rule.dart' as $17;
+import 'account.dart' as $1;
+import 'instance.dart' as $16;
+import 'rule.dart' as $19;
 
 /// Instance V1 Urls
 class InstanceV1_Urls extends $pb.GeneratedMessage {
@@ -206,19 +206,19 @@ class InstanceV1_Configuration extends $pb.GeneratedMessage {
 
   static final $pb.BuilderInfo _i =
       $pb.BuilderInfo('InstanceV1.Configuration', createEmptyInstance: create)
-        ..aOM<$14.Instance_Configuration_Accounts>(1, '',
+        ..aOM<$16.Instance_Configuration_Accounts>(1, '',
             protoName: 'accounts',
-            subBuilder: $14.Instance_Configuration_Accounts.create)
-        ..aOM<$14.Instance_Configuration_Statuses>(2, '',
+            subBuilder: $16.Instance_Configuration_Accounts.create)
+        ..aOM<$16.Instance_Configuration_Statuses>(2, '',
             protoName: 'statuses',
-            subBuilder: $14.Instance_Configuration_Statuses.create)
-        ..aOM<$14.Instance_Configuration_MediaAttachments>(
+            subBuilder: $16.Instance_Configuration_Statuses.create)
+        ..aOM<$16.Instance_Configuration_MediaAttachments>(
             3, 'media_attachments',
             protoName: 'mediaAttachments',
-            subBuilder: $14.Instance_Configuration_MediaAttachments.create)
-        ..aOM<$14.Instance_Configuration_Polls>(4, '',
+            subBuilder: $16.Instance_Configuration_MediaAttachments.create)
+        ..aOM<$16.Instance_Configuration_Polls>(4, '',
             protoName: 'polls',
-            subBuilder: $14.Instance_Configuration_Polls.create)
+            subBuilder: $16.Instance_Configuration_Polls.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -242,11 +242,11 @@ class InstanceV1_Configuration extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
 
   /// Accounts
-  $14.Instance_Configuration_Accounts get accounts => $_getN(0);
+  $16.Instance_Configuration_Accounts get accounts => $_getN(0);
 
   /// Accounts
   @$pb.TagNumber(1)
-  set accounts($14.Instance_Configuration_Accounts v) {
+  set accounts($16.Instance_Configuration_Accounts v) {
     setField(1, v);
   }
 
@@ -259,16 +259,16 @@ class InstanceV1_Configuration extends $pb.GeneratedMessage {
   /// Clear Accounts
   void clearAccounts() => clearField(1);
   @$pb.TagNumber(1)
-  $14.Instance_Configuration_Accounts ensureAccounts() => $_ensure(0);
+  $16.Instance_Configuration_Accounts ensureAccounts() => $_ensure(0);
 
   @$pb.TagNumber(2)
 
   /// Statuses
-  $14.Instance_Configuration_Statuses get statuses => $_getN(1);
+  $16.Instance_Configuration_Statuses get statuses => $_getN(1);
 
   /// Statuses
   @$pb.TagNumber(2)
-  set statuses($14.Instance_Configuration_Statuses v) {
+  set statuses($16.Instance_Configuration_Statuses v) {
     setField(2, v);
   }
 
@@ -281,17 +281,17 @@ class InstanceV1_Configuration extends $pb.GeneratedMessage {
   /// Clear Statuses
   void clearStatuses() => clearField(2);
   @$pb.TagNumber(2)
-  $14.Instance_Configuration_Statuses ensureStatuses() => $_ensure(1);
+  $16.Instance_Configuration_Statuses ensureStatuses() => $_ensure(1);
 
   @$pb.TagNumber(3)
 
   /// Media Attachments
-  $14.Instance_Configuration_MediaAttachments? get mediaAttachments =>
+  $16.Instance_Configuration_MediaAttachments? get mediaAttachments =>
       $_has(2) ? $_getN(2) : null;
 
   /// Media Attachments
   @$pb.TagNumber(3)
-  set mediaAttachments($14.Instance_Configuration_MediaAttachments? v) {
+  set mediaAttachments($16.Instance_Configuration_MediaAttachments? v) {
     if (v == null) {
       clearField(3);
       return;
@@ -308,17 +308,17 @@ class InstanceV1_Configuration extends $pb.GeneratedMessage {
   /// Clear Media Attachments
   void clearMediaAttachments() => clearField(3);
   @$pb.TagNumber(3)
-  $14.Instance_Configuration_MediaAttachments? ensureMediaAttachments() =>
+  $16.Instance_Configuration_MediaAttachments? ensureMediaAttachments() =>
       $_ensure(2);
 
   @$pb.TagNumber(4)
 
   /// Polls
-  $14.Instance_Configuration_Polls get polls => $_getN(3);
+  $16.Instance_Configuration_Polls get polls => $_getN(3);
 
   /// Polls
   @$pb.TagNumber(4)
-  set polls($14.Instance_Configuration_Polls v) {
+  set polls($16.Instance_Configuration_Polls v) {
     setField(4, v);
   }
 
@@ -331,7 +331,7 @@ class InstanceV1_Configuration extends $pb.GeneratedMessage {
   /// Clear Polls
   void clearPolls() => clearField(4);
   @$pb.TagNumber(4)
-  $14.Instance_Configuration_Polls ensurePolls() => $_ensure(3);
+  $16.Instance_Configuration_Polls ensurePolls() => $_ensure(3);
 }
 
 /// Instance V1
@@ -373,10 +373,10 @@ class InstanceV1 extends $pb.GeneratedMessage {
         ..aOM<InstanceV1_Configuration>(14, '',
             protoName: 'configuration',
             subBuilder: InstanceV1_Configuration.create)
-        ..aOM<$3.Account>(15, 'contact_account',
-            protoName: 'contactAccount', subBuilder: $3.Account.create)
-        ..pc<$17.Rule>(16, '', $pb.PbFieldType.PM,
-            protoName: 'rules', subBuilder: $17.Rule.create)
+        ..aOM<$1.Account>(15, 'contact_account',
+            protoName: 'contactAccount', subBuilder: $1.Account.create)
+        ..pc<$19.Rule>(16, '', $pb.PbFieldType.PM,
+            protoName: 'rules', subBuilder: $19.Rule.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -671,11 +671,11 @@ class InstanceV1 extends $pb.GeneratedMessage {
   @$pb.TagNumber(15)
 
   /// Contact Account
-  $3.Account get contactAccount => $_getN(14);
+  $1.Account get contactAccount => $_getN(14);
 
   /// Contact Account
   @$pb.TagNumber(15)
-  set contactAccount($3.Account v) {
+  set contactAccount($1.Account v) {
     setField(15, v);
   }
 
@@ -688,12 +688,12 @@ class InstanceV1 extends $pb.GeneratedMessage {
   /// Clear Contact Account
   void clearContactAccount() => clearField(15);
   @$pb.TagNumber(15)
-  $3.Account ensureContactAccount() => $_ensure(14);
+  $1.Account ensureContactAccount() => $_ensure(14);
 
   @$pb.TagNumber(16)
 
   /// Rules
-  $core.List<$17.Rule> get rules => $_getList(15);
+  $core.List<$19.Rule> get rules => $_getList(15);
 
   /// Rules
 }

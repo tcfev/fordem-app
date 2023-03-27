@@ -14,12 +14,13 @@ import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
 
-import 'activity.dart' as $16;
+import 'activity.dart' as $18;
+import 'announcement.dart' as $20;
 import 'google/protobuf/empty.dart' as $2;
-import 'instance.dart' as $14;
-import 'instancev1.dart' as $15;
-import 'list.dart' as $6;
-import 'rule.dart' as $17;
+import 'instance.dart' as $16;
+import 'instancev1.dart' as $17;
+import 'list.dart' as $9;
+import 'rule.dart' as $19;
 
 // -------- Clients --------
 
@@ -36,51 +37,61 @@ class InstanceApiClient extends $grpc.Client {
         );
 
   /// Method Descriptors.
-  static final _$getInstance = $grpc.ClientMethod<$2.Empty, $14.Instance>(
+  static final _$getInstance = $grpc.ClientMethod<$2.Empty, $16.Instance>(
       '/InstanceApi/GetInstance',
       ($2.Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $14.Instance.fromBuffer(value));
-  static final _$getInstanceV1 = $grpc.ClientMethod<$2.Empty, $15.InstanceV1>(
+      ($core.List<$core.int> value) => $16.Instance.fromBuffer(value));
+  static final _$getInstanceV1 = $grpc.ClientMethod<$2.Empty, $17.InstanceV1>(
       '/InstanceApi/GetInstanceV1',
       ($2.Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $15.InstanceV1.fromBuffer(value));
-  static final _$getActivities = $grpc.ClientMethod<$2.Empty, $16.Activities>(
+      ($core.List<$core.int> value) => $17.InstanceV1.fromBuffer(value));
+  static final _$getActivities = $grpc.ClientMethod<$2.Empty, $18.Activities>(
       '/InstanceApi/GetActivities',
       ($2.Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $16.Activities.fromBuffer(value));
-  static final _$getRules = $grpc.ClientMethod<$2.Empty, $17.Rules>(
+      ($core.List<$core.int> value) => $18.Activities.fromBuffer(value));
+  static final _$getRules = $grpc.ClientMethod<$2.Empty, $19.Rules>(
       '/InstanceApi/GetRules',
       ($2.Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $17.Rules.fromBuffer(value));
-  static final _$getLists = $grpc.ClientMethod<$2.Empty, $6.Lists>(
+      ($core.List<$core.int> value) => $19.Rules.fromBuffer(value));
+  static final _$getLists = $grpc.ClientMethod<$2.Empty, $9.Lists>(
       '/InstanceApi/GetLists',
       ($2.Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $6.Lists.fromBuffer(value));
+      ($core.List<$core.int> value) => $9.Lists.fromBuffer(value));
+  static final _$getAnnouncements =
+      $grpc.ClientMethod<$2.Empty, $20.Announcements>(
+          '/InstanceApi/GetAnnouncements',
+          ($2.Empty value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $20.Announcements.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$14.Instance> getInstance($2.Empty request,
+  $grpc.ResponseFuture<$16.Instance> getInstance($2.Empty request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getInstance, request, options: options);
   }
 
-  $grpc.ResponseFuture<$15.InstanceV1> getInstanceV1($2.Empty request,
+  $grpc.ResponseFuture<$17.InstanceV1> getInstanceV1($2.Empty request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getInstanceV1, request, options: options);
   }
 
-  $grpc.ResponseFuture<$16.Activities> getActivities($2.Empty request,
+  $grpc.ResponseFuture<$18.Activities> getActivities($2.Empty request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getActivities, request, options: options);
   }
 
-  $grpc.ResponseFuture<$17.Rules> getRules($2.Empty request,
+  $grpc.ResponseFuture<$19.Rules> getRules($2.Empty request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getRules, request, options: options);
   }
 
-  $grpc.ResponseFuture<$6.Lists> getLists($2.Empty request,
+  $grpc.ResponseFuture<$9.Lists> getLists($2.Empty request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getLists, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$20.Announcements> getAnnouncements($2.Empty request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getAnnouncements, request, options: options);
   }
 }

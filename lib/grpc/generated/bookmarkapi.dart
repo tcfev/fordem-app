@@ -15,7 +15,7 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'bookmarkapi.dart' as $12;
+import 'bookmarkapi.dart' as $14;
 import 'status.dart' as $7;
 
 /// Get Bookmarks Request
@@ -175,15 +175,15 @@ class BookmarkApiClient extends $grpc.Client {
 
   /// Method Descriptors.
   static final _$getBookmarks =
-      $grpc.ClientMethod<$12.GetBookmarksRequest, $7.Statuses>(
+      $grpc.ClientMethod<$14.GetBookmarksRequest, $7.Statuses>(
           '/BookmarkApi/GetBookmarks',
-          ($12.GetBookmarksRequest value) => value.writeToBuffer(),
+          ($14.GetBookmarksRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $7.Statuses.fromBuffer(value));
 
   /// Method Stubs.
 
   $grpc.ResponseFuture<$7.Statuses> getBookmarks(
-      $12.GetBookmarksRequest request,
+      $14.GetBookmarksRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getBookmarks, request, options: options);
   }

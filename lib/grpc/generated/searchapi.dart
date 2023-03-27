@@ -15,8 +15,8 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'search.dart' as $22;
-import 'searchapi.dart' as $21;
+import 'search.dart' as $31;
+import 'searchapi.dart' as $30;
 
 /// Search Request
 class SearchRequest extends $pb.GeneratedMessage {
@@ -321,14 +321,14 @@ class SearchApiClient extends $grpc.Client {
 
   /// Method Descriptors.
   static final _$search =
-      $grpc.ClientMethod<$21.SearchRequest, $22.SearchResult>(
+      $grpc.ClientMethod<$30.SearchRequest, $31.SearchResult>(
           '/SearchApi/Search',
-          ($21.SearchRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $22.SearchResult.fromBuffer(value));
+          ($30.SearchRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $31.SearchResult.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$22.SearchResult> search($21.SearchRequest request,
+  $grpc.ResponseFuture<$31.SearchResult> search($30.SearchRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$search, request, options: options);
   }

@@ -21,7 +21,7 @@ const mnemonic = [
   'pond'
 ];
 
-const _server = 'app.fordem.org';
+const _server = 'fordem.org';
 
 final keyPair = KeyPair.fromMnemonic(mnemonic);
 
@@ -54,7 +54,7 @@ void main() {
 
     final result = await Client(_server).authentication.signIn(
           publicKey: keyPair.publicKey.value,
-          digitalSignature: signature,
+          signature: signature,
         );
 
     final decodedToken = JwtDecoder.decode(result.value);

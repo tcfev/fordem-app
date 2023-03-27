@@ -13,9 +13,10 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'emoji.dart' as $29;
-import 'google/protobuf/timestamp.dart' as $30;
-import 'role.dart' as $31;
+import 'emoji.dart' as $36;
+import 'google/protobuf/any.dart' as $39;
+import 'google/protobuf/timestamp.dart' as $37;
+import 'role.dart' as $38;
 
 /// Account Field
 class Account_Field extends $pb.GeneratedMessage {
@@ -40,8 +41,8 @@ class Account_Field extends $pb.GeneratedMessage {
       $pb.BuilderInfo('Account.Field', createEmptyInstance: create)
         ..aOS(1, '', protoName: 'name')
         ..aOS(2, '', protoName: 'value')
-        ..aOM<$30.Timestamp>(3, 'verified_at',
-            protoName: 'VerifiedAt', subBuilder: $30.Timestamp.create)
+        ..aOM<$37.Timestamp>(3, 'verified_at',
+            protoName: 'VerifiedAt', subBuilder: $37.Timestamp.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -105,7 +106,7 @@ class Account_Field extends $pb.GeneratedMessage {
 
   /// Verified At
   $core.DateTime? get verifiedAt =>
-      $_has(2) ? $_getN<$30.Timestamp>(2).toDateTime() : null;
+      $_has(2) ? $_getN<$37.Timestamp>(2).toDateTime() : null;
 
   /// Verified At
   @$pb.TagNumber(3)
@@ -114,7 +115,7 @@ class Account_Field extends $pb.GeneratedMessage {
       clearField(3);
       return;
     }
-    setField(3, $30.Timestamp.fromDateTime(v));
+    setField(3, $37.Timestamp.fromDateTime(v));
   }
 
   @$pb.TagNumber(3)
@@ -126,7 +127,7 @@ class Account_Field extends $pb.GeneratedMessage {
   /// Clear Verified At
   void clearVerifiedAt() => clearField(3);
   @$pb.TagNumber(3)
-  $core.DateTime ensureVerifiedAt() => $_ensure<$30.Timestamp>(2).toDateTime();
+  $core.DateTime ensureVerifiedAt() => $_ensure<$37.Timestamp>(2).toDateTime();
 }
 
 /// Account Source
@@ -319,18 +320,18 @@ class Account extends $pb.GeneratedMessage {
         ..aOB(11, '', protoName: 'locked')
         ..pc<Account_Field>(12, '', $pb.PbFieldType.PM,
             protoName: 'fields', subBuilder: Account_Field.create)
-        ..pc<$29.CustomEmoji>(13, '', $pb.PbFieldType.PM,
-            protoName: 'emojis', subBuilder: $29.CustomEmoji.create)
+        ..pc<$36.CustomEmoji>(13, '', $pb.PbFieldType.PM,
+            protoName: 'emojis', subBuilder: $36.CustomEmoji.create)
         ..aOB(14, '', protoName: 'bot')
         ..aOB(15, '', protoName: 'group')
         ..aOB(16, '', protoName: 'discoverable')
         ..aOM<Account>(17, '', protoName: 'moved', subBuilder: Account.create)
         ..aOB(18, '', protoName: 'suspended')
         ..aOB(19, '', protoName: 'limited')
-        ..aOM<$30.Timestamp>(20, 'created_at',
-            protoName: 'createdAt', subBuilder: $30.Timestamp.create)
-        ..aOM<$30.Timestamp>(21, 'last_status_at',
-            protoName: 'lastStatusAt', subBuilder: $30.Timestamp.create)
+        ..aOM<$37.Timestamp>(20, 'created_at',
+            protoName: 'createdAt', subBuilder: $37.Timestamp.create)
+        ..aOM<$37.Timestamp>(21, 'last_status_at',
+            protoName: 'lastStatusAt', subBuilder: $37.Timestamp.create)
         ..a<$core.int>(22, 'statuses_count', $pb.PbFieldType.OU3,
             protoName: 'statusesCount')
         ..a<$core.int>(23, 'followers_count', $pb.PbFieldType.OU3,
@@ -339,8 +340,7 @@ class Account extends $pb.GeneratedMessage {
             protoName: 'followingCount')
         ..aOM<Account_Source>(25, '',
             protoName: 'source', subBuilder: Account_Source.create)
-        ..aOM<$31.Role>(26, '', protoName: 'role', subBuilder: $31.Role.create)
-        ..aOS(27, '', protoName: 'publicKey')
+        ..aOM<$38.Role>(26, '', protoName: 'role', subBuilder: $38.Role.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -466,11 +466,15 @@ class Account extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
 
   /// Note
-  $core.String get note => $_getSZ(5);
+  $core.String? get note => $_has(5) ? $_get(5, '') : null;
 
   /// Note
   @$pb.TagNumber(6)
-  set note($core.String v) {
+  set note($core.String? v) {
+    if (v == null) {
+      clearField(6);
+      return;
+    }
     $_setString(5, v);
   }
 
@@ -601,7 +605,7 @@ class Account extends $pb.GeneratedMessage {
   @$pb.TagNumber(13)
 
   /// Emojis
-  $core.List<$29.CustomEmoji> get emojis => $_getList(12);
+  $core.List<$36.CustomEmoji> get emojis => $_getList(12);
 
   /// Emojis
 
@@ -739,7 +743,7 @@ class Account extends $pb.GeneratedMessage {
 
   /// Created At
   $core.DateTime? get createdAt =>
-      $_has(19) ? $_getN<$30.Timestamp>(19).toDateTime() : null;
+      $_has(19) ? $_getN<$37.Timestamp>(19).toDateTime() : null;
 
   /// Created At
   @$pb.TagNumber(20)
@@ -748,7 +752,7 @@ class Account extends $pb.GeneratedMessage {
       clearField(20);
       return;
     }
-    setField(20, $30.Timestamp.fromDateTime(v));
+    setField(20, $37.Timestamp.fromDateTime(v));
   }
 
   @$pb.TagNumber(20)
@@ -760,13 +764,13 @@ class Account extends $pb.GeneratedMessage {
   /// Clear Created At
   void clearCreatedAt() => clearField(20);
   @$pb.TagNumber(20)
-  $core.DateTime ensureCreatedAt() => $_ensure<$30.Timestamp>(19).toDateTime();
+  $core.DateTime ensureCreatedAt() => $_ensure<$37.Timestamp>(19).toDateTime();
 
   @$pb.TagNumber(21)
 
   /// Last Status At
   $core.DateTime? get lastStatusAt =>
-      $_has(20) ? $_getN<$30.Timestamp>(20).toDateTime() : null;
+      $_has(20) ? $_getN<$37.Timestamp>(20).toDateTime() : null;
 
   /// Last Status At
   @$pb.TagNumber(21)
@@ -775,7 +779,7 @@ class Account extends $pb.GeneratedMessage {
       clearField(21);
       return;
     }
-    setField(21, $30.Timestamp.fromDateTime(v));
+    setField(21, $37.Timestamp.fromDateTime(v));
   }
 
   @$pb.TagNumber(21)
@@ -788,7 +792,7 @@ class Account extends $pb.GeneratedMessage {
   void clearLastStatusAt() => clearField(21);
   @$pb.TagNumber(21)
   $core.DateTime ensureLastStatusAt() =>
-      $_ensure<$30.Timestamp>(20).toDateTime();
+      $_ensure<$37.Timestamp>(20).toDateTime();
 
   @$pb.TagNumber(22)
 
@@ -891,11 +895,11 @@ class Account extends $pb.GeneratedMessage {
   @$pb.TagNumber(26)
 
   /// Role
-  $31.Role? get role => $_has(25) ? $_getN(25) : null;
+  $38.Role? get role => $_has(25) ? $_getN(25) : null;
 
   /// Role
   @$pb.TagNumber(26)
-  set role($31.Role? v) {
+  set role($38.Role? v) {
     if (v == null) {
       clearField(26);
       return;
@@ -912,31 +916,7 @@ class Account extends $pb.GeneratedMessage {
   /// Clear Role
   void clearRole() => clearField(26);
   @$pb.TagNumber(26)
-  $31.Role? ensureRole() => $_ensure(25);
-
-  @$pb.TagNumber(27)
-
-  /// Public Key
-  $core.String? get publicKey => $_has(26) ? $_get(26, '') : null;
-
-  /// Public Key
-  @$pb.TagNumber(27)
-  set publicKey($core.String? v) {
-    if (v == null) {
-      clearField(27);
-      return;
-    }
-    $_setString(26, v);
-  }
-
-  @$pb.TagNumber(27)
-
-  /// Has Public Key
-  $core.bool hasPublicKey() => $_has(26);
-  @$pb.TagNumber(27)
-
-  /// Clear Public Key
-  void clearPublicKey() => clearField(27);
+  $38.Role? ensureRole() => $_ensure(25);
 }
 
 /// Accounts
@@ -984,6 +964,62 @@ class Accounts extends $pb.GeneratedMessage {
 
   /// Data
   $core.List<Account> get data => $_getList(0);
+
+  /// Data
+}
+
+/// Preferences
+class Preferences extends $pb.GeneratedMessage {
+  // Constructors
+  /// Factory Constructor.
+  factory Preferences() => create();
+
+  /// Private Constructor.
+  Preferences._() : super();
+
+  /// From Buffer Constructor.
+  factory Preferences.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+
+  /// From JSON Constructor.
+  factory Preferences.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i =
+      $pb.BuilderInfo('Preferences', createEmptyInstance: create)
+        ..m<$core.String, $39.Any>(
+          1,
+          '',
+          protoName: 'data',
+          entryClassName: 'Preferences.DataEntry',
+          keyFieldType: $pb.PbFieldType.OS,
+          valueFieldType: $pb.PbFieldType.OM,
+          valueCreator: $39.Any.create,
+        )
+        ..hasRequiredFields = false;
+
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  Preferences clone() => Preferences()..mergeFromMessage(this);
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Preferences create() => Preferences._();
+  Preferences createEmptyInstance() => create();
+  static $pb.PbList<Preferences> createRepeated() => $pb.PbList<Preferences>();
+  @$core.pragma('dart2js:noInline')
+  static Preferences getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<Preferences>(create);
+  static Preferences? _defaultInstance;
+
+  @$pb.TagNumber(1)
+
+  /// Data
+  $core.Map<$core.String, $39.Any> get data => $_getMap(0);
 
   /// Data
 }

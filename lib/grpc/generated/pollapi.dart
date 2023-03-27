@@ -15,9 +15,9 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/wrappers.dart' as $4;
-import 'poll.dart' as $19;
-import 'pollapi.dart' as $20;
+import 'google/protobuf/wrappers.dart' as $3;
+import 'poll.dart' as $28;
+import 'pollapi.dart' as $29;
 
 /// Vote Request
 class VoteRequest extends $pb.GeneratedMessage {
@@ -103,23 +103,23 @@ class PollApiClient extends $grpc.Client {
         );
 
   /// Method Descriptors.
-  static final _$getById = $grpc.ClientMethod<$4.StringValue, $19.Poll>(
+  static final _$getById = $grpc.ClientMethod<$3.StringValue, $28.Poll>(
       '/PollApi/GetById',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $19.Poll.fromBuffer(value));
-  static final _$vote = $grpc.ClientMethod<$20.VoteRequest, $19.Poll>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $28.Poll.fromBuffer(value));
+  static final _$vote = $grpc.ClientMethod<$29.VoteRequest, $28.Poll>(
       '/PollApi/Vote',
-      ($20.VoteRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $19.Poll.fromBuffer(value));
+      ($29.VoteRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $28.Poll.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$19.Poll> getById($4.StringValue request,
+  $grpc.ResponseFuture<$28.Poll> getById($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getById, request, options: options);
   }
 
-  $grpc.ResponseFuture<$19.Poll> vote($20.VoteRequest request,
+  $grpc.ResponseFuture<$28.Poll> vote($29.VoteRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$vote, request, options: options);
   }

@@ -14,12 +14,15 @@ class Feed extends StatefulWidget {
 
 class _FeedState extends State<Feed> {
   late final Future<grpc.Statuses> _future;
+  final client = grpc.Client(AppState.host ?? '');
 
   @override
   void initState() {
-    _future = grpc.Client(AppState.host ?? '')
-        .timeline
-        .getPublic(local: widget.local);
+    client.streaming.getStatusStream().listen((event) {
+      print(event);
+    });
+
+    _future = client.timeline.getPublic(local: widget.local);
     super.initState();
   }
 

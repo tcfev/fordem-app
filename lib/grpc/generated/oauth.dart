@@ -15,8 +15,8 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'oauth.dart' as $18;
-import 'token.dart' as $1;
+import 'oauth.dart' as $26;
+import 'token.dart' as $27;
 
 /// Authorize Request
 class AuthorizeRequest extends $pb.GeneratedMessage {
@@ -429,14 +429,14 @@ class OAuthClient extends $grpc.Client {
 
   /// Method Descriptors.
   static final _$obtainToken =
-      $grpc.ClientMethod<$18.ObtainTokenRequest, $1.Token>(
+      $grpc.ClientMethod<$26.ObtainTokenRequest, $27.Token>(
           '/OAuth/ObtainToken',
-          ($18.ObtainTokenRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $1.Token.fromBuffer(value));
+          ($26.ObtainTokenRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $27.Token.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$1.Token> obtainToken($18.ObtainTokenRequest request,
+  $grpc.ResponseFuture<$27.Token> obtainToken($26.ObtainTokenRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$obtainToken, request, options: options);
   }

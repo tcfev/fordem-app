@@ -13,14 +13,14 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'account.dart' as $3;
-import 'card.dart' as $33;
-import 'emoji.dart' as $29;
-import 'filter.dart' as $34;
-import 'google/protobuf/timestamp.dart' as $30;
-import 'media.dart' as $32;
-import 'poll.dart' as $19;
-import 'tag.dart' as $27;
+import 'account.dart' as $1;
+import 'card.dart' as $40;
+import 'emoji.dart' as $36;
+import 'filter.dart' as $8;
+import 'google/protobuf/timestamp.dart' as $37;
+import 'media.dart' as $23;
+import 'poll.dart' as $28;
+import 'tag.dart' as $5;
 
 /// Status Application
 class Status_Application extends $pb.GeneratedMessage {
@@ -257,10 +257,10 @@ class Status extends $pb.GeneratedMessage {
       $pb.BuilderInfo('Status', createEmptyInstance: create)
         ..aOS(1, '', protoName: 'id')
         ..aOS(2, '', protoName: 'uri')
-        ..aOM<$30.Timestamp>(3, 'created_at',
-            protoName: 'createdAt', subBuilder: $30.Timestamp.create)
-        ..aOM<$3.Account>(4, '',
-            protoName: 'account', subBuilder: $3.Account.create)
+        ..aOM<$37.Timestamp>(3, 'created_at',
+            protoName: 'createdAt', subBuilder: $37.Timestamp.create)
+        ..aOM<$1.Account>(4, '',
+            protoName: 'account', subBuilder: $1.Account.create)
         ..aOS(5, '', protoName: 'content')
         ..e<Visibility>(6, '', $pb.PbFieldType.OE,
             protoName: 'visibility',
@@ -269,17 +269,17 @@ class Status extends $pb.GeneratedMessage {
             enumValues: Visibility.values)
         ..aOB(7, '', protoName: 'sensitive')
         ..aOS(8, 'spoiler_text', protoName: 'spoilerText')
-        ..pc<$32.MediaAttachment>(9, 'media_attachments', $pb.PbFieldType.PM,
+        ..pc<$23.MediaAttachment>(9, 'media_attachments', $pb.PbFieldType.PM,
             protoName: 'mediaAttachments',
-            subBuilder: $32.MediaAttachment.create)
+            subBuilder: $23.MediaAttachment.create)
         ..aOM<Status_Application>(10, '',
             protoName: 'application', subBuilder: Status_Application.create)
         ..pc<Status_Mention>(11, '', $pb.PbFieldType.PM,
             protoName: 'mentions', subBuilder: Status_Mention.create)
-        ..pc<$27.Tag>(12, '', $pb.PbFieldType.PM,
-            protoName: 'tags', subBuilder: $27.Tag.create)
-        ..pc<$29.CustomEmoji>(13, '', $pb.PbFieldType.PM,
-            protoName: 'emojis', subBuilder: $29.CustomEmoji.create)
+        ..pc<$5.Tag>(12, '', $pb.PbFieldType.PM,
+            protoName: 'tags', subBuilder: $5.Tag.create)
+        ..pc<$36.CustomEmoji>(13, '', $pb.PbFieldType.PM,
+            protoName: 'emojis', subBuilder: $36.CustomEmoji.create)
         ..a<$core.int>(14, 'reblogs_count', $pb.PbFieldType.OU3,
             protoName: 'reblogsCount')
         ..a<$core.int>(15, 'favourites_count', $pb.PbFieldType.OU3,
@@ -290,20 +290,20 @@ class Status extends $pb.GeneratedMessage {
         ..aOS(18, 'in_reply_to_id', protoName: 'inReplyToId')
         ..aOS(19, 'in_reply_to_account_id', protoName: 'inReplyToAccountId')
         ..aOM<Status>(20, '', protoName: 'reblog', subBuilder: Status.create)
-        ..aOM<$19.Poll>(21, '', protoName: 'poll', subBuilder: $19.Poll.create)
-        ..aOM<$33.PreviewCard>(22, '',
-            protoName: 'card', subBuilder: $33.PreviewCard.create)
+        ..aOM<$28.Poll>(21, '', protoName: 'poll', subBuilder: $28.Poll.create)
+        ..aOM<$40.PreviewCard>(22, '',
+            protoName: 'card', subBuilder: $40.PreviewCard.create)
         ..aOS(23, '', protoName: 'language')
         ..aOS(24, '', protoName: 'text')
-        ..aOM<$30.Timestamp>(25, 'edited_at',
-            protoName: 'editedAt', subBuilder: $30.Timestamp.create)
+        ..aOM<$37.Timestamp>(25, 'edited_at',
+            protoName: 'editedAt', subBuilder: $37.Timestamp.create)
         ..aOB(26, '', protoName: 'favourited')
         ..aOB(27, '', protoName: 'reblogged')
         ..aOB(28, '', protoName: 'muted')
         ..aOB(29, '', protoName: 'bookmarked')
         ..aOB(30, '', protoName: 'pinned')
-        ..pc<$34.FilterResult>(31, '', $pb.PbFieldType.PM,
-            protoName: 'filtered', subBuilder: $34.FilterResult.create)
+        ..pc<$8.FilterResult>(31, '', $pb.PbFieldType.PM,
+            protoName: 'filtered', subBuilder: $8.FilterResult.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -365,12 +365,12 @@ class Status extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
 
   /// Created At
-  $core.DateTime get createdAt => $_getN<$30.Timestamp>(2).toDateTime();
+  $core.DateTime get createdAt => $_getN<$37.Timestamp>(2).toDateTime();
 
   /// Created At
   @$pb.TagNumber(3)
   set createdAt($core.DateTime v) {
-    setField(3, $30.Timestamp.fromDateTime(v));
+    setField(3, $37.Timestamp.fromDateTime(v));
   }
 
   @$pb.TagNumber(3)
@@ -382,16 +382,16 @@ class Status extends $pb.GeneratedMessage {
   /// Clear Created At
   void clearCreatedAt() => clearField(3);
   @$pb.TagNumber(3)
-  $core.DateTime ensureCreatedAt() => $_ensure<$30.Timestamp>(2).toDateTime();
+  $core.DateTime ensureCreatedAt() => $_ensure<$37.Timestamp>(2).toDateTime();
 
   @$pb.TagNumber(4)
 
   /// Account
-  $3.Account get account => $_getN(3);
+  $1.Account get account => $_getN(3);
 
   /// Account
   @$pb.TagNumber(4)
-  set account($3.Account v) {
+  set account($1.Account v) {
     setField(4, v);
   }
 
@@ -404,7 +404,7 @@ class Status extends $pb.GeneratedMessage {
   /// Clear Account
   void clearAccount() => clearField(4);
   @$pb.TagNumber(4)
-  $3.Account ensureAccount() => $_ensure(3);
+  $1.Account ensureAccount() => $_ensure(3);
 
   @$pb.TagNumber(5)
 
@@ -489,7 +489,7 @@ class Status extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
 
   /// Media Attachments
-  $core.List<$32.MediaAttachment> get mediaAttachments => $_getList(8);
+  $core.List<$23.MediaAttachment> get mediaAttachments => $_getList(8);
 
   /// Media Attachments
 
@@ -529,14 +529,14 @@ class Status extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
 
   /// Tags
-  $core.List<$27.Tag> get tags => $_getList(11);
+  $core.List<$5.Tag> get tags => $_getList(11);
 
   /// Tags
 
   @$pb.TagNumber(13)
 
   /// Emojis
-  $core.List<$29.CustomEmoji> get emojis => $_getList(12);
+  $core.List<$36.CustomEmoji> get emojis => $_getList(12);
 
   /// Emojis
 
@@ -701,11 +701,11 @@ class Status extends $pb.GeneratedMessage {
   @$pb.TagNumber(21)
 
   /// Poll
-  $19.Poll? get poll => $_has(20) ? $_getN(20) : null;
+  $28.Poll? get poll => $_has(20) ? $_getN(20) : null;
 
   /// Poll
   @$pb.TagNumber(21)
-  set poll($19.Poll? v) {
+  set poll($28.Poll? v) {
     if (v == null) {
       clearField(21);
       return;
@@ -722,16 +722,16 @@ class Status extends $pb.GeneratedMessage {
   /// Clear Poll
   void clearPoll() => clearField(21);
   @$pb.TagNumber(21)
-  $19.Poll? ensurePoll() => $_ensure(20);
+  $28.Poll? ensurePoll() => $_ensure(20);
 
   @$pb.TagNumber(22)
 
   /// Card
-  $33.PreviewCard? get card => $_has(21) ? $_getN(21) : null;
+  $40.PreviewCard? get card => $_has(21) ? $_getN(21) : null;
 
   /// Card
   @$pb.TagNumber(22)
-  set card($33.PreviewCard? v) {
+  set card($40.PreviewCard? v) {
     if (v == null) {
       clearField(22);
       return;
@@ -748,7 +748,7 @@ class Status extends $pb.GeneratedMessage {
   /// Clear Card
   void clearCard() => clearField(22);
   @$pb.TagNumber(22)
-  $33.PreviewCard? ensureCard() => $_ensure(21);
+  $40.PreviewCard? ensureCard() => $_ensure(21);
 
   @$pb.TagNumber(23)
 
@@ -802,7 +802,7 @@ class Status extends $pb.GeneratedMessage {
 
   /// Edited At
   $core.DateTime? get editedAt =>
-      $_has(24) ? $_getN<$30.Timestamp>(24).toDateTime() : null;
+      $_has(24) ? $_getN<$37.Timestamp>(24).toDateTime() : null;
 
   /// Edited At
   @$pb.TagNumber(25)
@@ -811,7 +811,7 @@ class Status extends $pb.GeneratedMessage {
       clearField(25);
       return;
     }
-    setField(25, $30.Timestamp.fromDateTime(v));
+    setField(25, $37.Timestamp.fromDateTime(v));
   }
 
   @$pb.TagNumber(25)
@@ -823,7 +823,7 @@ class Status extends $pb.GeneratedMessage {
   /// Clear Edited At
   void clearEditedAt() => clearField(25);
   @$pb.TagNumber(25)
-  $core.DateTime ensureEditedAt() => $_ensure<$30.Timestamp>(24).toDateTime();
+  $core.DateTime ensureEditedAt() => $_ensure<$37.Timestamp>(24).toDateTime();
 
   @$pb.TagNumber(26)
 
@@ -948,7 +948,7 @@ class Status extends $pb.GeneratedMessage {
   @$pb.TagNumber(31)
 
   /// Filtered
-  $core.List<$34.FilterResult> get filtered => $_getList(30);
+  $core.List<$8.FilterResult> get filtered => $_getList(30);
 
   /// Filtered
 }

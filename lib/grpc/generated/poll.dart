@@ -13,8 +13,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'emoji.dart' as $29;
-import 'google/protobuf/timestamp.dart' as $30;
+import 'emoji.dart' as $36;
+import 'google/protobuf/timestamp.dart' as $37;
 
 /// Poll Option
 class Poll_Option extends $pb.GeneratedMessage {
@@ -134,8 +134,8 @@ class Poll extends $pb.GeneratedMessage {
       .BuilderInfo _i = $pb.BuilderInfo('Poll', createEmptyInstance: create)
     ..oo(0, [4, 5])
     ..aOS(1, '', protoName: 'id')
-    ..aOM<$30.Timestamp>(2, 'expires_at',
-        protoName: 'expiresAt', subBuilder: $30.Timestamp.create)
+    ..aOM<$37.Timestamp>(2, 'expires_at',
+        protoName: 'expiresAt', subBuilder: $37.Timestamp.create)
     ..aOB(3, '', protoName: 'expired')
     ..aOB(4, '', protoName: 'multiple')
     ..e<PollKind>(5, '', $pb.PbFieldType.OE,
@@ -149,8 +149,8 @@ class Poll extends $pb.GeneratedMessage {
         protoName: 'votersCount')
     ..pc<Poll_Option>(8, '', $pb.PbFieldType.PM,
         protoName: 'options', subBuilder: Poll_Option.create)
-    ..pc<$29.CustomEmoji>(9, '', $pb.PbFieldType.PM,
-        protoName: 'emojis', subBuilder: $29.CustomEmoji.create)
+    ..pc<$36.CustomEmoji>(9, '', $pb.PbFieldType.PM,
+        protoName: 'emojis', subBuilder: $36.CustomEmoji.create)
     ..aOB(10, '', protoName: 'voted')
     ..p<$core.int>(11, 'own_votes', $pb.PbFieldType.KU3, protoName: 'ownVotes')
     ..hasRequiredFields = false;
@@ -198,7 +198,7 @@ class Poll extends $pb.GeneratedMessage {
 
   /// Expires At
   $core.DateTime? get expiresAt =>
-      $_has(1) ? $_getN<$30.Timestamp>(1).toDateTime() : null;
+      $_has(1) ? $_getN<$37.Timestamp>(1).toDateTime() : null;
 
   /// Expires At
   @$pb.TagNumber(2)
@@ -207,7 +207,7 @@ class Poll extends $pb.GeneratedMessage {
       clearField(2);
       return;
     }
-    setField(2, $30.Timestamp.fromDateTime(v));
+    setField(2, $37.Timestamp.fromDateTime(v));
   }
 
   @$pb.TagNumber(2)
@@ -219,7 +219,7 @@ class Poll extends $pb.GeneratedMessage {
   /// Clear Expires At
   void clearExpiresAt() => clearField(2);
   @$pb.TagNumber(2)
-  $core.DateTime ensureExpiresAt() => $_ensure<$30.Timestamp>(1).toDateTime();
+  $core.DateTime ensureExpiresAt() => $_ensure<$37.Timestamp>(1).toDateTime();
 
   @$pb.TagNumber(3)
 
@@ -335,7 +335,7 @@ class Poll extends $pb.GeneratedMessage {
   @$pb.TagNumber(9)
 
   /// Emojis
-  $core.List<$29.CustomEmoji> get emojis => $_getList(8);
+  $core.List<$36.CustomEmoji> get emojis => $_getList(8);
 
   /// Emojis
 

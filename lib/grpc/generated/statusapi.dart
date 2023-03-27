@@ -15,12 +15,12 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'account.dart' as $3;
-import 'context.dart' as $24;
-import 'google/protobuf/wrappers.dart' as $4;
+import 'account.dart' as $1;
+import 'context.dart' as $33;
+import 'google/protobuf/wrappers.dart' as $3;
 import 'status.dart' as $7;
-import 'poll.dart' as $19;
-import 'statusapi.dart' as $23;
+import 'poll.dart' as $28;
+import 'statusapi.dart' as $32;
 
 /// Get Reblogged By Request
 class GetRebloggedByRequest extends $pb.GeneratedMessage {
@@ -462,11 +462,11 @@ class CreateStatusRequest_Poll extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..a<$core.int>(1, 'expires_in', $pb.PbFieldType.OU3, protoName: 'expiresIn')
     ..aOB(2, 'hide_totals', protoName: 'hideTotals')
-    ..e<$19.PollKind>(3, '', $pb.PbFieldType.OE,
+    ..e<$28.PollKind>(3, '', $pb.PbFieldType.OE,
         protoName: 'kind',
-        defaultOrMaker: $19.PollKind.single,
-        valueOf: $19.PollKind.valueOf,
-        enumValues: $19.PollKind.values)
+        defaultOrMaker: $28.PollKind.single,
+        valueOf: $28.PollKind.valueOf,
+        enumValues: $28.PollKind.values)
     ..pPS(4, '', protoName: 'options')
     ..hasRequiredFields = false;
 
@@ -531,11 +531,11 @@ class CreateStatusRequest_Poll extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
 
   /// Kind
-  $19.PollKind get kind => $_getN(2);
+  $28.PollKind get kind => $_getN(2);
 
   /// Kind
   @$pb.TagNumber(3)
-  set kind($19.PollKind v) {
+  set kind($28.PollKind v) {
     setField(3, v);
   }
 
@@ -791,153 +791,153 @@ class StatusApiClient extends $grpc.Client {
 
   /// Method Descriptors.
   static final _$createStatus =
-      $grpc.ClientMethod<$23.CreateStatusRequest, $7.Status>(
+      $grpc.ClientMethod<$32.CreateStatusRequest, $7.Status>(
           '/StatusApi/CreateStatus',
-          ($23.CreateStatusRequest value) => value.writeToBuffer(),
+          ($32.CreateStatusRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$getStatus = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$getStatus = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/GetStatus',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$deleteStatus = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$deleteStatus = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/DeleteStatus',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
   static final _$getRebloggedBy =
-      $grpc.ClientMethod<$23.GetRebloggedByRequest, $3.Accounts>(
+      $grpc.ClientMethod<$32.GetRebloggedByRequest, $1.Accounts>(
           '/StatusApi/GetRebloggedBy',
-          ($23.GetRebloggedByRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Accounts.fromBuffer(value));
+          ($32.GetRebloggedByRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Accounts.fromBuffer(value));
   static final _$getFavouritedBy =
-      $grpc.ClientMethod<$23.GetFavouritedByRequest, $3.Accounts>(
+      $grpc.ClientMethod<$32.GetFavouritedByRequest, $1.Accounts>(
           '/StatusApi/GetFavouritedBy',
-          ($23.GetFavouritedByRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Accounts.fromBuffer(value));
-  static final _$getContext = $grpc.ClientMethod<$4.StringValue, $24.Context>(
+          ($32.GetFavouritedByRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Accounts.fromBuffer(value));
+  static final _$getContext = $grpc.ClientMethod<$3.StringValue, $33.Context>(
       '/StatusApi/GetContext',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $24.Context.fromBuffer(value));
-  static final _$favourite = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $33.Context.fromBuffer(value));
+  static final _$favourite = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/Favourite',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$unfavourite = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$unfavourite = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/Unfavourite',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$bookmark = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$bookmark = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/Bookmark',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$unbookmark = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$unbookmark = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/Unbookmark',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$mute = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$mute = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/Mute',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$unmute = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$unmute = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/Unmute',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$pin = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$pin = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/Pin',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$unpin = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$unpin = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/Unpin',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$reblog = $grpc.ClientMethod<$23.ReblogRequest, $7.Status>(
+  static final _$reblog = $grpc.ClientMethod<$32.ReblogRequest, $7.Status>(
       '/StatusApi/Reblog',
-      ($23.ReblogRequest value) => value.writeToBuffer(),
+      ($32.ReblogRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
-  static final _$unreblog = $grpc.ClientMethod<$4.StringValue, $7.Status>(
+  static final _$unreblog = $grpc.ClientMethod<$3.StringValue, $7.Status>(
       '/StatusApi/Unreblog',
-      ($4.StringValue value) => value.writeToBuffer(),
+      ($3.StringValue value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $7.Status.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$7.Status> createStatus($23.CreateStatusRequest request,
+  $grpc.ResponseFuture<$7.Status> createStatus($32.CreateStatusRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createStatus, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> getStatus($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> getStatus($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getStatus, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> deleteStatus($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> deleteStatus($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$deleteStatus, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Accounts> getRebloggedBy(
-      $23.GetRebloggedByRequest request,
+  $grpc.ResponseFuture<$1.Accounts> getRebloggedBy(
+      $32.GetRebloggedByRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getRebloggedBy, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Accounts> getFavouritedBy(
-      $23.GetFavouritedByRequest request,
+  $grpc.ResponseFuture<$1.Accounts> getFavouritedBy(
+      $32.GetFavouritedByRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getFavouritedBy, request, options: options);
   }
 
-  $grpc.ResponseFuture<$24.Context> getContext($4.StringValue request,
+  $grpc.ResponseFuture<$33.Context> getContext($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getContext, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> favourite($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> favourite($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$favourite, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> unfavourite($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> unfavourite($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unfavourite, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> bookmark($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> bookmark($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$bookmark, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> unbookmark($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> unbookmark($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unbookmark, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> mute($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> mute($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$mute, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> unmute($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> unmute($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unmute, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> pin($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> pin($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$pin, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> unpin($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> unpin($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unpin, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> reblog($23.ReblogRequest request,
+  $grpc.ResponseFuture<$7.Status> reblog($32.ReblogRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$reblog, request, options: options);
   }
 
-  $grpc.ResponseFuture<$7.Status> unreblog($4.StringValue request,
+  $grpc.ResponseFuture<$7.Status> unreblog($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unreblog, request, options: options);
   }

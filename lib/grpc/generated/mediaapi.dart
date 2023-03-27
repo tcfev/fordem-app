@@ -1,6 +1,6 @@
 //
 //  Generated code. Do not modify.
-//  source: trends.proto
+//  source: mediaapi.proto
 
 // ignore_for_file: always_use_package_imports, annotate_overrides
 // ignore_for_file: camel_case_types, constant_identifier_names
@@ -14,15 +14,14 @@ import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
 
-import 'google/protobuf/empty.dart' as $2;
-import 'status.dart' as $7;
-import 'tag.dart' as $5;
+import 'google/protobuf/wrappers.dart' as $3;
+import 'media.dart' as $23;
 
 // -------- Clients --------
 
-class TrendsClient extends $grpc.Client {
+class MediaApiClient extends $grpc.Client {
   /// Default Constructor.
-  TrendsClient(
+  MediaApiClient(
     $grpc.ClientChannel channel, {
     $grpc.CallOptions? options,
     $core.Iterable<$grpc.ClientInterceptor>? interceptors,
@@ -33,24 +32,17 @@ class TrendsClient extends $grpc.Client {
         );
 
   /// Method Descriptors.
-  static final _$getTags = $grpc.ClientMethod<$2.Empty, $5.Tags>(
-      '/Trends/GetTags',
-      ($2.Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $5.Tags.fromBuffer(value));
-  static final _$getStatuses = $grpc.ClientMethod<$2.Empty, $7.Statuses>(
-      '/Trends/GetStatuses',
-      ($2.Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $7.Statuses.fromBuffer(value));
+  static final _$getMedia =
+      $grpc.ClientMethod<$3.StringValue, $23.MediaAttachment>(
+          '/MediaApi/GetMedia',
+          ($3.StringValue value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $23.MediaAttachment.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$5.Tags> getTags($2.Empty request,
+  $grpc.ResponseFuture<$23.MediaAttachment> getMedia($3.StringValue request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getTags, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$7.Statuses> getStatuses($2.Empty request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$getStatuses, request, options: options);
+    return $createUnaryCall(_$getMedia, request, options: options);
   }
 }

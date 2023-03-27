@@ -15,185 +15,469 @@ import 'dart:core' as $core;
 import 'package:grpc/service_api.dart' as $grpc;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'account.dart' as $3;
+import 'account.dart' as $1;
 import 'accountapi.dart' as $0;
-import 'featuredtag.dart' as $5;
+import 'common.dart' as $4;
+import 'featuredtag.dart' as $6;
+import 'filter.dart' as $8;
 import 'google/protobuf/empty.dart' as $2;
-import 'google/protobuf/wrappers.dart' as $4;
-import 'list.dart' as $6;
-import 'relationship.dart' as $8;
+import 'google/protobuf/wrappers.dart' as $3;
+import 'list.dart' as $9;
+import 'relationship.dart' as $10;
 import 'status.dart' as $7;
-import 'token.dart' as $1;
+import 'tag.dart' as $5;
 
-/// Register Request
-class RegisterRequest extends $pb.GeneratedMessage {
+/// Update Credentials Request Field Attribute
+class UpdateCredentialsRequest_FieldAttribute extends $pb.GeneratedMessage {
   // Constructors
   /// Factory Constructor.
-  factory RegisterRequest() => create();
+  factory UpdateCredentialsRequest_FieldAttribute() => create();
 
   /// Private Constructor.
-  RegisterRequest._() : super();
+  UpdateCredentialsRequest_FieldAttribute._() : super();
 
   /// From Buffer Constructor.
-  factory RegisterRequest.fromBuffer($core.List<$core.int> i,
+  factory UpdateCredentialsRequest_FieldAttribute.fromBuffer(
+          $core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
   /// From JSON Constructor.
-  factory RegisterRequest.fromJson($core.String i,
+  factory UpdateCredentialsRequest_FieldAttribute.fromJson($core.String i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
 
-  static final $pb.BuilderInfo _i =
-      $pb.BuilderInfo('RegisterRequest', createEmptyInstance: create)
-        ..aOS(1, '', protoName: 'username')
-        ..aOS(2, '', protoName: 'email')
-        ..aOS(3, '', protoName: 'password')
-        ..aOB(4, '', protoName: 'agreement')
-        ..aOS(5, '', protoName: 'locale')
-        ..aOS(6, '', protoName: 'reason')
-        ..hasRequiredFields = false;
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      'UpdateCredentialsRequest.FieldAttribute',
+      createEmptyInstance: create)
+    ..aOS(1, '', protoName: 'name')
+    ..aOS(2, '', protoName: 'value')
+    ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
       'Will be removed in next major version')
-  RegisterRequest clone() => RegisterRequest()..mergeFromMessage(this);
+  UpdateCredentialsRequest_FieldAttribute clone() =>
+      UpdateCredentialsRequest_FieldAttribute()..mergeFromMessage(this);
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static RegisterRequest create() => RegisterRequest._();
-  RegisterRequest createEmptyInstance() => create();
-  static $pb.PbList<RegisterRequest> createRepeated() =>
-      $pb.PbList<RegisterRequest>();
+  static UpdateCredentialsRequest_FieldAttribute create() =>
+      UpdateCredentialsRequest_FieldAttribute._();
+  UpdateCredentialsRequest_FieldAttribute createEmptyInstance() => create();
+  static $pb.PbList<UpdateCredentialsRequest_FieldAttribute> createRepeated() =>
+      $pb.PbList<UpdateCredentialsRequest_FieldAttribute>();
   @$core.pragma('dart2js:noInline')
-  static RegisterRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<RegisterRequest>(create);
-  static RegisterRequest? _defaultInstance;
+  static UpdateCredentialsRequest_FieldAttribute getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
+          UpdateCredentialsRequest_FieldAttribute>(create);
+  static UpdateCredentialsRequest_FieldAttribute? _defaultInstance;
 
   @$pb.TagNumber(1)
 
-  /// Username
-  $core.String get username => $_getSZ(0);
+  /// Name
+  $core.String get name => $_getSZ(0);
 
-  /// Username
+  /// Name
   @$pb.TagNumber(1)
-  set username($core.String v) {
+  set name($core.String v) {
     $_setString(0, v);
   }
 
   @$pb.TagNumber(1)
 
-  /// Has Username
-  $core.bool hasUsername() => $_has(0);
+  /// Has Name
+  $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
 
-  /// Clear Username
-  void clearUsername() => clearField(1);
+  /// Clear Name
+  void clearName() => clearField(1);
 
   @$pb.TagNumber(2)
 
-  /// Email
-  $core.String get email => $_getSZ(1);
+  /// Value
+  $core.String get value => $_getSZ(1);
 
-  /// Email
+  /// Value
   @$pb.TagNumber(2)
-  set email($core.String v) {
+  set value($core.String v) {
     $_setString(1, v);
   }
 
   @$pb.TagNumber(2)
 
-  /// Has Email
-  $core.bool hasEmail() => $_has(1);
+  /// Has Value
+  $core.bool hasValue() => $_has(1);
   @$pb.TagNumber(2)
 
-  /// Clear Email
-  void clearEmail() => clearField(2);
+  /// Clear Value
+  void clearValue() => clearField(2);
+}
+
+/// Update Credentials Request Source
+class UpdateCredentialsRequest_Source extends $pb.GeneratedMessage {
+  // Constructors
+  /// Factory Constructor.
+  factory UpdateCredentialsRequest_Source() => create();
+
+  /// Private Constructor.
+  UpdateCredentialsRequest_Source._() : super();
+
+  /// From Buffer Constructor.
+  factory UpdateCredentialsRequest_Source.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+
+  /// From JSON Constructor.
+  factory UpdateCredentialsRequest_Source.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      'UpdateCredentialsRequest.Source',
+      createEmptyInstance: create)
+    ..aOS(1, '', protoName: 'privacy')
+    ..aOB(2, '', protoName: 'sensitive')
+    ..aOS(3, '', protoName: 'language')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  UpdateCredentialsRequest_Source clone() =>
+      UpdateCredentialsRequest_Source()..mergeFromMessage(this);
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UpdateCredentialsRequest_Source create() =>
+      UpdateCredentialsRequest_Source._();
+  UpdateCredentialsRequest_Source createEmptyInstance() => create();
+  static $pb.PbList<UpdateCredentialsRequest_Source> createRepeated() =>
+      $pb.PbList<UpdateCredentialsRequest_Source>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateCredentialsRequest_Source getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<UpdateCredentialsRequest_Source>(
+          create);
+  static UpdateCredentialsRequest_Source? _defaultInstance;
+
+  @$pb.TagNumber(1)
+
+  /// Privacy
+  $core.String get privacy => $_getSZ(0);
+
+  /// Privacy
+  @$pb.TagNumber(1)
+  set privacy($core.String v) {
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+
+  /// Has Privacy
+  $core.bool hasPrivacy() => $_has(0);
+  @$pb.TagNumber(1)
+
+  /// Clear Privacy
+  void clearPrivacy() => clearField(1);
+
+  @$pb.TagNumber(2)
+
+  /// Sensitive
+  $core.bool get sensitive => $_getBF(1);
+
+  /// Sensitive
+  @$pb.TagNumber(2)
+  set sensitive($core.bool v) {
+    $_setBool(1, v);
+  }
+
+  @$pb.TagNumber(2)
+
+  /// Has Sensitive
+  $core.bool hasSensitive() => $_has(1);
+  @$pb.TagNumber(2)
+
+  /// Clear Sensitive
+  void clearSensitive() => clearField(2);
 
   @$pb.TagNumber(3)
 
-  /// Password
-  $core.String get password => $_getSZ(2);
+  /// Language
+  $core.String get language => $_getSZ(2);
 
-  /// Password
+  /// Language
   @$pb.TagNumber(3)
-  set password($core.String v) {
+  set language($core.String v) {
     $_setString(2, v);
   }
 
   @$pb.TagNumber(3)
 
-  /// Has Password
-  $core.bool hasPassword() => $_has(2);
+  /// Has Language
+  $core.bool hasLanguage() => $_has(2);
   @$pb.TagNumber(3)
 
-  /// Clear Password
-  void clearPassword() => clearField(3);
+  /// Clear Language
+  void clearLanguage() => clearField(3);
+}
+
+/// Update Credentials Request
+class UpdateCredentialsRequest extends $pb.GeneratedMessage {
+  // Constructors
+  /// Factory Constructor.
+  factory UpdateCredentialsRequest() => create();
+
+  /// Private Constructor.
+  UpdateCredentialsRequest._() : super();
+
+  /// From Buffer Constructor.
+  factory UpdateCredentialsRequest.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+
+  /// From JSON Constructor.
+  factory UpdateCredentialsRequest.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i =
+      $pb.BuilderInfo('UpdateCredentialsRequest', createEmptyInstance: create)
+        ..aOS(1, '', protoName: 'display_name')
+        ..aOS(2, '', protoName: 'note')
+        ..aOS(3, '', protoName: 'avatar')
+        ..aOS(4, '', protoName: 'header')
+        ..aOB(5, '', protoName: 'locked')
+        ..aOB(6, '', protoName: 'bot')
+        ..aOB(7, '', protoName: 'discoverable')
+        ..pc<UpdateCredentialsRequest_FieldAttribute>(8, '', $pb.PbFieldType.PM,
+            protoName: 'fields_attributes',
+            subBuilder: UpdateCredentialsRequest_FieldAttribute.create)
+        ..aOM<UpdateCredentialsRequest_Source>(9, '',
+            protoName: 'source',
+            subBuilder: UpdateCredentialsRequest_Source.create)
+        ..hasRequiredFields = false;
+
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  UpdateCredentialsRequest clone() =>
+      UpdateCredentialsRequest()..mergeFromMessage(this);
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static UpdateCredentialsRequest create() => UpdateCredentialsRequest._();
+  UpdateCredentialsRequest createEmptyInstance() => create();
+  static $pb.PbList<UpdateCredentialsRequest> createRepeated() =>
+      $pb.PbList<UpdateCredentialsRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateCredentialsRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<UpdateCredentialsRequest>(create);
+  static UpdateCredentialsRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+
+  /// Display Name
+  $core.String? get displayName => $_has(0) ? $_get(0, '') : null;
+
+  /// Display Name
+  @$pb.TagNumber(1)
+  set displayName($core.String? v) {
+    if (v == null) {
+      clearField(1);
+      return;
+    }
+    $_setString(0, v);
+  }
+
+  @$pb.TagNumber(1)
+
+  /// Has Display Name
+  $core.bool hasDisplayName() => $_has(0);
+  @$pb.TagNumber(1)
+
+  /// Clear Display Name
+  void clearDisplayName() => clearField(1);
+
+  @$pb.TagNumber(2)
+
+  /// Note
+  $core.String? get note => $_has(1) ? $_get(1, '') : null;
+
+  /// Note
+  @$pb.TagNumber(2)
+  set note($core.String? v) {
+    if (v == null) {
+      clearField(2);
+      return;
+    }
+    $_setString(1, v);
+  }
+
+  @$pb.TagNumber(2)
+
+  /// Has Note
+  $core.bool hasNote() => $_has(1);
+  @$pb.TagNumber(2)
+
+  /// Clear Note
+  void clearNote() => clearField(2);
+
+  @$pb.TagNumber(3)
+
+  /// Avatar
+  $core.String? get avatar => $_has(2) ? $_get(2, '') : null;
+
+  /// Avatar
+  @$pb.TagNumber(3)
+  set avatar($core.String? v) {
+    if (v == null) {
+      clearField(3);
+      return;
+    }
+    $_setString(2, v);
+  }
+
+  @$pb.TagNumber(3)
+
+  /// Has Avatar
+  $core.bool hasAvatar() => $_has(2);
+  @$pb.TagNumber(3)
+
+  /// Clear Avatar
+  void clearAvatar() => clearField(3);
 
   @$pb.TagNumber(4)
 
-  /// Agreement
-  $core.bool get agreement => $_getBF(3);
+  /// Header
+  $core.String? get header => $_has(3) ? $_get(3, '') : null;
 
-  /// Agreement
+  /// Header
   @$pb.TagNumber(4)
-  set agreement($core.bool v) {
-    $_setBool(3, v);
+  set header($core.String? v) {
+    if (v == null) {
+      clearField(4);
+      return;
+    }
+    $_setString(3, v);
   }
 
   @$pb.TagNumber(4)
 
-  /// Has Agreement
-  $core.bool hasAgreement() => $_has(3);
+  /// Has Header
+  $core.bool hasHeader() => $_has(3);
   @$pb.TagNumber(4)
 
-  /// Clear Agreement
-  void clearAgreement() => clearField(4);
+  /// Clear Header
+  void clearHeader() => clearField(4);
 
   @$pb.TagNumber(5)
 
-  /// Locale
-  $core.String get locale => $_getSZ(4);
+  /// Locked
+  $core.bool? get locked => $_has(4) ? $_get(4, false) : null;
 
-  /// Locale
+  /// Locked
   @$pb.TagNumber(5)
-  set locale($core.String v) {
-    $_setString(4, v);
+  set locked($core.bool? v) {
+    if (v == null) {
+      clearField(5);
+      return;
+    }
+    $_setBool(4, v);
   }
 
   @$pb.TagNumber(5)
 
-  /// Has Locale
-  $core.bool hasLocale() => $_has(4);
+  /// Has Locked
+  $core.bool hasLocked() => $_has(4);
   @$pb.TagNumber(5)
 
-  /// Clear Locale
-  void clearLocale() => clearField(5);
+  /// Clear Locked
+  void clearLocked() => clearField(5);
 
   @$pb.TagNumber(6)
 
-  /// Reason
-  $core.String? get reason => $_has(5) ? $_get(5, '') : null;
+  /// Bot
+  $core.bool? get bot => $_has(5) ? $_get(5, false) : null;
 
-  /// Reason
+  /// Bot
   @$pb.TagNumber(6)
-  set reason($core.String? v) {
+  set bot($core.bool? v) {
     if (v == null) {
       clearField(6);
       return;
     }
-    $_setString(5, v);
+    $_setBool(5, v);
   }
 
   @$pb.TagNumber(6)
 
-  /// Has Reason
-  $core.bool hasReason() => $_has(5);
+  /// Has Bot
+  $core.bool hasBot() => $_has(5);
   @$pb.TagNumber(6)
 
-  /// Clear Reason
-  void clearReason() => clearField(6);
+  /// Clear Bot
+  void clearBot() => clearField(6);
+
+  @$pb.TagNumber(7)
+
+  /// Discoverable
+  $core.bool? get discoverable => $_has(6) ? $_get(6, false) : null;
+
+  /// Discoverable
+  @$pb.TagNumber(7)
+  set discoverable($core.bool? v) {
+    if (v == null) {
+      clearField(7);
+      return;
+    }
+    $_setBool(6, v);
+  }
+
+  @$pb.TagNumber(7)
+
+  /// Has Discoverable
+  $core.bool hasDiscoverable() => $_has(6);
+  @$pb.TagNumber(7)
+
+  /// Clear Discoverable
+  void clearDiscoverable() => clearField(7);
+
+  @$pb.TagNumber(8)
+
+  /// Fields Attributes
+  $core.List<UpdateCredentialsRequest_FieldAttribute> get fieldsAttributes =>
+      $_getList(7);
+
+  /// Fields Attributes
+
+  @$pb.TagNumber(9)
+
+  /// Source
+  UpdateCredentialsRequest_Source? get source => $_has(8) ? $_getN(8) : null;
+
+  /// Source
+  @$pb.TagNumber(9)
+  set source(UpdateCredentialsRequest_Source? v) {
+    if (v == null) {
+      clearField(9);
+      return;
+    }
+    setField(9, v);
+  }
+
+  @$pb.TagNumber(9)
+
+  /// Has Source
+  $core.bool hasSource() => $_has(8);
+  @$pb.TagNumber(9)
+
+  /// Clear Source
+  void clearSource() => clearField(9);
+  @$pb.TagNumber(9)
+  UpdateCredentialsRequest_Source? ensureSource() => $_ensure(8);
 }
 
 /// Account Search Request
@@ -1183,141 +1467,184 @@ class AccountApiClient extends $grpc.Client {
         );
 
   /// Method Descriptors.
-  static final _$register = $grpc.ClientMethod<$0.RegisterRequest, $1.Token>(
-      '/AccountApi/Register',
-      ($0.RegisterRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $1.Token.fromBuffer(value));
-  static final _$verifyCredentials = $grpc.ClientMethod<$2.Empty, $3.Account>(
+  static final _$updateCredentials =
+      $grpc.ClientMethod<$0.UpdateCredentialsRequest, $1.Account>(
+          '/AccountApi/UpdateCredentials',
+          ($0.UpdateCredentialsRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $1.Account.fromBuffer(value));
+  static final _$verifyCredentials = $grpc.ClientMethod<$2.Empty, $1.Account>(
       '/AccountApi/VerifyCredentials',
       ($2.Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $3.Account.fromBuffer(value));
+      ($core.List<$core.int> value) => $1.Account.fromBuffer(value));
   static final _$search =
-      $grpc.ClientMethod<$0.AccountSearchRequest, $3.Accounts>(
+      $grpc.ClientMethod<$0.AccountSearchRequest, $1.Accounts>(
           '/AccountApi/Search',
           ($0.AccountSearchRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Accounts.fromBuffer(value));
-  static final _$getById = $grpc.ClientMethod<$4.StringValue, $3.Account>(
+          ($core.List<$core.int> value) => $1.Accounts.fromBuffer(value));
+  static final _$getById = $grpc.ClientMethod<$3.StringValue, $1.Account>(
       '/AccountApi/GetById',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $3.Account.fromBuffer(value));
-  static final _$lookup = $grpc.ClientMethod<$0.LookupRequest, $3.Account>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Account.fromBuffer(value));
+  static final _$lookup = $grpc.ClientMethod<$0.LookupRequest, $1.Account>(
       '/AccountApi/Lookup',
       ($0.LookupRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $3.Account.fromBuffer(value));
+      ($core.List<$core.int> value) => $1.Account.fromBuffer(value));
+  static final _$getFollowedTags =
+      $grpc.ClientMethod<$4.DefaultPaginationParameters, $5.Tags>(
+          '/AccountApi/GetFollowedTags',
+          ($4.DefaultPaginationParameters value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $5.Tags.fromBuffer(value));
+  static final _$getPreferences = $grpc.ClientMethod<$2.Empty, $1.Preferences>(
+      '/AccountApi/GetPreferences',
+      ($2.Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $1.Preferences.fromBuffer(value));
   static final _$getFeaturedTags =
-      $grpc.ClientMethod<$4.StringValue, $5.FeaturedTags>(
+      $grpc.ClientMethod<$2.Empty, $6.FeaturedTags>(
           '/AccountApi/GetFeaturedTags',
-          ($4.StringValue value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $5.FeaturedTags.fromBuffer(value));
+          ($2.Empty value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $6.FeaturedTags.fromBuffer(value));
   static final _$getFollowers =
-      $grpc.ClientMethod<$0.GetFollowersRequest, $3.Accounts>(
+      $grpc.ClientMethod<$0.GetFollowersRequest, $1.Accounts>(
           '/AccountApi/GetFollowers',
           ($0.GetFollowersRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Accounts.fromBuffer(value));
+          ($core.List<$core.int> value) => $1.Accounts.fromBuffer(value));
   static final _$getFollowing =
-      $grpc.ClientMethod<$0.GetFollowingRequest, $3.Accounts>(
+      $grpc.ClientMethod<$0.GetFollowingRequest, $1.Accounts>(
           '/AccountApi/GetFollowing',
           ($0.GetFollowingRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $3.Accounts.fromBuffer(value));
-  static final _$getLists = $grpc.ClientMethod<$4.StringValue, $6.Lists>(
+          ($core.List<$core.int> value) => $1.Accounts.fromBuffer(value));
+  static final _$getFavourites =
+      $grpc.ClientMethod<$4.DefaultPaginationParameters, $7.Statuses>(
+          '/AccountApi/GetFavourites',
+          ($4.DefaultPaginationParameters value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $7.Statuses.fromBuffer(value));
+  static final _$getFilters = $grpc.ClientMethod<$2.Empty, $8.FiltersV1>(
+      '/AccountApi/GetFilters',
+      ($2.Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $8.FiltersV1.fromBuffer(value));
+  static final _$getLists = $grpc.ClientMethod<$3.StringValue, $9.Lists>(
       '/AccountApi/GetLists',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $6.Lists.fromBuffer(value));
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $9.Lists.fromBuffer(value));
   static final _$getStatuses =
       $grpc.ClientMethod<$0.GetStatusesRequest, $7.Statuses>(
           '/AccountApi/GetStatuses',
           ($0.GetStatusesRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $7.Statuses.fromBuffer(value));
   static final _$removeFromFollowers =
-      $grpc.ClientMethod<$4.StringValue, $8.Relationship>(
+      $grpc.ClientMethod<$3.StringValue, $10.Relationship>(
           '/AccountApi/RemoveFromFollowers',
-          ($4.StringValue value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
+          ($3.StringValue value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
   static final _$getRelationships =
-      $grpc.ClientMethod<$0.GetRelationshipsRequest, $8.Relationships>(
+      $grpc.ClientMethod<$0.GetRelationshipsRequest, $10.Relationships>(
           '/AccountApi/GetRelationships',
           ($0.GetRelationshipsRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $8.Relationships.fromBuffer(value));
-  static final _$follow = $grpc.ClientMethod<$4.StringValue, $8.Relationship>(
+          ($core.List<$core.int> value) => $10.Relationships.fromBuffer(value));
+  static final _$follow = $grpc.ClientMethod<$3.StringValue, $10.Relationship>(
       '/AccountApi/Follow',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
-  static final _$unfollow = $grpc.ClientMethod<$4.StringValue, $8.Relationship>(
-      '/AccountApi/Unfollow',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
-  static final _$block = $grpc.ClientMethod<$4.StringValue, $8.Relationship>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
+  static final _$unfollow =
+      $grpc.ClientMethod<$3.StringValue, $10.Relationship>(
+          '/AccountApi/Unfollow',
+          ($3.StringValue value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
+  static final _$block = $grpc.ClientMethod<$3.StringValue, $10.Relationship>(
       '/AccountApi/Block',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
-  static final _$unblock = $grpc.ClientMethod<$4.StringValue, $8.Relationship>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
+  static final _$unblock = $grpc.ClientMethod<$3.StringValue, $10.Relationship>(
       '/AccountApi/Unblock',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
-  static final _$mute = $grpc.ClientMethod<$4.StringValue, $8.Relationship>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
+  static final _$mute = $grpc.ClientMethod<$3.StringValue, $10.Relationship>(
       '/AccountApi/Mute',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
-  static final _$unmute = $grpc.ClientMethod<$4.StringValue, $8.Relationship>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
+  static final _$unmute = $grpc.ClientMethod<$3.StringValue, $10.Relationship>(
       '/AccountApi/Unmute',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
-  static final _$pin = $grpc.ClientMethod<$4.StringValue, $8.Relationship>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
+  static final _$pin = $grpc.ClientMethod<$3.StringValue, $10.Relationship>(
       '/AccountApi/Pin',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
-  static final _$unpin = $grpc.ClientMethod<$4.StringValue, $8.Relationship>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
+  static final _$unpin = $grpc.ClientMethod<$3.StringValue, $10.Relationship>(
       '/AccountApi/Unpin',
-      ($4.StringValue value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
-  static final _$note = $grpc.ClientMethod<$0.NoteRequest, $8.Relationship>(
+      ($3.StringValue value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
+  static final _$note = $grpc.ClientMethod<$0.NoteRequest, $10.Relationship>(
       '/AccountApi/Note',
       ($0.NoteRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $8.Relationship.fromBuffer(value));
+      ($core.List<$core.int> value) => $10.Relationship.fromBuffer(value));
 
   /// Method Stubs.
 
-  $grpc.ResponseFuture<$1.Token> register($0.RegisterRequest request,
+  $grpc.ResponseFuture<$1.Account> updateCredentials(
+      $0.UpdateCredentialsRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$register, request, options: options);
+    return $createUnaryCall(_$updateCredentials, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Account> verifyCredentials($2.Empty request,
+  $grpc.ResponseFuture<$1.Account> verifyCredentials($2.Empty request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$verifyCredentials, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Accounts> search($0.AccountSearchRequest request,
+  $grpc.ResponseFuture<$1.Accounts> search($0.AccountSearchRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$search, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Account> getById($4.StringValue request,
+  $grpc.ResponseFuture<$1.Account> getById($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getById, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Account> lookup($0.LookupRequest request,
+  $grpc.ResponseFuture<$1.Account> lookup($0.LookupRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$lookup, request, options: options);
   }
 
-  $grpc.ResponseFuture<$5.FeaturedTags> getFeaturedTags($4.StringValue request,
+  $grpc.ResponseFuture<$5.Tags> getFollowedTags(
+      $4.DefaultPaginationParameters request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getFollowedTags, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.Preferences> getPreferences($2.Empty request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getPreferences, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$6.FeaturedTags> getFeaturedTags($2.Empty request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getFeaturedTags, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Accounts> getFollowers($0.GetFollowersRequest request,
+  $grpc.ResponseFuture<$1.Accounts> getFollowers($0.GetFollowersRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getFollowers, request, options: options);
   }
 
-  $grpc.ResponseFuture<$3.Accounts> getFollowing($0.GetFollowingRequest request,
+  $grpc.ResponseFuture<$1.Accounts> getFollowing($0.GetFollowingRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getFollowing, request, options: options);
   }
 
-  $grpc.ResponseFuture<$6.Lists> getLists($4.StringValue request,
+  $grpc.ResponseFuture<$7.Statuses> getFavourites(
+      $4.DefaultPaginationParameters request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getFavourites, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$8.FiltersV1> getFilters($2.Empty request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getFilters, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$9.Lists> getLists($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getLists, request, options: options);
   }
@@ -1327,59 +1654,59 @@ class AccountApiClient extends $grpc.Client {
     return $createUnaryCall(_$getStatuses, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> removeFromFollowers(
-      $4.StringValue request,
+  $grpc.ResponseFuture<$10.Relationship> removeFromFollowers(
+      $3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$removeFromFollowers, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationships> getRelationships(
+  $grpc.ResponseFuture<$10.Relationships> getRelationships(
       $0.GetRelationshipsRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getRelationships, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> follow($4.StringValue request,
+  $grpc.ResponseFuture<$10.Relationship> follow($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$follow, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> unfollow($4.StringValue request,
+  $grpc.ResponseFuture<$10.Relationship> unfollow($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unfollow, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> block($4.StringValue request,
+  $grpc.ResponseFuture<$10.Relationship> block($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$block, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> unblock($4.StringValue request,
+  $grpc.ResponseFuture<$10.Relationship> unblock($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unblock, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> mute($4.StringValue request,
+  $grpc.ResponseFuture<$10.Relationship> mute($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$mute, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> unmute($4.StringValue request,
+  $grpc.ResponseFuture<$10.Relationship> unmute($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unmute, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> pin($4.StringValue request,
+  $grpc.ResponseFuture<$10.Relationship> pin($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$pin, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> unpin($4.StringValue request,
+  $grpc.ResponseFuture<$10.Relationship> unpin($3.StringValue request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unpin, request, options: options);
   }
 
-  $grpc.ResponseFuture<$8.Relationship> note($0.NoteRequest request,
+  $grpc.ResponseFuture<$10.Relationship> note($0.NoteRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$note, request, options: options);
   }

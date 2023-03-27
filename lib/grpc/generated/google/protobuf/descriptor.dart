@@ -103,7 +103,8 @@ class FileDescriptorProto extends $pb.GeneratedMessage {
         protoName: 'source_code_info', subBuilder: SourceCodeInfo.create)
     ..p<$core.int>(10, '', $pb.PbFieldType.P3, protoName: 'public_dependency')
     ..p<$core.int>(11, '', $pb.PbFieldType.P3, protoName: 'weak_dependency')
-    ..aOS(12, '', protoName: 'syntax');
+    ..aOS(12, '', protoName: 'syntax')
+    ..aOS(13, '', protoName: 'edition');
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
@@ -274,6 +275,26 @@ class FileDescriptorProto extends $pb.GeneratedMessage {
 
   /// Clear Syntax
   void clearSyntax() => clearField(12);
+
+  @$pb.TagNumber(13)
+
+  /// Edition
+  $core.String get edition => $_getSZ(12);
+
+  /// Edition
+  @$pb.TagNumber(13)
+  set edition($core.String v) {
+    $_setString(12, v);
+  }
+
+  @$pb.TagNumber(13)
+
+  /// Has Edition
+  $core.bool hasEdition() => $_has(12);
+  @$pb.TagNumber(13)
+
+  /// Clear Edition
+  void clearEdition() => clearField(13);
 }
 
 /// Descriptor Proto Extension Range
@@ -2140,6 +2161,7 @@ class MessageOptions extends $pb.GeneratedMessage {
     ..aOB(2, '', protoName: 'no_standard_descriptor_accessor')
     ..aOB(3, '', protoName: 'deprecated')
     ..aOB(7, '', protoName: 'map_entry')
+    ..aOB(11, '', protoName: 'deprecated_legacy_json_field_conflicts')
     ..pc<UninterpretedOption>(999, '', $pb.PbFieldType.PM,
         protoName: 'uninterpreted_option',
         subBuilder: UninterpretedOption.create)
@@ -2242,10 +2264,34 @@ class MessageOptions extends $pb.GeneratedMessage {
   /// Clear Map Entry
   void clearMapEntry() => clearField(7);
 
+  @$core.Deprecated('This field is deprecated.')
+  @$pb.TagNumber(11)
+
+  /// Deprecated Legacy Json Field Conflicts
+  $core.bool get deprecatedLegacyJsonFieldConflicts => $_getBF(4);
+
+  /// Deprecated Legacy Json Field Conflicts
+  @$core.Deprecated('This field is deprecated.')
+  @$pb.TagNumber(11)
+  set deprecatedLegacyJsonFieldConflicts($core.bool v) {
+    $_setBool(4, v);
+  }
+
+  @$core.Deprecated('This field is deprecated.')
+  @$pb.TagNumber(11)
+
+  /// Has Deprecated Legacy Json Field Conflicts
+  $core.bool hasDeprecatedLegacyJsonFieldConflicts() => $_has(4);
+  @$core.Deprecated('This field is deprecated.')
+  @$pb.TagNumber(11)
+
+  /// Clear Deprecated Legacy Json Field Conflicts
+  void clearDeprecatedLegacyJsonFieldConflicts() => clearField(11);
+
   @$pb.TagNumber(999)
 
   /// Uninterpreted Option
-  $core.List<UninterpretedOption> get uninterpretedOption => $_getList(4);
+  $core.List<UninterpretedOption> get uninterpretedOption => $_getList(5);
 
   /// Uninterpreted Option
 }
@@ -2287,6 +2333,17 @@ class FieldOptions extends $pb.GeneratedMessage {
         enumValues: FieldOptions_JSType.values)
     ..aOB(10, '', protoName: 'weak')
     ..aOB(15, '', protoName: 'unverified_lazy')
+    ..aOB(16, '', protoName: 'debug_redact')
+    ..e<FieldOptions_OptionRetention>(17, '', $pb.PbFieldType.OE,
+        protoName: 'retention',
+        defaultOrMaker: FieldOptions_OptionRetention.retentionUnknown,
+        valueOf: FieldOptions_OptionRetention.valueOf,
+        enumValues: FieldOptions_OptionRetention.values)
+    ..e<FieldOptions_OptionTargetType>(18, '', $pb.PbFieldType.OE,
+        protoName: 'target',
+        defaultOrMaker: FieldOptions_OptionTargetType.targetTypeUnknown,
+        valueOf: FieldOptions_OptionTargetType.valueOf,
+        enumValues: FieldOptions_OptionTargetType.values)
     ..pc<UninterpretedOption>(999, '', $pb.PbFieldType.PM,
         protoName: 'uninterpreted_option',
         subBuilder: UninterpretedOption.create)
@@ -2449,10 +2506,70 @@ class FieldOptions extends $pb.GeneratedMessage {
   /// Clear Unverified Lazy
   void clearUnverifiedLazy() => clearField(15);
 
+  @$pb.TagNumber(16)
+
+  /// Debug Redact
+  $core.bool get debugRedact => $_getBF(7);
+
+  /// Debug Redact
+  @$pb.TagNumber(16)
+  set debugRedact($core.bool v) {
+    $_setBool(7, v);
+  }
+
+  @$pb.TagNumber(16)
+
+  /// Has Debug Redact
+  $core.bool hasDebugRedact() => $_has(7);
+  @$pb.TagNumber(16)
+
+  /// Clear Debug Redact
+  void clearDebugRedact() => clearField(16);
+
+  @$pb.TagNumber(17)
+
+  /// Retention
+  FieldOptions_OptionRetention get retention => $_getN(8);
+
+  /// Retention
+  @$pb.TagNumber(17)
+  set retention(FieldOptions_OptionRetention v) {
+    setField(17, v);
+  }
+
+  @$pb.TagNumber(17)
+
+  /// Has Retention
+  $core.bool hasRetention() => $_has(8);
+  @$pb.TagNumber(17)
+
+  /// Clear Retention
+  void clearRetention() => clearField(17);
+
+  @$pb.TagNumber(18)
+
+  /// Target
+  FieldOptions_OptionTargetType get target => $_getN(9);
+
+  /// Target
+  @$pb.TagNumber(18)
+  set target(FieldOptions_OptionTargetType v) {
+    setField(18, v);
+  }
+
+  @$pb.TagNumber(18)
+
+  /// Has Target
+  $core.bool hasTarget() => $_has(9);
+  @$pb.TagNumber(18)
+
+  /// Clear Target
+  void clearTarget() => clearField(18);
+
   @$pb.TagNumber(999)
 
   /// Uninterpreted Option
-  $core.List<UninterpretedOption> get uninterpretedOption => $_getList(7);
+  $core.List<UninterpretedOption> get uninterpretedOption => $_getList(10);
 
   /// Uninterpreted Option
 }
@@ -2533,6 +2650,7 @@ class EnumOptions extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOB(2, '', protoName: 'allow_alias')
     ..aOB(3, '', protoName: 'deprecated')
+    ..aOB(6, '', protoName: 'deprecated_legacy_json_field_conflicts')
     ..pc<UninterpretedOption>(999, '', $pb.PbFieldType.PM,
         protoName: 'uninterpreted_option',
         subBuilder: UninterpretedOption.create)
@@ -2594,10 +2712,34 @@ class EnumOptions extends $pb.GeneratedMessage {
   /// Clear Deprecated
   void clearDeprecated() => clearField(3);
 
+  @$core.Deprecated('This field is deprecated.')
+  @$pb.TagNumber(6)
+
+  /// Deprecated Legacy Json Field Conflicts
+  $core.bool get deprecatedLegacyJsonFieldConflicts => $_getBF(2);
+
+  /// Deprecated Legacy Json Field Conflicts
+  @$core.Deprecated('This field is deprecated.')
+  @$pb.TagNumber(6)
+  set deprecatedLegacyJsonFieldConflicts($core.bool v) {
+    $_setBool(2, v);
+  }
+
+  @$core.Deprecated('This field is deprecated.')
+  @$pb.TagNumber(6)
+
+  /// Has Deprecated Legacy Json Field Conflicts
+  $core.bool hasDeprecatedLegacyJsonFieldConflicts() => $_has(2);
+  @$core.Deprecated('This field is deprecated.')
+  @$pb.TagNumber(6)
+
+  /// Clear Deprecated Legacy Json Field Conflicts
+  void clearDeprecatedLegacyJsonFieldConflicts() => clearField(6);
+
   @$pb.TagNumber(999)
 
   /// Uninterpreted Option
-  $core.List<UninterpretedOption> get uninterpretedOption => $_getList(2);
+  $core.List<UninterpretedOption> get uninterpretedOption => $_getList(3);
 
   /// Uninterpreted Option
 }
@@ -3297,6 +3439,11 @@ class GeneratedCodeInfo_Annotation extends $pb.GeneratedMessage {
     ..aOS(2, '', protoName: 'source_file')
     ..a<$core.int>(3, '', $pb.PbFieldType.O3, protoName: 'begin')
     ..a<$core.int>(4, '', $pb.PbFieldType.O3, protoName: 'end')
+    ..e<GeneratedCodeInfo_Annotation_Semantic>(5, '', $pb.PbFieldType.OE,
+        protoName: 'semantic',
+        defaultOrMaker: GeneratedCodeInfo_Annotation_Semantic.none,
+        valueOf: GeneratedCodeInfo_Annotation_Semantic.valueOf,
+        enumValues: GeneratedCodeInfo_Annotation_Semantic.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -3384,6 +3531,26 @@ class GeneratedCodeInfo_Annotation extends $pb.GeneratedMessage {
 
   /// Clear End
   void clearEnd() => clearField(4);
+
+  @$pb.TagNumber(5)
+
+  /// Semantic
+  GeneratedCodeInfo_Annotation_Semantic get semantic => $_getN(4);
+
+  /// Semantic
+  @$pb.TagNumber(5)
+  set semantic(GeneratedCodeInfo_Annotation_Semantic v) {
+    setField(5, v);
+  }
+
+  @$pb.TagNumber(5)
+
+  /// Has Semantic
+  $core.bool hasSemantic() => $_has(4);
+  @$pb.TagNumber(5)
+
+  /// Clear Semantic
+  void clearSemantic() => clearField(5);
 }
 
 /// Generated Code Info
@@ -3592,6 +3759,75 @@ class FieldOptions_JSType extends $pb.ProtobufEnum {
   static FieldOptions_JSType? valueOf($core.int value) => _byValue[value];
 }
 
+class FieldOptions_OptionRetention extends $pb.ProtobufEnum {
+  const FieldOptions_OptionRetention._($core.int v, $core.String n)
+      : super(v, n);
+
+  static const FieldOptions_OptionRetention retentionUnknown =
+      FieldOptions_OptionRetention._(0, 'retentionUnknown');
+  static const FieldOptions_OptionRetention retentionRuntime =
+      FieldOptions_OptionRetention._(1, 'retentionRuntime');
+  static const FieldOptions_OptionRetention retentionSource =
+      FieldOptions_OptionRetention._(2, 'retentionSource');
+
+  static const $core.List<FieldOptions_OptionRetention> values =
+      <FieldOptions_OptionRetention>[
+    retentionUnknown,
+    retentionRuntime,
+    retentionSource,
+  ];
+
+  static final $core.Map<$core.int, FieldOptions_OptionRetention> _byValue =
+      $pb.ProtobufEnum.initByValue(values);
+  static FieldOptions_OptionRetention? valueOf($core.int value) =>
+      _byValue[value];
+}
+
+class FieldOptions_OptionTargetType extends $pb.ProtobufEnum {
+  const FieldOptions_OptionTargetType._($core.int v, $core.String n)
+      : super(v, n);
+
+  static const FieldOptions_OptionTargetType targetTypeUnknown =
+      FieldOptions_OptionTargetType._(0, 'targetTypeUnknown');
+  static const FieldOptions_OptionTargetType targetTypeFile =
+      FieldOptions_OptionTargetType._(1, 'targetTypeFile');
+  static const FieldOptions_OptionTargetType targetTypeExtensionRange =
+      FieldOptions_OptionTargetType._(2, 'targetTypeExtensionRange');
+  static const FieldOptions_OptionTargetType targetTypeMessage =
+      FieldOptions_OptionTargetType._(3, 'targetTypeMessage');
+  static const FieldOptions_OptionTargetType targetTypeField =
+      FieldOptions_OptionTargetType._(4, 'targetTypeField');
+  static const FieldOptions_OptionTargetType targetTypeOneof =
+      FieldOptions_OptionTargetType._(5, 'targetTypeOneof');
+  static const FieldOptions_OptionTargetType targetTypeEnum =
+      FieldOptions_OptionTargetType._(6, 'targetTypeEnum');
+  static const FieldOptions_OptionTargetType targetTypeEnumEntry =
+      FieldOptions_OptionTargetType._(7, 'targetTypeEnumEntry');
+  static const FieldOptions_OptionTargetType targetTypeService =
+      FieldOptions_OptionTargetType._(8, 'targetTypeService');
+  static const FieldOptions_OptionTargetType targetTypeMethod =
+      FieldOptions_OptionTargetType._(9, 'targetTypeMethod');
+
+  static const $core.List<FieldOptions_OptionTargetType> values =
+      <FieldOptions_OptionTargetType>[
+    targetTypeUnknown,
+    targetTypeFile,
+    targetTypeExtensionRange,
+    targetTypeMessage,
+    targetTypeField,
+    targetTypeOneof,
+    targetTypeEnum,
+    targetTypeEnumEntry,
+    targetTypeService,
+    targetTypeMethod,
+  ];
+
+  static final $core.Map<$core.int, FieldOptions_OptionTargetType> _byValue =
+      $pb.ProtobufEnum.initByValue(values);
+  static FieldOptions_OptionTargetType? valueOf($core.int value) =>
+      _byValue[value];
+}
+
 class MethodOptions_IdempotencyLevel extends $pb.ProtobufEnum {
   const MethodOptions_IdempotencyLevel._($core.int v, $core.String n)
       : super(v, n);
@@ -3613,5 +3849,29 @@ class MethodOptions_IdempotencyLevel extends $pb.ProtobufEnum {
   static final $core.Map<$core.int, MethodOptions_IdempotencyLevel> _byValue =
       $pb.ProtobufEnum.initByValue(values);
   static MethodOptions_IdempotencyLevel? valueOf($core.int value) =>
+      _byValue[value];
+}
+
+class GeneratedCodeInfo_Annotation_Semantic extends $pb.ProtobufEnum {
+  const GeneratedCodeInfo_Annotation_Semantic._($core.int v, $core.String n)
+      : super(v, n);
+
+  static const GeneratedCodeInfo_Annotation_Semantic none =
+      GeneratedCodeInfo_Annotation_Semantic._(0, 'none');
+  static const GeneratedCodeInfo_Annotation_Semantic set =
+      GeneratedCodeInfo_Annotation_Semantic._(1, 'set');
+  static const GeneratedCodeInfo_Annotation_Semantic alias =
+      GeneratedCodeInfo_Annotation_Semantic._(2, 'alias');
+
+  static const $core.List<GeneratedCodeInfo_Annotation_Semantic> values =
+      <GeneratedCodeInfo_Annotation_Semantic>[
+    none,
+    set,
+    alias,
+  ];
+
+  static final $core.Map<$core.int, GeneratedCodeInfo_Annotation_Semantic>
+      _byValue = $pb.ProtobufEnum.initByValue(values);
+  static GeneratedCodeInfo_Annotation_Semantic? valueOf($core.int value) =>
       _byValue[value];
 }

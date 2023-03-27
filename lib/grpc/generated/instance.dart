@@ -13,8 +13,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'account.dart' as $3;
-import 'rule.dart' as $17;
+import 'account.dart' as $1;
+import 'rule.dart' as $19;
 
 /// Instance Usage Users
 class Instance_Usage_Users extends $pb.GeneratedMessage {
@@ -1315,8 +1315,8 @@ class Instance_Contact extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i =
       $pb.BuilderInfo('Instance.Contact', createEmptyInstance: create)
         ..aOS(1, '', protoName: 'email')
-        ..aOM<$3.Account>(2, '',
-            protoName: 'account', subBuilder: $3.Account.create)
+        ..aOM<$1.Account>(2, '',
+            protoName: 'account', subBuilder: $1.Account.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -1359,11 +1359,11 @@ class Instance_Contact extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
 
   /// Account
-  $3.Account get account => $_getN(1);
+  $1.Account get account => $_getN(1);
 
   /// Account
   @$pb.TagNumber(2)
-  set account($3.Account v) {
+  set account($1.Account v) {
     setField(2, v);
   }
 
@@ -1376,7 +1376,7 @@ class Instance_Contact extends $pb.GeneratedMessage {
   /// Clear Account
   void clearAccount() => clearField(2);
   @$pb.TagNumber(2)
-  $3.Account ensureAccount() => $_ensure(1);
+  $1.Account ensureAccount() => $_ensure(1);
 }
 
 /// Instance
@@ -1418,8 +1418,8 @@ class Instance extends $pb.GeneratedMessage {
             subBuilder: Instance_Registrations.create)
         ..aOM<Instance_Contact>(11, '',
             protoName: 'contact', subBuilder: Instance_Contact.create)
-        ..pc<$17.Rule>(12, '', $pb.PbFieldType.PM,
-            protoName: 'rules', subBuilder: $17.Rule.create)
+        ..pc<$19.Rule>(12, '', $pb.PbFieldType.PM,
+            protoName: 'rules', subBuilder: $19.Rule.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -1662,7 +1662,7 @@ class Instance extends $pb.GeneratedMessage {
   @$pb.TagNumber(12)
 
   /// Rules
-  $core.List<$17.Rule> get rules => $_getList(11);
+  $core.List<$19.Rule> get rules => $_getList(11);
 
   /// Rules
 }

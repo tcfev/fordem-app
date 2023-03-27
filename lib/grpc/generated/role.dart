@@ -13,7 +13,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.dart' as $30;
+import 'google/protobuf/timestamp.dart' as $37;
 
 /// Role
 class Role extends $pb.GeneratedMessage {
@@ -42,10 +42,10 @@ class Role extends $pb.GeneratedMessage {
         ..a<$core.int>(4, '', $pb.PbFieldType.O3, protoName: 'position')
         ..aOS(5, '', protoName: 'permissions')
         ..aOB(6, '', protoName: 'highlighted')
-        ..aOM<$30.Timestamp>(7, 'created_at',
-            protoName: 'createdAt', subBuilder: $30.Timestamp.create)
-        ..aOM<$30.Timestamp>(8, 'updated_at',
-            protoName: 'updatedAt', subBuilder: $30.Timestamp.create)
+        ..aOM<$37.Timestamp>(7, 'created_at',
+            protoName: 'createdAt', subBuilder: $37.Timestamp.create)
+        ..aOM<$37.Timestamp>(8, 'updated_at',
+            protoName: 'updatedAt', subBuilder: $37.Timestamp.create)
         ..hasRequiredFields = false;
 
   @$core.Deprecated('Using this can add significant overhead to your binary. '
@@ -200,7 +200,7 @@ class Role extends $pb.GeneratedMessage {
 
   /// Created At
   $core.DateTime? get createdAt =>
-      $_has(6) ? $_getN<$30.Timestamp>(6).toDateTime() : null;
+      $_has(6) ? $_getN<$37.Timestamp>(6).toDateTime() : null;
 
   /// Created At
   @$pb.TagNumber(7)
@@ -209,7 +209,7 @@ class Role extends $pb.GeneratedMessage {
       clearField(7);
       return;
     }
-    setField(7, $30.Timestamp.fromDateTime(v));
+    setField(7, $37.Timestamp.fromDateTime(v));
   }
 
   @$pb.TagNumber(7)
@@ -221,13 +221,13 @@ class Role extends $pb.GeneratedMessage {
   /// Clear Created At
   void clearCreatedAt() => clearField(7);
   @$pb.TagNumber(7)
-  $core.DateTime ensureCreatedAt() => $_ensure<$30.Timestamp>(6).toDateTime();
+  $core.DateTime ensureCreatedAt() => $_ensure<$37.Timestamp>(6).toDateTime();
 
   @$pb.TagNumber(8)
 
   /// Updated At
   $core.DateTime? get updatedAt =>
-      $_has(7) ? $_getN<$30.Timestamp>(7).toDateTime() : null;
+      $_has(7) ? $_getN<$37.Timestamp>(7).toDateTime() : null;
 
   /// Updated At
   @$pb.TagNumber(8)
@@ -236,7 +236,7 @@ class Role extends $pb.GeneratedMessage {
       clearField(8);
       return;
     }
-    setField(8, $30.Timestamp.fromDateTime(v));
+    setField(8, $37.Timestamp.fromDateTime(v));
   }
 
   @$pb.TagNumber(8)
@@ -248,5 +248,5 @@ class Role extends $pb.GeneratedMessage {
   /// Clear Updated At
   void clearUpdatedAt() => clearField(8);
   @$pb.TagNumber(8)
-  $core.DateTime ensureUpdatedAt() => $_ensure<$30.Timestamp>(7).toDateTime();
+  $core.DateTime ensureUpdatedAt() => $_ensure<$37.Timestamp>(7).toDateTime();
 }

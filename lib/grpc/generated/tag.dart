@@ -13,27 +13,27 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-/// Tag Tag History
-class Tag_TagHistory extends $pb.GeneratedMessage {
+/// Tag History
+class Tag_History extends $pb.GeneratedMessage {
   // Constructors
   /// Factory Constructor.
-  factory Tag_TagHistory() => create();
+  factory Tag_History() => create();
 
   /// Private Constructor.
-  Tag_TagHistory._() : super();
+  Tag_History._() : super();
 
   /// From Buffer Constructor.
-  factory Tag_TagHistory.fromBuffer($core.List<$core.int> i,
+  factory Tag_History.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
 
   /// From JSON Constructor.
-  factory Tag_TagHistory.fromJson($core.String i,
+  factory Tag_History.fromJson($core.String i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i =
-      $pb.BuilderInfo('Tag.TagHistory', createEmptyInstance: create)
+      $pb.BuilderInfo('Tag.History', createEmptyInstance: create)
         ..aOS(1, '', protoName: 'day')
         ..aOS(2, '', protoName: 'uses')
         ..aOS(3, '', protoName: 'accounts')
@@ -42,19 +42,18 @@ class Tag_TagHistory extends $pb.GeneratedMessage {
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
       'Will be removed in next major version')
-  Tag_TagHistory clone() => Tag_TagHistory()..mergeFromMessage(this);
+  Tag_History clone() => Tag_History()..mergeFromMessage(this);
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static Tag_TagHistory create() => Tag_TagHistory._();
-  Tag_TagHistory createEmptyInstance() => create();
-  static $pb.PbList<Tag_TagHistory> createRepeated() =>
-      $pb.PbList<Tag_TagHistory>();
+  static Tag_History create() => Tag_History._();
+  Tag_History createEmptyInstance() => create();
+  static $pb.PbList<Tag_History> createRepeated() => $pb.PbList<Tag_History>();
   @$core.pragma('dart2js:noInline')
-  static Tag_TagHistory getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Tag_TagHistory>(create);
-  static Tag_TagHistory? _defaultInstance;
+  static Tag_History getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<Tag_History>(create);
+  static Tag_History? _defaultInstance;
 
   @$pb.TagNumber(1)
 
@@ -140,8 +139,8 @@ class Tag extends $pb.GeneratedMessage {
       $pb.BuilderInfo('Tag', createEmptyInstance: create)
         ..aOS(1, '', protoName: 'name')
         ..aOS(2, '', protoName: 'url')
-        ..pc<Tag_TagHistory>(3, '', $pb.PbFieldType.PM,
-            protoName: 'history', subBuilder: Tag_TagHistory.create)
+        ..pc<Tag_History>(3, '', $pb.PbFieldType.PM,
+            protoName: 'history', subBuilder: Tag_History.create)
         ..aOB(4, '', protoName: 'following')
         ..hasRequiredFields = false;
 
@@ -204,7 +203,7 @@ class Tag extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
 
   /// History
-  $core.List<Tag_TagHistory> get history => $_getList(2);
+  $core.List<Tag_History> get history => $_getList(2);
 
   /// History
 
