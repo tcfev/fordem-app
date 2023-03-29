@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
+import 'package:fordem/pages/home/poll_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 
@@ -481,7 +482,10 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                 IconButton(
                   icon: const Icon(Icons.poll_outlined),
                   tooltip: 'Add a poll',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, PollPage.routeName, arguments:  
+                    PollPageArguments('Ech',));
+                  },
                 ),
                 FloatingActionButton(
                   mini: true,
@@ -496,6 +500,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
       ),
     );
   }
+
 
   Text? _getRetrieveErrorWidget() {
     if (_retrieveDataError != null) {
@@ -617,3 +622,4 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
 
 typedef OnPickImageCallback = void Function(
     double? maxWidth, double? maxHeight, int? quality);
+

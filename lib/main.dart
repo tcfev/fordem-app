@@ -1,5 +1,6 @@
 import 'package:fordem/app_state.dart';
 import 'package:fordem/pages/home/home_page.dart';
+import 'package:fordem/pages/home/poll_page.dart';
 import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,36 @@ class MyApp extends StatelessWidget {
       home: platform == href.Platform.web
           ? const HomePage(title: 'ForDem')
           : const WelcomePage(),
+      onGenerateRoute: (settings) {
+        if (settings.name == PollPage.routeName) {
+          final args = settings.arguments as PollPageArguments;
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                PollPage(pollPageArguments: args),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              const begin = Offset(0.0, 1.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          );
+
+          // MaterialPageRoute(
+          //   builder: (context) {
+          //     return PollPage(
+          //       pollPageArguments: args,
+          //     );
+          //   },
+          // );
+        }
+      },
     );
   }
 }
