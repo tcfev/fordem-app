@@ -12,15 +12,15 @@ class PluralityPollEntityReaction {
 class RankedPairsPollBallot {}
 
 class PluralityPollBallot {
-  PluralityPollBallot(
-    this.pollEntities,
-    this.topic,
-    this.timeCreated,
-    this.createdBy,
-    this.anonymous,
-    this.multipleChoice,
-    this.transferable,
-  );
+  PluralityPollBallot({
+    required this.pollEntities,
+    required this.topic,
+    required this.timeCreated,
+    required this.createdBy,
+    required this.anonymous,
+    required this.multipleChoice,
+    required this.transferable,
+  });
   final String topic;
   final DateTime timeCreated;
   final String createdBy;
@@ -132,8 +132,41 @@ class PluralityPollWidget extends StatelessWidget {
 
           return Column(
             children: [
-              SizedBox(
-                height: 400,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  onSubmitted: (v) => pluralityPollProvider.setTopic(v),
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Poll Topic',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('is Anonymous?'),
+                    Checkbox(
+                        value: pluralityPollProvider.getAnonymous(),
+                        onChanged: (value) {
+                          pluralityPollProvider.setAnonymous(
+                              !pluralityPollProvider.getAnonymous());
+                        }),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    const Text('is MultiChoice?'),
+                    Checkbox(
+                        value: pluralityPollProvider.getMultipleChoice(),
+                        onChanged: (bool? value) {
+                          pluralityPollProvider.setMultipleChoice(
+                              !pluralityPollProvider.getMultipleChoice());
+                        }),
+                  ],
+                ),
+              ),
+              Expanded(
                 child: ReorderableListView(
                   onReorder: (oldIndex, newIndex) {
                     pluralityPollProvider.reOrder(oldIndex, newIndex);
@@ -143,17 +176,36 @@ class PluralityPollWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              ElevatedButton(
-                key: const ValueKey('addPollEntity'),
-                onPressed: pollEntities.isNotEmpty &&
-                        !pluralityPollProvider.getLastSubmitted()
-                    ? () {}
-                    : () {
-                        pluralityPollProvider.addPollEntity(
-                            PluralityMajorityPollEntity(key: UniqueKey()));
-                      },
-                child: const Text('Add Poll Entity'),
-              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      key: const ValueKey('addPollEntity'),
+                      onPressed: pollEntities.isNotEmpty &&
+                              !pluralityPollProvider.getLastSubmitted()
+                          ? null
+                          : () {
+                              pluralityPollProvider.addPollEntity(
+                                  PluralityMajorityPollEntity(
+                                      key: UniqueKey()));
+                            },
+                      child: const Text('Add Poll Entity'),
+                    ),
+                    //submit button
+                    ElevatedButton(
+                        onPressed: pluralityPollProvider.pollEntity.isEmpty ||
+                                !pluralityPollProvider.getLastSubmitted() ||
+                                pluralityPollProvider.getTopic() == ''
+                            ? null
+                            : () {
+                                pluralityPollProvider.submitPoll();
+                              },
+                        child: const Text('Submit Poll'))
+                  ],
+                ),
+              )
             ],
           );
         },

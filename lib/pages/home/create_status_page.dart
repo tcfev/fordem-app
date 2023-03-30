@@ -549,7 +549,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                   onPressed: () {
                     Navigator.pushNamed(context, PollPage.routeName,
                         arguments: PollPageArguments(
-                          'Ech',
+                          'UserID:987678',
                         ));
                   },
                 ),
