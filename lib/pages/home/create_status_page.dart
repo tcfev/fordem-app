@@ -135,7 +135,11 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                     );
                     if (ballot is PollPageArguments) {
                       // Todo @armantorkzaban: add poll to the post
-                      if (ballot.pluralityPollBallot != null) {}
+                      if (ballot.pluralityPollBallot != null) {
+                        print(ballot.pluralityPollBallot!.pollEntities.first);
+                      } else if (ballot.rankedPairsPollBallot != null) {
+                        print(ballot.rankedPairsPollBallot);
+                      }
                     }
                   },
                 ),

@@ -43,28 +43,35 @@ class _PollPageState extends State<PollPage> {
               ],
             ),
           ),
-          if (pollType == 'majority') const PluralityPollWidget(),
+          if (pollType == 'majority') const MajorityPollWidget(),
         ],
       ),
     );
   }
 }
 
-class PluralityPollWidget extends StatefulWidget {
-  const PluralityPollWidget({super.key});
+class MajorityPollWidget extends StatefulWidget {
+  const MajorityPollWidget({super.key});
 
   @override
-  State<PluralityPollWidget> createState() => _PluralityPollWidgetState();
+  State<MajorityPollWidget> createState() => _MajorityPollWidgetState();
 }
 
-class _PluralityPollWidgetState extends State<PluralityPollWidget> {
+class _MajorityPollWidgetState extends State<MajorityPollWidget> {
   final List<PluralityMajorityPollEntity> _pollEntities = [];
-
+  final List<String> _pollEntitiesString = [];
   bool _lastSubmitted = false;
   bool _anonymous = false;
   bool _multipleChoice = false;
 
-  lastSubmitted() {
+  lastSubmitted(PluralityMajorityPollEntity pollEntity, String value) {
+    int i =
+        _pollEntities.indexWhere((element) => element.key == pollEntity.key);
+    if (_pollEntitiesString.length - 1 < i) {
+      _pollEntitiesString.add(value);
+    } else {
+      _pollEntitiesString[i] = value;
+    }
     setState(() {
       _lastSubmitted = true;
     });
@@ -77,24 +84,26 @@ class _PluralityPollWidgetState extends State<PluralityPollWidget> {
   }
 
   addPollEntity(PluralityMajorityPollEntity pollEntity) {
-    _pollEntities.add(pollEntity);
     setState(() {
+      _pollEntities.add(pollEntity);
       _lastSubmitted = false;
     });
   }
 
   reOrder(oldIndex, newIndex) {
-    var old = _pollEntities[oldIndex];
-    var newInd = _pollEntities[newIndex];
-    _pollEntities[oldIndex] = newInd;
-    _pollEntities[newIndex] = old;
+    setState(() {
+      var old = _pollEntities[oldIndex];
+      var newInd = _pollEntities[newIndex];
+      _pollEntities[oldIndex] = newInd;
+      _pollEntities[newIndex] = old;
+    });
   }
 
   PollPageArguments submitPoll() {
     return PollPageArguments()
       ..setPluralityPollBallot(
         PluralityPollBallot(
-          pollEntities: _pollEntities,
+          pollEntities: _pollEntitiesString,
           anonymous: _anonymous,
           multipleChoice: _multipleChoice,
         ),
@@ -116,7 +125,9 @@ class _PluralityPollWidgetState extends State<PluralityPollWidget> {
                 Checkbox(
                     value: _anonymous,
                     onChanged: (value) {
-                      _anonymous = !_anonymous;
+                      setState(() {
+                        _anonymous = !_anonymous;
+                      });
                     }),
                 const SizedBox(
                   width: 8,
@@ -125,7 +136,9 @@ class _PluralityPollWidgetState extends State<PluralityPollWidget> {
                 Checkbox(
                     value: _multipleChoice,
                     onChanged: (bool? value) {
-                      _multipleChoice = !_multipleChoice;
+                      setState(() {
+                        _multipleChoice = !_multipleChoice;
+                      });
                     }),
               ],
             ),
@@ -208,7 +221,7 @@ class _PluralityMajorityPollEntityState
               controller: controller,
               onSubmitted: (value) {
                 if (controller.text.isNotEmpty) {
-                  widget.lastSubmitted();
+                  widget.lastSubmitted(widget, value);
                 }
               },
               decoration: const InputDecoration(
@@ -245,7 +258,7 @@ class PluralityPollBallot {
   final bool anonymous;
   final bool multipleChoice;
 
-  final List<PluralityMajorityPollEntity> pollEntities;
+  final List<String> pollEntities;
 
   final List<PluralityPollEntityReaction> pollEntityReactions = [];
 }
@@ -253,7 +266,7 @@ class PluralityPollBallot {
 class MajorityPollBallot {
   MajorityPollBallot(this.pollEntities);
 
-  final List<PluralityMajorityPollEntity> pollEntities;
+  final List<String> pollEntities;
 }
 
 class PollPageArguments {
