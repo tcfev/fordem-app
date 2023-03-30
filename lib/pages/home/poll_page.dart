@@ -3,9 +3,8 @@ import 'package:fordem/providers/poll_plurality_provider.dart';
 import 'package:provider/provider.dart';
 
 class PluralityPollEntityReaction {
-  PluralityPollEntityReaction(this.userId, this.agreement);
+  PluralityPollEntityReaction( this.agreement);
 
-  final String userId;
   final bool agreement;
 }
 
@@ -14,20 +13,11 @@ class RankedPairsPollBallot {}
 class PluralityPollBallot {
   PluralityPollBallot({
     required this.pollEntities,
-    required this.topic,
-    required this.timeCreated,
-    required this.createdBy,
     required this.anonymous,
     required this.multipleChoice,
-    required this.transferable,
   });
-  final String topic;
-  final DateTime timeCreated;
-  final String createdBy;
   final bool anonymous;
   final bool multipleChoice;
-  // transfer the poll to another user/group/channel
-  final bool transferable;
 
   final List<PluralityMajorityPollEntity> pollEntities;
 
@@ -41,12 +31,7 @@ class MajorityPollBallot {
 }
 
 class PollPageArguments {
-  PollPageArguments(this.userId);
-  final String userId;
-  bool _submitted = false;
-
-  bool get submitted => _submitted;
-  setSubmitted() => _submitted = true;
+  PollPageArguments();
 
   PluralityPollBallot? _pluralityPollBallot;
   MajorityPollBallot? _majorityPollBallo;
@@ -132,15 +117,8 @@ class PluralityPollWidget extends StatelessWidget {
 
           return Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  onSubmitted: (v) => pluralityPollProvider.setTopic(v),
-                  decoration: const InputDecoration(
-                    hintText: 'Enter Poll Topic',
-                  ),
-                ),
-              ),
+
+              
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
@@ -196,8 +174,7 @@ class PluralityPollWidget extends StatelessWidget {
                     //submit button
                     ElevatedButton(
                         onPressed: pluralityPollProvider.pollEntity.isEmpty ||
-                                !pluralityPollProvider.getLastSubmitted() ||
-                                pluralityPollProvider.getTopic() == ''
+                                !pluralityPollProvider.getLastSubmitted() 
                             ? null
                             : () {
                                 Navigator.pop(context,

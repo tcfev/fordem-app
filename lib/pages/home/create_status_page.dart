@@ -132,12 +132,11 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                     final ballot =
                         await Navigator.pushNamed(context, PollPage.routeName,
                             arguments: PollPageArguments(
-                              'UserID:987678',
                             ));
                     if (ballot is PollPageArguments) {
                       // Todo @armantorkzaban: add poll to the post
                       if (ballot.pluralityPollBallot != null) {
-                        print(ballot.pluralityPollBallot!.topic);
+                        
                       }
                     }
                   },
