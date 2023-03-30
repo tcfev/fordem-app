@@ -47,7 +47,6 @@ dependencies:
   url_launcher: any
   wallet: any
   window_location_href: any
-  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:
