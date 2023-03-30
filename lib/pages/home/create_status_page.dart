@@ -125,19 +125,17 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                   tooltip: 'Add a photo',
                   onPressed: () {},
                 ),
-                         IconButton(
+                IconButton(
                   icon: const Icon(Icons.poll_outlined),
                   tooltip: 'Add a poll',
                   onPressed: () async {
-                    final ballot =
-                        await Navigator.pushNamed(context, PollPage.routeName,
-                            arguments: PollPageArguments(
-                            ));
+                    final ballot = await Navigator.pushNamed(
+                      context,
+                      PollPage.routeName,
+                    );
                     if (ballot is PollPageArguments) {
                       // Todo @armantorkzaban: add poll to the post
-                      if (ballot.pluralityPollBallot != null) {
-                        
-                      }
+                      if (ballot.pluralityPollBallot != null) {}
                     }
                   },
                 ),

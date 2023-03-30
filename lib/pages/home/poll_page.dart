@@ -1,9 +1,235 @@
 import 'package:flutter/material.dart';
-import 'package:fordem/providers/poll_plurality_provider.dart';
-import 'package:provider/provider.dart';
+
+class PollPage extends StatefulWidget {
+  const PollPage({super.key});
+  static const routeName = '/pollPage';
+
+  @override
+  State<PollPage> createState() => _PollPageState();
+}
+
+class _PollPageState extends State<PollPage> {
+  String pollType = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView(
+        children: [
+          Center(
+            child: SelectableText.rich(
+              TextSpan(
+                text: pollType == '' ? 'Please select a polling method' : '',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DropdownButtonFormField(
+              onChanged: (v) {
+                pollType = v!;
+                setState(() {});
+              },
+              items: const [
+                DropdownMenuItem(
+                  value: 'majority',
+                  child: Text('majority'),
+                ),
+                DropdownMenuItem(
+                  value: 'ranked_pairs',
+                  child: Text('ranked pairs'),
+                ),
+              ],
+            ),
+          ),
+          if (pollType == 'majority') const PluralityPollWidget(),
+        ],
+      ),
+    );
+  }
+}
+
+class PluralityPollWidget extends StatefulWidget {
+  const PluralityPollWidget({super.key});
+
+  @override
+  State<PluralityPollWidget> createState() => _PluralityPollWidgetState();
+}
+
+class _PluralityPollWidgetState extends State<PluralityPollWidget> {
+  final List<PluralityMajorityPollEntity> _pollEntities = [];
+
+  bool _lastSubmitted = false;
+  bool _anonymous = false;
+  bool _multipleChoice = false;
+
+  lastSubmitted() {
+    setState(() {
+      _lastSubmitted = true;
+    });
+  }
+
+  removeIndex(PluralityMajorityPollEntity pollEntity) {
+    setState(() {
+      _pollEntities.removeWhere((element) => element.key == pollEntity.key);
+    });
+  }
+
+  addPollEntity(PluralityMajorityPollEntity pollEntity) {
+    _pollEntities.add(pollEntity);
+    setState(() {
+      _lastSubmitted = false;
+    });
+  }
+
+  reOrder(oldIndex, newIndex) {
+    var old = _pollEntities[oldIndex];
+    var newInd = _pollEntities[newIndex];
+    _pollEntities[oldIndex] = newInd;
+    _pollEntities[newIndex] = old;
+  }
+
+  PollPageArguments submitPoll() {
+    return PollPageArguments()
+      ..setPluralityPollBallot(
+        PluralityPollBallot(
+          pollEntities: _pollEntities,
+          anonymous: _anonymous,
+          multipleChoice: _multipleChoice,
+        ),
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 500,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Text('is Anonymous?'),
+                Checkbox(
+                    value: _anonymous,
+                    onChanged: (value) {
+                      _anonymous = !_anonymous;
+                    }),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Text('is MultiChoice?'),
+                Checkbox(
+                    value: _multipleChoice,
+                    onChanged: (bool? value) {
+                      _multipleChoice = !_multipleChoice;
+                    }),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ReorderableListView(
+              onReorder: (oldIndex, newIndex) {
+                reOrder(oldIndex, newIndex);
+              },
+              children: [
+                for (var entity in _pollEntities) entity,
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  key: const ValueKey('addPollEntity'),
+                  onPressed: _pollEntities.isNotEmpty && !_lastSubmitted
+                      ? null
+                      : () {
+                          addPollEntity(PluralityMajorityPollEntity(
+                              key: UniqueKey(),
+                              lastSubmitted: lastSubmitted,
+                              removeIndex: removeIndex));
+                        },
+                  child: const Text('Add Poll Entity'),
+                ),
+                //submit button
+                ElevatedButton(
+                    onPressed: _pollEntities.isEmpty || !_lastSubmitted
+                        ? null
+                        : () {
+                            Navigator.pop(context, submitPoll());
+                          },
+                    child: const Text('Submit Poll'))
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class PluralityMajorityPollEntity extends StatefulWidget {
+  const PluralityMajorityPollEntity(
+      {super.key, required this.lastSubmitted, required this.removeIndex});
+
+  final Function lastSubmitted;
+  final Function removeIndex;
+  @override
+  State<PluralityMajorityPollEntity> createState() =>
+      _PluralityMajorityPollEntityState();
+}
+
+class _PluralityMajorityPollEntityState
+    extends State<PluralityMajorityPollEntity> {
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          const Icon(Icons.menu),
+          const SizedBox(width: 8),
+          Expanded(
+            child: TextField(
+              controller: controller,
+              onSubmitted: (value) {
+                if (controller.text.isNotEmpty) {
+                  widget.lastSubmitted();
+                }
+              },
+              decoration: const InputDecoration(
+                labelText: 'Enter Label',
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              widget.removeIndex(widget);
+            },
+            icon: const Icon(Icons.delete),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class PluralityPollEntityReaction {
-  PluralityPollEntityReaction( this.agreement);
+  PluralityPollEntityReaction(this.agreement);
 
   final bool agreement;
 }
@@ -47,198 +273,4 @@ class PollPageArguments {
       _majorityPollBallo = majorityPollBallot;
   setRankedPairsPollBallot(RankedPairsPollBallot rankedPairsPollBallot) =>
       _rankedPairsPollBallo = rankedPairsPollBallot;
-}
-
-class PollPage extends StatefulWidget {
-  const PollPage({super.key, required this.pollPageArguments});
-  static const routeName = '/pollPage';
-  final PollPageArguments pollPageArguments;
-
-  @override
-  State<PollPage> createState() => _PollPageState();
-}
-
-class _PollPageState extends State<PollPage> {
-  String pollType = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: ListView(children: [
-        Center(
-            child: SelectableText.rich(TextSpan(
-          text: pollType == '' ? 'Please select a polling method' : '',
-        ))),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DropdownButtonFormField(
-            onChanged: (v) {
-              pollType = v!;
-              setState(() {});
-            },
-            items: const [
-              DropdownMenuItem(
-                value: 'plurality',
-                child: Text('plurality'),
-              ),
-              DropdownMenuItem(
-                value: 'majority',
-                child: Text('majority'),
-              ),
-              DropdownMenuItem(
-                value: 'ranked_pairs',
-                child: Text('ranked pairs'),
-              ),
-            ],
-          ),
-        ),
-        if (pollType == 'plurality')
-          ChangeNotifierProvider(
-            create: (context) =>
-                PluralityPollProvider(arguments: widget.pollPageArguments),
-            child: const PluralityPollWidget(),
-          ),
-      ]),
-    );
-  }
-}
-
-class PluralityPollWidget extends StatelessWidget {
-  const PluralityPollWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 500,
-      child: Consumer<PluralityPollProvider>(
-        builder: (context, pluralityPollProvider, child) {
-          final pollEntities = pluralityPollProvider.pollEntity;
-
-          return Column(
-            children: [
-
-              
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Text('is Anonymous?'),
-                    Checkbox(
-                        value: pluralityPollProvider.getAnonymous(),
-                        onChanged: (value) {
-                          pluralityPollProvider.setAnonymous(
-                              !pluralityPollProvider.getAnonymous());
-                        }),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    const Text('is MultiChoice?'),
-                    Checkbox(
-                        value: pluralityPollProvider.getMultipleChoice(),
-                        onChanged: (bool? value) {
-                          pluralityPollProvider.setMultipleChoice(
-                              !pluralityPollProvider.getMultipleChoice());
-                        }),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: ReorderableListView(
-                  onReorder: (oldIndex, newIndex) {
-                    pluralityPollProvider.reOrder(oldIndex, newIndex);
-                  },
-                  children: [
-                    for (var entity in pollEntities) entity,
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      key: const ValueKey('addPollEntity'),
-                      onPressed: pollEntities.isNotEmpty &&
-                              !pluralityPollProvider.getLastSubmitted()
-                          ? null
-                          : () {
-                              pluralityPollProvider.addPollEntity(
-                                  PluralityMajorityPollEntity(
-                                      key: UniqueKey()));
-                            },
-                      child: const Text('Add Poll Entity'),
-                    ),
-                    //submit button
-                    ElevatedButton(
-                        onPressed: pluralityPollProvider.pollEntity.isEmpty ||
-                                !pluralityPollProvider.getLastSubmitted() 
-                            ? null
-                            : () {
-                                Navigator.pop(context,
-                                    pluralityPollProvider.submitPoll());
-                              },
-                        child: const Text('Submit Poll'))
-                  ],
-                ),
-              )
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
-
-class PluralityMajorityPollEntity extends StatefulWidget {
-  const PluralityMajorityPollEntity({super.key});
-
-  @override
-  State<PluralityMajorityPollEntity> createState() =>
-      _PluralityMajorityPollEntityState();
-}
-
-class _PluralityMajorityPollEntityState
-    extends State<PluralityMajorityPollEntity> {
-  final TextEditingController controller = TextEditingController();
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          const Icon(Icons.menu),
-          const SizedBox(width: 8),
-          Expanded(
-            child: TextField(
-              controller: controller,
-              onSubmitted: (value) {
-                if (controller.text.isNotEmpty) {
-                  context.read<PluralityPollProvider>().lastSubmitted();
-                }
-              },
-              decoration: const InputDecoration(
-                labelText: 'Enter Label',
-              ),
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              context.read<PluralityPollProvider>().removeIndex(widget);
-            },
-            icon: const Icon(Icons.delete),
-          ),
-        ],
-      ),
-    );
-  }
 }
