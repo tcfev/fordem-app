@@ -85,14 +85,6 @@ class MyApp extends StatelessWidget {
               );
             },
           );
-
-          // MaterialPageRoute(
-          //   builder: (context) {
-          //     return PollPage(
-          //       pollPageArguments: args,
-          //     );
-          //   },
-          // );
         }
       },
     );

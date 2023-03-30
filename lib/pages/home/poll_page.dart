@@ -9,16 +9,33 @@ class PluralityPollEntityReaction {
   final bool agreement;
 }
 
-class RankedPairsPoll {}
+class RankedPairsPollBallot {}
 
-class PluralityPollResults {
-  PluralityPollResults(this.pollEntities);
+class PluralityPollBallot {
+  PluralityPollBallot(
+    this.pollEntities,
+    this.topic,
+    this.timeCreated,
+    this.createdBy,
+    this.anonymous,
+    this.multipleChoice,
+    this.transferable,
+  );
+  final String topic;
+  final DateTime timeCreated;
+  final String createdBy;
+  final bool anonymous;
+  final bool multipleChoice;
+  // transfer the poll to another user/group/channel
+  final bool transferable;
 
   final List<PluralityMajorityPollEntity> pollEntities;
+
+  final List<PluralityPollEntityReaction> pollEntityReactions = [];
 }
 
-class MajorityPollResults {
-  MajorityPollResults(this.pollEntities);
+class MajorityPollBallot {
+  MajorityPollBallot(this.pollEntities);
 
   final List<PluralityMajorityPollEntity> pollEntities;
 }
@@ -26,10 +43,25 @@ class MajorityPollResults {
 class PollPageArguments {
   PollPageArguments(this.userId);
   final String userId;
+  bool _submitted = false;
 
-  PluralityPollResults? _pluralityPoll;
-  MajorityPollResults? _majorityPoll;
-  RankedPairsPoll? _rankedPairsPoll;
+  bool get submitted => _submitted;
+  setSubmitted() => _submitted = true;
+
+  PluralityPollBallot? _pluralityPollBallot;
+  MajorityPollBallot? _majorityPollBallo;
+  RankedPairsPollBallot? _rankedPairsPollBallo;
+
+  PluralityPollBallot? get pluralityPollBallot => _pluralityPollBallot;
+  MajorityPollBallot? get majorityPollBallot => _majorityPollBallo;
+  RankedPairsPollBallot? get rankedPairsPollBallot => _rankedPairsPollBallo;
+
+  setPluralityPollBallot(PluralityPollBallot pluralityPollBallot) =>
+      _pluralityPollBallot = pluralityPollBallot;
+  setMajorityPollBallot(MajorityPollBallot majorityPollBallot) =>
+      _majorityPollBallo = majorityPollBallot;
+  setRankedPairsPollBallot(RankedPairsPollBallot rankedPairsPollBallot) =>
+      _rankedPairsPollBallo = rankedPairsPollBallot;
 }
 
 class PollPage extends StatefulWidget {
@@ -79,7 +111,7 @@ class _PollPageState extends State<PollPage> {
         if (pollType == 'plurality')
           ChangeNotifierProvider(
             create: (context) =>
-                PluralityPollProvider(widget.pollPageArguments.userId),
+                PluralityPollProvider(arguments: widget.pollPageArguments),
             child: const PluralityPollWidget(),
           ),
       ]),
@@ -104,7 +136,7 @@ class PluralityPollWidget extends StatelessWidget {
                 height: 400,
                 child: ReorderableListView(
                   onReorder: (oldIndex, newIndex) {
-                    // todo implement
+                    pluralityPollProvider.reOrder(oldIndex, newIndex);
                   },
                   children: [
                     for (var entity in pollEntities) entity,
@@ -119,7 +151,6 @@ class PluralityPollWidget extends StatelessWidget {
                     : () {
                         pluralityPollProvider.addPollEntity(
                             PluralityMajorityPollEntity(key: UniqueKey()));
-                        //pollEntities.add(const PluralityMajorityPollEntity());
                       },
                 child: const Text('Add Poll Entity'),
               ),
@@ -155,6 +186,8 @@ class _PluralityMajorityPollEntityState
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
+          const Icon(Icons.menu),
+          const SizedBox(width: 8),
           Expanded(
             child: TextField(
               controller: controller,
@@ -168,8 +201,12 @@ class _PluralityMajorityPollEntityState
               ),
             ),
           ),
-          const SizedBox(width: 8),
-          const Icon(Icons.menu),
+          IconButton(
+            onPressed: () {
+              context.read<PluralityPollProvider>().removeIndex(widget);
+            },
+            icon: const Icon(Icons.delete),
+          ),
         ],
       ),
     );

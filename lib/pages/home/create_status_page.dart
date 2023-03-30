@@ -22,22 +22,104 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
   grpc.Visibility _visibility = grpc.Visibility.public;
 
   List<XFile>? _imageFileList;
+  dynamic _pickImageError;
+  bool isVideo = false;
+  VideoPlayerController? _videoController;
+  VideoPlayerController? _toBeDisposed;
+  String? _retrieveDataError;
+  final ImagePicker _picker = ImagePicker();
+
+  final TextEditingController maxWidthController = TextEditingController();
+  final TextEditingController maxHeightController = TextEditingController();
+  final TextEditingController qualityController = TextEditingController();
+
+  bool _sensitive = false;
+  var renderOverlay = true;
+  var visible = true;
+  var switchLabelPosition = false;
+  var extend = false;
+  var mini = false;
+  var rmicons = false;
+  var customDialRoot = false;
+  var closeManually = false;
+  var useRAnimation = true;
+  var isDialOpen = ValueNotifier<bool>(false);
+  var speedDialDirection = SpeedDialDirection.up;
+  var buttonSize = const Size(56.0, 56.0);
+  var childrenButtonSize = const Size(56.0, 56.0);
+  var selectedfABLocation = FloatingActionButtonLocation.endDocked;
+
+  Text? _getRetrieveErrorWidget() {
+    if (_retrieveDataError != null) {
+      final Text result = Text(_retrieveDataError!);
+      _retrieveDataError = null;
+      return result;
+    }
+    return null;
+  }
+
+  Future<void> _displayPickImageDialog(
+      BuildContext context, OnPickImageCallback onPick) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Add optional parameters'),
+          content: Column(
+            children: <Widget>[
+              TextField(
+                controller: maxWidthController,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(
+                    hintText: 'Enter maxWidth if desired'),
+              ),
+              TextField(
+                controller: maxHeightController,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(
+                    hintText: 'Enter maxHeight if desired'),
+              ),
+              TextField(
+                controller: qualityController,
+                keyboardType: TextInputType.number,
+                decoration:
+                    const InputDecoration(hintText: 'Enter quality if desired'),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('CANCEL'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+                child: const Text('PICK'),
+                onPressed: () {
+                  final double? width = maxWidthController.text.isNotEmpty
+                      ? double.parse(maxWidthController.text)
+                      : null;
+                  final double? height = maxHeightController.text.isNotEmpty
+                      ? double.parse(maxHeightController.text)
+                      : null;
+                  final int? quality = qualityController.text.isNotEmpty
+                      ? int.parse(qualityController.text)
+                      : null;
+                  onPick(width, height, quality);
+                  Navigator.of(context).pop();
+                }),
+          ],
+        );
+      },
+    );
+  }
 
   void _setImageFileListFromFile(XFile? value) {
     _imageFileList = value == null ? null : <XFile>[value];
   }
-
-  dynamic _pickImageError;
-  bool isVideo = false;
-
-  VideoPlayerController? _videoController;
-  VideoPlayerController? _toBeDisposed;
-  String? _retrieveDataError;
-
-  final ImagePicker _picker = ImagePicker();
-  final TextEditingController maxWidthController = TextEditingController();
-  final TextEditingController maxHeightController = TextEditingController();
-  final TextEditingController qualityController = TextEditingController();
 
   Future<void> _playVideo(XFile? file) async {
     if (file != null && mounted) {
@@ -223,22 +305,6 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
     }
   }
 
-  bool _sensitive = false;
-  var renderOverlay = true;
-  var visible = true;
-  var switchLabelPosition = false;
-  var extend = false;
-  var mini = false;
-  var rmicons = false;
-  var customDialRoot = false;
-  var closeManually = false;
-  var useRAnimation = true;
-  var isDialOpen = ValueNotifier<bool>(false);
-  var speedDialDirection = SpeedDialDirection.up;
-  var buttonSize = const Size(56.0, 56.0);
-  var childrenButtonSize = const Size(56.0, 56.0);
-  var selectedfABLocation = FloatingActionButtonLocation.endDocked;
-
   void _submit() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -390,7 +456,8 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                   childPadding: const EdgeInsets.all(5),
                   spaceBetweenChildren: 4,
                   buttonSize:
-                      buttonSize, // it's the SpeedDial size which defaults to 56 itself
+                      buttonSize, // it's the SpeedDial size which defaults to 56
+                  // itself
                   label: extend
                       ? const Text('Open')
                       : null, // The label of the main button.
@@ -408,9 +475,6 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                   elevation: 8.0,
                   animationCurve: Curves.elasticInOut,
                   isOpenOnStart: false,
-                  // shape: customDialRoot
-                  //     ? const RoundedRectangleBorder()
-                  //     : const StadiumBorder(),
                   children: [
                     SpeedDialChild(
                       child: const Icon(Icons.photo),
@@ -483,8 +547,10 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                   icon: const Icon(Icons.poll_outlined),
                   tooltip: 'Add a poll',
                   onPressed: () {
-                    Navigator.pushNamed(context, PollPage.routeName, arguments:  
-                    PollPageArguments('Ech',));
+                    Navigator.pushNamed(context, PollPage.routeName,
+                        arguments: PollPageArguments(
+                          'Ech',
+                        ));
                   },
                 ),
                 FloatingActionButton(
@@ -499,74 +565,6 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
         ),
       ),
     );
-  }
-
-
-  Text? _getRetrieveErrorWidget() {
-    if (_retrieveDataError != null) {
-      final Text result = Text(_retrieveDataError!);
-      _retrieveDataError = null;
-      return result;
-    }
-    return null;
-  }
-
-  Future<void> _displayPickImageDialog(
-      BuildContext context, OnPickImageCallback onPick) async {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Add optional parameters'),
-            content: Column(
-              children: <Widget>[
-                TextField(
-                  controller: maxWidthController,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      hintText: 'Enter maxWidth if desired'),
-                ),
-                TextField(
-                  controller: maxHeightController,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                      hintText: 'Enter maxHeight if desired'),
-                ),
-                TextField(
-                  controller: qualityController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                      hintText: 'Enter quality if desired'),
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('CANCEL'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                  child: const Text('PICK'),
-                  onPressed: () {
-                    final double? width = maxWidthController.text.isNotEmpty
-                        ? double.parse(maxWidthController.text)
-                        : null;
-                    final double? height = maxHeightController.text.isNotEmpty
-                        ? double.parse(maxHeightController.text)
-                        : null;
-                    final int? quality = qualityController.text.isNotEmpty
-                        ? int.parse(qualityController.text)
-                        : null;
-                    onPick(width, height, quality);
-                    Navigator.of(context).pop();
-                  }),
-            ],
-          );
-        });
   }
 }
 
@@ -622,4 +620,3 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
 
 typedef OnPickImageCallback = void Function(
     double? maxWidth, double? maxHeight, int? quality);
-
