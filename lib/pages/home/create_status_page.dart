@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
+import 'package:fordem/pages/home/poll_page.dart';
 
 class CreateStatusPage extends StatefulWidget {
   const CreateStatusPage({Key? key}) : super(key: key);
@@ -124,10 +125,22 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                   tooltip: 'Add a photo',
                   onPressed: () {},
                 ),
-                IconButton(
+                         IconButton(
                   icon: const Icon(Icons.poll_outlined),
                   tooltip: 'Add a poll',
-                  onPressed: () {},
+                  onPressed: () async {
+                    final ballot =
+                        await Navigator.pushNamed(context, PollPage.routeName,
+                            arguments: PollPageArguments(
+                              'UserID:987678',
+                            ));
+                    if (ballot is PollPageArguments) {
+                      // Todo @armantorkzaban: add poll to the post
+                      if (ballot.pluralityPollBallot != null) {
+                        print(ballot.pluralityPollBallot!.topic);
+                      }
+                    }
+                  },
                 ),
                 FloatingActionButton(
                   mini: true,
