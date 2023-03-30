@@ -56,16 +56,19 @@ class PluralityPollProvider extends ChangeNotifier {
   setTopic(String topic) => _topic = topic;
   getTopic() => _topic;
 
-  submitPoll() {
-    arguments.setPluralityPollBallot(PluralityPollBallot(
-      pollEntities: _pollEntity,
-      topic: _topic,
-      timeCreated: DateTime.now(),
-      createdBy: arguments.userId,
-      anonymous: _anonymous,
-      multipleChoice: _multipleChoice,
-      transferable: false,
-    ));
+  PollPageArguments submitPoll() {
+    return arguments
+      ..setPluralityPollBallot(
+        PluralityPollBallot(
+          pollEntities: _pollEntity,
+          topic: _topic,
+          timeCreated: DateTime.now(),
+          createdBy: arguments.userId,
+          anonymous: _anonymous,
+          multipleChoice: _multipleChoice,
+          transferable: false,
+        ),
+      );
   }
 
   List<PluralityMajorityPollEntity> get pollEntity => _pollEntity;

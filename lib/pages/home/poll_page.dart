@@ -200,7 +200,8 @@ class PluralityPollWidget extends StatelessWidget {
                                 pluralityPollProvider.getTopic() == ''
                             ? null
                             : () {
-                                pluralityPollProvider.submitPoll();
+                                Navigator.pop(context,
+                                    pluralityPollProvider.submitPoll());
                               },
                         child: const Text('Submit Poll'))
                   ],
