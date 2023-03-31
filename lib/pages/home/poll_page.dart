@@ -43,21 +43,26 @@ class _PollPageState extends State<PollPage> {
               ],
             ),
           ),
-          if (pollType == 'majority') const MajorityPollWidget(),
+          if (pollType == 'majority') const PollWidget(pollType: 'majority'),
+          if (pollType == 'ranked_pairs')
+            const PollWidget(
+              pollType: 'ranked_pairs',
+            ),
         ],
       ),
     );
   }
 }
 
-class MajorityPollWidget extends StatefulWidget {
-  const MajorityPollWidget({super.key});
+class PollWidget extends StatefulWidget {
+  const PollWidget({super.key, required this.pollType});
+  final String pollType;
 
   @override
-  State<MajorityPollWidget> createState() => _MajorityPollWidgetState();
+  State<PollWidget> createState() => _PollWidgetState();
 }
 
-class _MajorityPollWidgetState extends State<MajorityPollWidget> {
+class _PollWidgetState extends State<PollWidget> {
   final List<PluralityMajorityPollEntity> _pollEntities = [];
   final List<String> _pollEntitiesString = [];
   bool _lastSubmitted = false;
@@ -99,10 +104,11 @@ class _MajorityPollWidgetState extends State<MajorityPollWidget> {
     });
   }
 
-  PollPageArguments submitPoll() {
+  PollPageArguments submitPoll(String pollType) {
     return PollPageArguments()
       ..setPluralityPollBallot(
-        PluralityPollBallot(
+        PollBallot(
+          pollType: pollType,
           pollEntities: _pollEntitiesString,
           anonymous: _anonymous,
           multipleChoice: _multipleChoice,
@@ -132,14 +138,16 @@ class _MajorityPollWidgetState extends State<MajorityPollWidget> {
                 const SizedBox(
                   width: 8,
                 ),
-                const Text('is MultiChoice?'),
-                Checkbox(
-                    value: _multipleChoice,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _multipleChoice = !_multipleChoice;
-                      });
-                    }),
+                if (widget.pollType == 'majority')
+                  const Text('is MultiChoice?'),
+                if (widget.pollType == 'majority')
+                  Checkbox(
+                      value: _multipleChoice,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _multipleChoice = !_multipleChoice;
+                        });
+                      }),
               ],
             ),
           ),
@@ -175,7 +183,7 @@ class _MajorityPollWidgetState extends State<MajorityPollWidget> {
                     onPressed: _pollEntities.isEmpty || !_lastSubmitted
                         ? null
                         : () {
-                            Navigator.pop(context, submitPoll());
+                            Navigator.pop(context, submitPoll(widget.pollType));
                           },
                     child: const Text('Submit Poll'))
               ],
@@ -214,8 +222,13 @@ class _PluralityMajorityPollEntityState
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          const Icon(Icons.menu),
           const SizedBox(width: 8),
+          IconButton(
+            onPressed: () {
+              widget.removeIndex(widget);
+            },
+            icon: const Icon(Icons.delete),
+          ),
           Expanded(
             child: TextField(
               controller: controller,
@@ -229,42 +242,30 @@ class _PluralityMajorityPollEntityState
               ),
             ),
           ),
-          IconButton(
-            onPressed: () {
-              widget.removeIndex(widget);
-            },
-            icon: const Icon(Icons.delete),
-          ),
         ],
       ),
     );
   }
 }
 
-class PluralityPollEntityReaction {
-  PluralityPollEntityReaction(this.agreement);
+// class PluralityPollEntityReaction {
+//   PluralityPollEntityReaction(this.agreement);
 
-  final bool agreement;
-}
+//   final bool agreement;
+// }
 
 class RankedPairsPollBallot {}
 
-class PluralityPollBallot {
-  PluralityPollBallot({
+class PollBallot {
+  PollBallot({
+    required this.pollType,
     required this.pollEntities,
     required this.anonymous,
     required this.multipleChoice,
   });
+  final String pollType;
   final bool anonymous;
   final bool multipleChoice;
-
-  final List<String> pollEntities;
-
-  final List<PluralityPollEntityReaction> pollEntityReactions = [];
-}
-
-class MajorityPollBallot {
-  MajorityPollBallot(this.pollEntities);
 
   final List<String> pollEntities;
 }
@@ -272,18 +273,14 @@ class MajorityPollBallot {
 class PollPageArguments {
   PollPageArguments();
 
-  PluralityPollBallot? _pluralityPollBallot;
-  MajorityPollBallot? _majorityPollBallo;
+  PollBallot? _pluralityPollBallot;
   RankedPairsPollBallot? _rankedPairsPollBallo;
 
-  PluralityPollBallot? get pluralityPollBallot => _pluralityPollBallot;
-  MajorityPollBallot? get majorityPollBallot => _majorityPollBallo;
+  PollBallot? get pluralityPollBallot => _pluralityPollBallot;
   RankedPairsPollBallot? get rankedPairsPollBallot => _rankedPairsPollBallo;
 
-  setPluralityPollBallot(PluralityPollBallot pluralityPollBallot) =>
+  setPluralityPollBallot(PollBallot pluralityPollBallot) =>
       _pluralityPollBallot = pluralityPollBallot;
-  setMajorityPollBallot(MajorityPollBallot majorityPollBallot) =>
-      _majorityPollBallo = majorityPollBallot;
   setRankedPairsPollBallot(RankedPairsPollBallot rankedPairsPollBallot) =>
       _rankedPairsPollBallo = rankedPairsPollBallot;
 }
