@@ -53,6 +53,7 @@ class _PollPageState extends State<PollPage> {
     );
   }
 }
+
 // todo @armantorkzaban: add indicator of 'relative/absolute/…' in majorty polls
 class PollWidget extends StatefulWidget {
   const PollWidget({super.key, required this.pollType});
@@ -67,7 +68,6 @@ class _PollWidgetState extends State<PollWidget> {
   final List<String> _pollEntitiesString = [];
   bool _lastSubmitted = false;
   bool _anonymous = false;
-  bool _multipleChoice = false;
 
   lastSubmitted(PluralityMajorityPollEntity pollEntity, String value) {
     int i =
@@ -126,16 +126,6 @@ class _PollWidgetState extends State<PollWidget> {
                 const SizedBox(
                   width: 8,
                 ),
-                if (widget.pollType == 'majority')
-                  const Text('is MultiChoice?'),
-                if (widget.pollType == 'majority')
-                  Checkbox(
-                      value: _multipleChoice,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _multipleChoice = !_multipleChoice;
-                        });
-                      }),
               ],
             ),
           ),
@@ -174,10 +164,10 @@ class _PollWidgetState extends State<PollWidget> {
                             Navigator.pop(
                               context,
                               PollBallot(
+                                pollId: 'somePollId',
                                 pollType: widget.pollType,
                                 pollEntities: _pollEntitiesString,
                                 anonymous: _anonymous,
-                                multipleChoice: _multipleChoice,
                               ),
                             );
                           },
@@ -246,14 +236,14 @@ class _PluralityMajorityPollEntityState
 
 class PollBallot {
   PollBallot({
+    required this.pollId,
     required this.pollType,
     required this.pollEntities,
     required this.anonymous,
-    required this.multipleChoice,
   });
+  final String pollId;
   final String pollType;
   final bool anonymous;
-  final bool multipleChoice;
 
   final List<String> pollEntities;
 }
