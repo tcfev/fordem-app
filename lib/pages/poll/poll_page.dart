@@ -53,7 +53,7 @@ class _PollPageState extends State<PollPage> {
     );
   }
 }
-
+// todo @armantorkzaban: add indicator of 'relative/absolute/…' in majorty polls
 class PollWidget extends StatefulWidget {
   const PollWidget({super.key, required this.pollType});
   final String pollType;

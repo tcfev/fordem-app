@@ -14,6 +14,7 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
     // demonstrates the poll with its type and the poll reactions in it in a ListView
     // of poll entities together with the number of reactions to each poll entity
 
+// todo @armantorkzaban: enable reactions to the poll entities
     return SizedBox(
       height: 300,
       child: ListView(
