@@ -26,7 +26,7 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
             (PollEntry element) => element.entryId == _pollReaction!.entryId)
         .pollReactions
         .remove(_pollReaction!);
-        // todo @armantorkzaban: send it back to server
+    // todo @armantorkzaban: send it back to server
   }
 
   addReactionToPollEntity() {
@@ -44,6 +44,10 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
 
   @override
   Widget build(BuildContext context) {
+    int totalReactions = 0;
+    for (PollEntry pollEntry in poll!.pollEntries) {
+      totalReactions += pollEntry.pollReactions.length;
+    }
     // demonstrates the poll with its type and the poll reactions in it in a ListView
     // of poll entities together with the number of reactions to each poll entity
 
@@ -78,20 +82,20 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
                     : null, // todo: @armantorkzaban: add checkbox for ranked pairs polls,
                 title: Text(pollEntry.entryId),
                 trailing: Text(
-                  pollEntry.pollReactions.length.toString(),
-                ),
+                    '${pollEntry.pollReactions.length / totalReactions * 100}%'),
               ),
             Container(
               color: Colors.white,
               child: Center(
                 child: _pollReaction == null && !_isPollReactionSent
-                    ? const Placeholder()
+                    ? null
                     : ElevatedButton(
                         onPressed: () {
                           if (_isPollReactionSent) {
                             setState(
                               () {
                                 revertReaction();
+                                _chosenPollEntry = null;
                                 _isPollReactionSent = false;
                               },
                             );
