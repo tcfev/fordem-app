@@ -75,13 +75,19 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
             Container(
               color: Colors.white,
               child: Center(
-                child: ElevatedButton(
-                  onPressed: _pollReaction == null
-                      ? null
-                      : () {
+                child: _pollReaction == null && !_isPollReactionSent
+                    ? const Placeholder()
+                    : ElevatedButton(
+                        onPressed: () {
                           if (_isPollReactionSent) {
                             setState(
                               () {
+                                poll!.pollEntries
+                                    .firstWhere((PollEntry element) =>
+                                        element.entryId ==
+                                        _pollReaction!.entryId)
+                                    .pollReactions
+                                    .remove(_pollReaction!);
                                 _isPollReactionSent = false;
                               },
                             );
@@ -89,10 +95,10 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
                             addReactionToPollEntity();
                           }
                         },
-                  child: !_isPollReactionSent
-                      ? const Text('submit')
-                      : const Text('revert'),
-                ),
+                        child: !_isPollReactionSent
+                            ? const Text('submit')
+                            : const Text('revert'),
+                      ),
               ),
             ),
             const Text('reactions:'),
