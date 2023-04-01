@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
+import 'package:fordem/pages/poll/poll_page.dart';
+import 'package:fordem/widgets/poll_ballot.dart';
 
 class CreateStatusPage extends StatefulWidget {
   const CreateStatusPage({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
   final _controller = TextEditingController();
   grpc.Visibility _visibility = grpc.Visibility.public;
   bool _sensitive = false;
+  PollBallotFromServer? _pollBallot;
 
   void _submit() async {
     if (!_formKey.currentState!.validate()) {
@@ -60,7 +63,8 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
+            SizedBox(
+              height: 300,
               child: ListView(
                 padding: const EdgeInsets.all(4.0),
                 children: [
@@ -134,7 +138,11 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                     );
                     if (ballot is PollBallot) {
                       // Todo @armantorkzaban: add poll to the post
-                      print(ballot.pollEntities.first);
+                      setState(
+                        () {
+                          _pollBallot = sampleResult;
+                        },
+                      );
                     }
                   },
                 ),
@@ -146,6 +154,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                 ),
               ],
             ),
+            if (_pollBallot != null) PollBallotWidget(poll: _pollBallot!),
           ],
         ),
       ),

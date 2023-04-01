@@ -1,6 +1,6 @@
 import 'package:fordem/app_state.dart';
 import 'package:fordem/pages/home/home_page.dart';
-import 'package:fordem/pages/home/poll_page.dart';
+import 'package:fordem/pages/poll/poll_page.dart';
 import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
