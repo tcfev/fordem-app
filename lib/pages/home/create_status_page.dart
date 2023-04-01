@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
-import 'package:fordem/pages/home/poll_page.dart';
 
 class CreateStatusPage extends StatefulWidget {
   const CreateStatusPage({Key? key}) : super(key: key);
@@ -133,13 +132,9 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                       context,
                       PollPage.routeName,
                     );
-                    if (ballot is PollPageArguments) {
+                    if (ballot is PollBallot) {
                       // Todo @armantorkzaban: add poll to the post
-                      if (ballot.pluralityPollBallot != null) {
-                        print(ballot.pluralityPollBallot!.pollEntities.first);
-                      } else if (ballot.rankedPairsPollBallot != null) {
-                        print(ballot.rankedPairsPollBallot);
-                      }
+                      print(ballot.pollEntities.first);
                     }
                   },
                 ),

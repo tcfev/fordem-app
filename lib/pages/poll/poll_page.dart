@@ -104,18 +104,6 @@ class _PollWidgetState extends State<PollWidget> {
     });
   }
 
-  PollPageArguments submitPoll(String pollType) {
-    return PollPageArguments()
-      ..setPluralityPollBallot(
-        PollBallot(
-          pollType: pollType,
-          pollEntities: _pollEntitiesString,
-          anonymous: _anonymous,
-          multipleChoice: _multipleChoice,
-        ),
-      );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -183,7 +171,15 @@ class _PollWidgetState extends State<PollWidget> {
                     onPressed: _pollEntities.isEmpty || !_lastSubmitted
                         ? null
                         : () {
-                            Navigator.pop(context, submitPoll(widget.pollType));
+                            Navigator.pop(
+                              context,
+                              PollBallot(
+                                pollType: widget.pollType,
+                                pollEntities: _pollEntitiesString,
+                                anonymous: _anonymous,
+                                multipleChoice: _multipleChoice,
+                              ),
+                            );
                           },
                     child: const Text('Submit Poll'))
               ],
@@ -248,14 +244,6 @@ class _PluralityMajorityPollEntityState
   }
 }
 
-// class PluralityPollEntityReaction {
-//   PluralityPollEntityReaction(this.agreement);
-
-//   final bool agreement;
-// }
-
-class RankedPairsPollBallot {}
-
 class PollBallot {
   PollBallot({
     required this.pollType,
@@ -268,19 +256,4 @@ class PollBallot {
   final bool multipleChoice;
 
   final List<String> pollEntities;
-}
-
-class PollPageArguments {
-  PollPageArguments();
-
-  PollBallot? _pluralityPollBallot;
-  RankedPairsPollBallot? _rankedPairsPollBallo;
-
-  PollBallot? get pluralityPollBallot => _pluralityPollBallot;
-  RankedPairsPollBallot? get rankedPairsPollBallot => _rankedPairsPollBallo;
-
-  setPluralityPollBallot(PollBallot pluralityPollBallot) =>
-      _pluralityPollBallot = pluralityPollBallot;
-  setRankedPairsPollBallot(RankedPairsPollBallot rankedPairsPollBallot) =>
-      _rankedPairsPollBallo = rankedPairsPollBallot;
 }
