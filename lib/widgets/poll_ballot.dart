@@ -11,9 +11,13 @@ class PollBallotWidget extends StatefulWidget {
 class _PollBallotWidgetState extends State<PollBallotWidget> {
   String? _chosenPollEntityInMajorityPoll;
   PollReaction? _pollReaction;
+  bool _isPollReactionSent = false;
 
   addReactionToPollEntity(PollReaction reaction) {
     print(reaction.pollEntity);
+    setState(() {
+      _isPollReactionSent = true;
+    });
     // todo @armantorkzaban: send it back to server
   }
 
@@ -32,24 +36,26 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
             for (var entity in widget.poll.pollEntities)
               for (var key in entity.keys)
                 ListTile(
-                  leading: widget.poll.pollType == 'majority'
-                      ? Radio<String>(
-                          value: key,
-                          groupValue: _chosenPollEntityInMajorityPoll,
-                          onChanged: (String? str) {
-                            setState(
-                              () {
-                                _chosenPollEntityInMajorityPoll = str;
-                                _pollReaction = PollReaction(
-                                    pollId: widget.poll.pollId,
-                                    pollEntity: key,
-                                    reaction: 1,
-                                    timeOfReaction: DateTime.now(),
-                                    personWhoReacted: 'personWhoReacted');
+                  leading: !_isPollReactionSent
+                      ? widget.poll.pollType == 'majority'
+                          ? Radio<String>(
+                              value: key,
+                              groupValue: _chosenPollEntityInMajorityPoll,
+                              onChanged: (String? str) {
+                                setState(
+                                  () {
+                                    _chosenPollEntityInMajorityPoll = str;
+                                    _pollReaction = PollReaction(
+                                        pollId: widget.poll.pollId,
+                                        pollEntity: key,
+                                        reaction: 1,
+                                        timeOfReaction: DateTime.now(),
+                                        personWhoReacted: 'personWhoReacted');
+                                  },
+                                );
                               },
-                            );
-                          },
-                        )
+                            )
+                          : null
                       : null, // todo: @armantorkzaban: add checkbox for ranked pairs polls,
                   title: Text(key),
                   trailing: Text(
@@ -58,18 +64,25 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
                 ),
             Container(
               color: Colors.white,
-              child: Row(
-                children: [
-                  const Text('submit'),
-                  IconButton(
-                      color: Colors.amber,
-                      onPressed: () {
-                        if (_pollReaction != null) {
-                          addReactionToPollEntity(_pollReaction!);
-                        }
-                      },
-                      icon: const Icon(Icons.add)),
-                ],
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_pollReaction != null) {
+                      if (_isPollReactionSent) {
+                        setState(
+                          () {
+                            _isPollReactionSent = false;
+                          },
+                        );
+                      } else {
+                        addReactionToPollEntity(_pollReaction!);
+                      }
+                    }
+                  },
+                  child: !_isPollReactionSent
+                      ? const Text('submit')
+                      : const Text('revert'),
+                ),
               ),
             ),
             const Text('reactions:'),
