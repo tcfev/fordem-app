@@ -20,6 +20,15 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
     poll = widget.poll;
   }
 
+  revertReaction() {
+    poll!.pollEntries
+        .firstWhere(
+            (PollEntry element) => element.entryId == _pollReaction!.entryId)
+        .pollReactions
+        .remove(_pollReaction!);
+        // todo @armantorkzaban: send it back to server
+  }
+
   addReactionToPollEntity() {
     setState(() {
       poll!.pollEntries
@@ -82,12 +91,7 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
                           if (_isPollReactionSent) {
                             setState(
                               () {
-                                poll!.pollEntries
-                                    .firstWhere((PollEntry element) =>
-                                        element.entryId ==
-                                        _pollReaction!.entryId)
-                                    .pollReactions
-                                    .remove(_pollReaction!);
+                                revertReaction();
                                 _isPollReactionSent = false;
                               },
                             );
