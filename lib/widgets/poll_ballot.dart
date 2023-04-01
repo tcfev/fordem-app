@@ -9,13 +9,25 @@ class PollBallotWidget extends StatefulWidget {
 }
 
 class _PollBallotWidgetState extends State<PollBallotWidget> {
-  String? _chosenPollEntityInMajorityPoll;
-  PollReaction? _pollReaction;
+  String? _chosenPollEntry;
   bool _isPollReactionSent = false;
+  PollReaction? _pollReaction;
+  PollBallotFromServer? poll;
 
-  addReactionToPollEntity(PollReaction reaction) {
-    print(reaction.pollEntity);
+  @override
+  initState() {
+    super.initState();
+    poll = widget.poll;
+  }
+
+  addReactionToPollEntity() {
     setState(() {
+      poll!.pollEntries
+          .firstWhere(
+              (PollEntry element) => element.entryId == _pollReaction!.entryId)
+          .pollReactions
+          .add(_pollReaction!);
+      print(_pollReaction!.entryId);
       _isPollReactionSent = true;
     });
     // todo @armantorkzaban: send it back to server
@@ -33,52 +45,50 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
         color: Colors.blue,
         child: ListView(
           children: [
-            for (var entity in widget.poll.pollEntities)
-              for (var key in entity.keys)
-                ListTile(
-                  leading: !_isPollReactionSent
-                      ? widget.poll.pollType == 'majority'
-                          ? Radio<String>(
-                              value: key,
-                              groupValue: _chosenPollEntityInMajorityPoll,
-                              onChanged: (String? str) {
-                                setState(
-                                  () {
-                                    _chosenPollEntityInMajorityPoll = str;
-                                    _pollReaction = PollReaction(
-                                        pollId: widget.poll.pollId,
-                                        pollEntity: key,
-                                        reaction: 1,
-                                        timeOfReaction: DateTime.now(),
-                                        personWhoReacted: 'personWhoReacted');
-                                  },
-                                );
-                              },
-                            )
-                          : null
-                      : null, // todo: @armantorkzaban: add checkbox for ranked pairs polls,
-                  title: Text(key),
-                  trailing: Text(
-                    entity[key]!.length.toString(),
-                  ),
+            for (PollEntry pollEntry in poll!.pollEntries)
+              ListTile(
+                leading: !_isPollReactionSent
+                    ? poll!.pollType == 'majority'
+                        ? Radio<String>(
+                            value: pollEntry.entryId,
+                            groupValue: _chosenPollEntry,
+                            onChanged: (String? str) {
+                              setState(
+                                () {
+                                  _chosenPollEntry = str;
+                                  _pollReaction = PollReaction(
+                                      entryId: pollEntry.entryId,
+                                      reaction: 1,
+                                      timeOfReaction: DateTime.now(),
+                                      personWhoReacted: 'personWhoReacted');
+                                },
+                              );
+                            },
+                          )
+                        : null
+                    : null, // todo: @armantorkzaban: add checkbox for ranked pairs polls,
+                title: Text(pollEntry.entryId),
+                trailing: Text(
+                  pollEntry.pollReactions.length.toString(),
                 ),
+              ),
             Container(
               color: Colors.white,
               child: Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    if (_pollReaction != null) {
-                      if (_isPollReactionSent) {
-                        setState(
-                          () {
-                            _isPollReactionSent = false;
-                          },
-                        );
-                      } else {
-                        addReactionToPollEntity(_pollReaction!);
-                      }
-                    }
-                  },
+                  onPressed: _pollReaction == null
+                      ? null
+                      : () {
+                          if (_isPollReactionSent) {
+                            setState(
+                              () {
+                                _isPollReactionSent = false;
+                              },
+                            );
+                          } else {
+                            addReactionToPollEntity();
+                          }
+                        },
                   child: !_isPollReactionSent
                       ? const Text('submit')
                       : const Text('revert'),
@@ -86,15 +96,14 @@ class _PollBallotWidgetState extends State<PollBallotWidget> {
               ),
             ),
             const Text('reactions:'),
-            for (var entity in widget.poll.pollEntities)
-              for (var value in entity.values)
-                for (PollReaction item in value)
-                  ListTile(
-                    title: Text(item.personWhoReacted),
-                    trailing: Text(
-                      item.timeOfReaction.toString(),
-                    ),
+            for (PollEntry entity in poll!.pollEntries)
+              for (PollReaction item in entity.pollReactions)
+                ListTile(
+                  title: Text(item.personWhoReacted),
+                  trailing: Text(
+                    item.timeOfReaction.toString(),
                   ),
+                ),
           ],
         ),
       ),
@@ -108,14 +117,14 @@ class PollBallotFromServer {
   PollBallotFromServer({
     required this.pollId,
     required this.pollType,
-    required this.pollEntities,
+    required this.pollEntries,
     required this.timeCreated,
     required this.timeEnded,
     required this.pollCreator,
   });
   final String pollId;
   final String pollType;
-  final List<Map<String, List<PollReaction>>> pollEntities;
+  final List<PollEntry> pollEntries;
   final DateTime timeCreated;
   final DateTime? timeEnded;
   final String pollCreator;
@@ -126,54 +135,55 @@ class PollBallotFromServer {
 
 class PollReaction {
   PollReaction({
-    required this.pollId,
-    required this.pollEntity,
+    required this.entryId,
     required this.reaction,
     required this.timeOfReaction,
     required this.personWhoReacted,
   });
-  final String pollId;
-  final String pollEntity;
+  final String entryId;
   final int reaction;
   final DateTime timeOfReaction;
   final String personWhoReacted;
 }
 
 var sampleResult = PollBallotFromServer(
-    pollId: 'someId',
+    pollId: 'somePoll',
     pollType: 'majority',
-    pollEntities: [
-      {
-        'A': [
+    pollEntries: [
+      PollEntry(entryId: 'entry-2')
+        ..pollReactions.addAll([
           PollReaction(
-              pollEntity: 'A',
-              pollId: 'someId-1',
+              entryId: 'entry-2',
               reaction: 1,
               timeOfReaction: DateTime(2022, 1, 1, 1, 1),
               personWhoReacted: 'person1'),
           PollReaction(
-              pollEntity: 'A',
-              pollId: 'someId-2',
+              entryId: 'entry-2',
               reaction: 1,
               timeOfReaction: DateTime(2022, 1, 1, 1, 2),
               personWhoReacted: 'person2'),
-        ],
-        'B': [
+        ]),
+      PollEntry(entryId: 'entry-1')
+        ..pollReactions.addAll([
           PollReaction(
-              pollEntity: 'B',
-              pollId: 'someId-3',
+              entryId: 'entry-1',
               reaction: 1,
               timeOfReaction: DateTime(2022, 1, 1, 1, 3),
               personWhoReacted: 'person3'),
           PollReaction(
-              pollEntity: 'B',
-              pollId: 'someId-4',
+              entryId: 'entry-1',
               reaction: 1,
               timeOfReaction: DateTime(2022, 1, 1, 1, 4),
               personWhoReacted: 'person4'),
-        ],
-      }
+        ])
     ],
     timeCreated: DateTime(2022),
     timeEnded: null,
-    pollCreator: 'someID');
+    pollCreator: 'userID');
+
+class PollEntry {
+  PollEntry({required this.entryId});
+
+  final String entryId;
+  List<PollReaction> pollReactions = [];
+}
