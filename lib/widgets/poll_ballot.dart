@@ -270,7 +270,9 @@ class _RankedPairsWidgetState extends State<RankedPairsWidget> {
   final Map<PollEntry, PollReactionRankedPairs> _pollReactions = {};
 
   _addReaction(PollEntry entry, PollReactionRankedPairs reaction) {
-    _pollReactions[entry] = reaction;
+    setState(() {
+      _pollReactions[entry] = reaction;
+    });
   }
 
   @override
@@ -288,22 +290,31 @@ class _RankedPairsWidgetState extends State<RankedPairsWidget> {
         child: ListView(
           children: [
             for (PollEntry entity in widget.poll.pollEntries)
-              Row(
-                children: [
-                  RankedPairEntryWidget(
-                    value: _notifier.value,
-                    pollEntry: entity,
-                    poll: widget.poll,
-                    collect: _addReaction,
+              Container(
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.black,
+                    ),
                   ),
-                  const Spacer(
-                    flex: 3,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(entity.entryId),
-                  ),
-                ],
+                ),
+                child: Row(
+                  children: [
+                    RankedPairEntryWidget(
+                      value: _notifier.value,
+                      pollEntry: entity,
+                      poll: widget.poll,
+                      collect: _addReaction,
+                    ),
+                    const Spacer(
+                      flex: 3,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(entity.entryId),
+                    ),
+                  ],
+                ),
               ),
             ElevatedButton(
               onPressed: _submitted
@@ -313,12 +324,14 @@ class _RankedPairsWidgetState extends State<RankedPairsWidget> {
                         _notifier.value = !_notifier.value;
                       });
                     }
-                  : () {
-                      // send the reactions to the server
-                      setState(() {
-                        _submitted = !_submitted;
-                      });
-                    },
+                  : _pollReactions.length != widget.poll.pollEntries.length
+                      ? null
+                      : () {
+                          // send the reactions to the server
+                          setState(() {
+                            _submitted = !_submitted;
+                          });
+                        },
               child: _submitted ? const Text('revert') : const Text('submit'),
             )
           ],

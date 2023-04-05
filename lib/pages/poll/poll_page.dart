@@ -43,9 +43,9 @@ class _PollPageState extends State<PollPage> {
               ],
             ),
           ),
-          if (pollType == 'majority') const PollWidget(pollType: 'majority'),
-          if (pollType == 'ranked_pairs')
-            const PollWidget(pollType: 'ranked_pairs'),
+          pollType == 'ranked_pairs'
+              ? const PollWidget(pollType: 'ranked_pairs')
+              : const PollWidget(pollType: 'majority'),
         ],
       ),
     );
@@ -115,12 +115,15 @@ class _PollWidgetState extends State<PollWidget> {
               children: [
                 const Text('is Anonymous?'),
                 Checkbox(
-                    value: _anonymous,
-                    onChanged: (value) {  
-                      setState(() {
+                  value: _anonymous,
+                  onChanged: (value) {
+                    setState(
+                      () {
                         _anonymous = !_anonymous;
-                      });
-                    }),
+                      },
+                    );
+                  },
+                ),
                 const SizedBox(
                   width: 8,
                 ),
@@ -186,12 +189,10 @@ class PollEntity extends StatefulWidget {
   final Function lastSubmitted;
   final Function removeIndex;
   @override
-  State<PollEntity> createState() =>
-      _PollEntityState();
+  State<PollEntity> createState() => _PollEntityState();
 }
 
-class _PollEntityState
-    extends State<PollEntity> {
+class _PollEntityState extends State<PollEntity> {
   final TextEditingController controller = TextEditingController();
 
   @override
