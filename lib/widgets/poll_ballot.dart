@@ -269,9 +269,14 @@ class _RankedPairsWidgetState extends State<RankedPairsWidget> {
   var _submitted = false;
   final Map<PollEntry, PollReactionRankedPairs> _pollReactions = {};
 
-  _addReaction(PollEntry entry, PollReactionRankedPairs reaction) {
+  _addReaction(PollEntry entry, int reaction) {
+    print('adding reaction to entry: $entry');
     setState(() {
-      _pollReactions[entry] = reaction;
+      _pollReactions[entry] = PollReactionRankedPairs(
+        reaction: {entry.entryId: reaction},
+        timeOfReaction: DateTime.now(),
+        personWhoReacted: 'userID',
+      );
     });
   }
 
@@ -320,18 +325,19 @@ class _RankedPairsWidgetState extends State<RankedPairsWidget> {
               onPressed: _submitted
                   ? () {
                       setState(() {
+                        _pollReactions.clear();
                         _submitted = !_submitted;
                         _notifier.value = !_notifier.value;
                       });
                     }
-                  : _pollReactions.length != widget.poll.pollEntries.length
-                      ? null
-                      : () {
-                          // send the reactions to the server
-                          setState(() {
-                            _submitted = !_submitted;
-                          });
-                        },
+                  : _pollReactions.length !=
+                          widget.poll.pollEntries.length ? null:() {
+                    
+                      // send the reactions to the server
+                      setState(() {
+                        _submitted = !_submitted;
+                      });
+                    },
               child: _submitted ? const Text('revert') : const Text('submit'),
             )
           ],
