@@ -16,7 +16,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
   final _controller = TextEditingController();
   grpc.Visibility _visibility = grpc.Visibility.public;
   bool _sensitive = false;
-  PollBallotFromServer? _pollBallot;
+  Ballot? _pollBallot;
 
   void _submit() async {
     if (!_formKey.currentState!.validate()) {
@@ -140,7 +140,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                       // Todo @armantorkzaban: add poll to the post
                       setState(
                         () {
-                          _pollBallot = sampleResult;
+                          _pollBallot = sampleResult2;
                         },
                       );
                     }
@@ -154,7 +154,8 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                 ),
               ],
             ),
-            if (_pollBallot != null) PollBallotWidget(poll: _pollBallot!),
+            if (_pollBallot != null && _pollBallot?.pollType == 'majority') MajorityBallotWidget(poll: _pollBallot!),
+            if (_pollBallot != null && _pollBallot?.pollType == 'ranked_pairs') RankedPairsWidget(poll: _pollBallot!),
           ],
         ),
       ),

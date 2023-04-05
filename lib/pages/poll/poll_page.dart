@@ -45,9 +45,7 @@ class _PollPageState extends State<PollPage> {
           ),
           if (pollType == 'majority') const PollWidget(pollType: 'majority'),
           if (pollType == 'ranked_pairs')
-            const PollWidget(
-              pollType: 'ranked_pairs',
-            ),
+            const PollWidget(pollType: 'ranked_pairs'),
         ],
       ),
     );
@@ -64,12 +62,12 @@ class PollWidget extends StatefulWidget {
 }
 
 class _PollWidgetState extends State<PollWidget> {
-  final List<PluralityMajorityPollEntity> _pollEntities = [];
+  final List<PollEntity> _pollEntities = [];
   final List<String> _pollEntitiesString = [];
   bool _lastSubmitted = false;
   bool _anonymous = false;
 
-  lastSubmitted(PluralityMajorityPollEntity pollEntity, String value) {
+  lastSubmitted(PollEntity pollEntity, String value) {
     int i =
         _pollEntities.indexWhere((element) => element.key == pollEntity.key);
     if (_pollEntitiesString.length - 1 < i) {
@@ -82,13 +80,13 @@ class _PollWidgetState extends State<PollWidget> {
     });
   }
 
-  removeIndex(PluralityMajorityPollEntity pollEntity) {
+  removeIndex(PollEntity pollEntity) {
     setState(() {
       _pollEntities.removeWhere((element) => element.key == pollEntity.key);
     });
   }
 
-  addPollEntity(PluralityMajorityPollEntity pollEntity) {
+  addPollEntity(PollEntity pollEntity) {
     setState(() {
       _pollEntities.add(pollEntity);
       _lastSubmitted = false;
@@ -118,7 +116,7 @@ class _PollWidgetState extends State<PollWidget> {
                 const Text('is Anonymous?'),
                 Checkbox(
                     value: _anonymous,
-                    onChanged: (value) {
+                    onChanged: (value) {  
                       setState(() {
                         _anonymous = !_anonymous;
                       });
@@ -149,7 +147,7 @@ class _PollWidgetState extends State<PollWidget> {
                   onPressed: _pollEntities.isNotEmpty && !_lastSubmitted
                       ? null
                       : () {
-                          addPollEntity(PluralityMajorityPollEntity(
+                          addPollEntity(PollEntity(
                               key: UniqueKey(),
                               lastSubmitted: lastSubmitted,
                               removeIndex: removeIndex));
@@ -181,19 +179,19 @@ class _PollWidgetState extends State<PollWidget> {
   }
 }
 
-class PluralityMajorityPollEntity extends StatefulWidget {
-  const PluralityMajorityPollEntity(
+class PollEntity extends StatefulWidget {
+  const PollEntity(
       {super.key, required this.lastSubmitted, required this.removeIndex});
 
   final Function lastSubmitted;
   final Function removeIndex;
   @override
-  State<PluralityMajorityPollEntity> createState() =>
-      _PluralityMajorityPollEntityState();
+  State<PollEntity> createState() =>
+      _PollEntityState();
 }
 
-class _PluralityMajorityPollEntityState
-    extends State<PluralityMajorityPollEntity> {
+class _PollEntityState
+    extends State<PollEntity> {
   final TextEditingController controller = TextEditingController();
 
   @override
