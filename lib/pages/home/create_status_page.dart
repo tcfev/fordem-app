@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 import 'package:fordem/pages/poll/poll_page.dart';
-import 'package:fordem/widgets/poll_ballot.dart';
+import 'package:fordem/pages/poll/poll_ballot.dart';
 
 class CreateStatusPage extends StatefulWidget {
   const CreateStatusPage({Key? key}) : super(key: key);
