@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
 import 'package:fordem/pages/poll/poll_page.dart';
-import 'package:fordem/pages/poll/poll_ballot.dart';
+// import 'package:fordem/pages/poll/poll_ballot.dart';
 
 class CreateStatusPage extends StatefulWidget {
   const CreateStatusPage({Key? key}) : super(key: key);
@@ -16,7 +16,6 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
   final _controller = TextEditingController();
   grpc.Visibility _visibility = grpc.Visibility.public;
   bool _sensitive = false;
-  Ballot? _pollBallot;
 
   void _submit() async {
     if (!_formKey.currentState!.validate()) {
@@ -136,14 +135,14 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                       context,
                       PollPage.routeName,
                     );
-                    if (ballot is PollBallot) {
-                      // Todo @armantorkzaban: add poll to the post
-                      setState(
-                        () {
-                          _pollBallot = sampleResult2;
-                        },
-                      );
-                    }
+                    // if (ballot is PollBallot) {
+                    //   // Todo @armantorkzaban: add poll to the post
+                    //   setState(
+                    //     () {
+                    //       _pollBallot = sampleResult2;
+                    //     },
+                    //   );
+                    // }
                   },
                 ),
                 FloatingActionButton(
@@ -154,8 +153,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                 ),
               ],
             ),
-            if (_pollBallot != null && _pollBallot?.pollType == 'majority') MajorityBallotWidget(poll: _pollBallot!),
-            if (_pollBallot != null && _pollBallot?.pollType == 'ranked_pairs') RankedPairsWidget(poll: _pollBallot!),
+
           ],
         ),
       ),

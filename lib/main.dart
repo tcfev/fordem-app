@@ -1,7 +1,7 @@
 import 'package:fordem/app_state.dart';
 import 'package:fordem/pages/home/home_page.dart';
 import 'package:fordem/pages/poll/poll_page.dart';
-import 'package:fordem/pages/welcome/welcome_page.dart';
+// import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:protocol_handler/protocol_handler.dart';
@@ -64,7 +64,8 @@ class MyApp extends StatelessWidget {
       theme: theme,
       home: platform == href.Platform.web
           ? const HomePage(title: 'ForDem')
-          : const WelcomePage(),
+          //  : const WelcomePage(),
+          : const PollPage(),
       onGenerateRoute: (settings) {
         if (settings.name == PollPage.routeName) {
           return PageRouteBuilder(

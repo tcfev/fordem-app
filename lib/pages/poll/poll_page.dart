@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fordem/pages/poll/poll_ballot.dart';
 
 class PollPage extends StatefulWidget {
   const PollPage({super.key});
@@ -105,9 +106,8 @@ class _PollWidgetState extends State<PollWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 500,
-      child: Column(
-        children: [
+        height: 500,
+        child: Column(children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -141,44 +141,59 @@ class _PollWidgetState extends State<PollWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  key: const ValueKey('addPollEntity'),
-                  onPressed: _pollEntities.isNotEmpty && !_lastSubmitted
-                      ? null
-                      : () {
-                          addPollEntity(PollEntity(
-                              key: UniqueKey(),
-                              lastSubmitted: lastSubmitted,
-                              removeIndex: removeIndex));
-                        },
-                  child: const Text('Add Poll Entity'),
-                ),
-                //submit button
-                ElevatedButton(
-                    onPressed: _pollEntities.isEmpty || !_lastSubmitted
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    key: const ValueKey('addPollEntity'),
+                    onPressed: _pollEntities.isNotEmpty && !_lastSubmitted
                         ? null
                         : () {
-                            Navigator.pop(
-                              context,
-                              PollBallot(
-                                pollId: 'somePollId',
-                                pollType: widget.pollType,
-                                pollEntities: _pollEntitiesString,
-                                anonymous: _anonymous,
-                              ),
-                            );
+                            addPollEntity(PollEntity(
+                                key: UniqueKey(),
+                                lastSubmitted: lastSubmitted,
+                                removeIndex: removeIndex));
                           },
-                    child: const Text('Submit Poll'))
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+                    child: const Text('Add Poll Entity'),
+                  ),
+                  //submit button
+                  ElevatedButton(
+                      onPressed: _pollEntities.isEmpty || !_lastSubmitted
+                          ? null
+                          : () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    if (widget.pollType == 'majority') {
+                                      return Material(
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: MajorityBallotWidget(
+                                                poll: majorityBallots),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return Material(
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: RankedPairsWidget(
+                                                poll: rankedPairsBallots),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              );
+                            },
+                      child: const Text('Submit Poll')),
+                ],
+              ))
+        ]));
   }
 }
 

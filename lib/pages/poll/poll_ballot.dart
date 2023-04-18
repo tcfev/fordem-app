@@ -140,7 +140,7 @@ class PollReactionMajority {
 // including the poll id, the chosen poll entities, time of reaction, and the
 // person who has reacted
 
-var sampleResult = Ballot(
+var majorityBallots = Ballot(
     pollType: 'majority',
     pollId: 'somePoll',
     pollEntries: [
@@ -330,14 +330,14 @@ class _RankedPairsWidgetState extends State<RankedPairsWidget> {
                         _notifier.value = !_notifier.value;
                       });
                     }
-                  : _pollReactions.length !=
-                          widget.poll.pollEntries.length ? null:() {
-                    
-                      // send the reactions to the server
-                      setState(() {
-                        _submitted = !_submitted;
-                      });
-                    },
+                  : _pollReactions.length != widget.poll.pollEntries.length
+                      ? null
+                      : () {
+                          // send the reactions to the server
+                          setState(() {
+                            _submitted = !_submitted;
+                          });
+                        },
               child: _submitted ? const Text('revert') : const Text('submit'),
             )
           ],
@@ -358,7 +358,7 @@ class PollReactionRankedPairs {
   final String personWhoReacted;
 }
 
-var sampleResult2 = Ballot(
+var rankedPairsBallots = Ballot(
     pollType: 'ranked_pairs',
     pollId: 'poll-id-2',
     pollEntries: [
