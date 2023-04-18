@@ -133,7 +133,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                   onPressed: () async {
                     final ballot = await Navigator.pushNamed(
                       context,
-                      PollPage.routeName,
+                      VoteMethodSelectionPage.routeName,
                     );
                     // if (ballot is PollBallot) {
                     //   // Todo @armantorkzaban: add poll to the post
@@ -153,7 +153,6 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                 ),
               ],
             ),
-
           ],
         ),
       ),

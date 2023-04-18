@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fordem/pages/poll/poll_ballot.dart';
 
-class PollPage extends StatefulWidget {
-  const PollPage({super.key});
+
+class VoteMethodSelectionPage extends StatefulWidget {
+  const VoteMethodSelectionPage({super.key});
   static const routeName = '/pollPage';
 
   @override
-  State<PollPage> createState() => _PollPageState();
+  State<VoteMethodSelectionPage> createState() =>
+      _VoteMethodSelectionPageState();
 }
 
-class _PollPageState extends State<PollPage> {
+class _VoteMethodSelectionPageState extends State<VoteMethodSelectionPage> {
   String pollType = '';
 
   @override
@@ -44,9 +46,10 @@ class _PollPageState extends State<PollPage> {
               ],
             ),
           ),
-          pollType == 'ranked_pairs'
-              ? const PollWidget(pollType: 'ranked_pairs')
-              : const PollWidget(pollType: 'majority'),
+          if (pollType == 'ranked_pairs')
+            const PollWidget(pollType: 'ranked_pairs')
+          else if (pollType == 'majority')
+            const PollWidget(pollType: 'majority')
         ],
       ),
     );

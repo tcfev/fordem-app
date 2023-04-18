@@ -62,15 +62,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'ForDem',
       theme: theme,
-      home: platform == href.Platform.web
+      home: platform != href.Platform.web
           ? const HomePage(title: 'ForDem')
           //  : const WelcomePage(),
-          : const PollPage(),
+          : const VoteMethodSelectionPage(),
       onGenerateRoute: (settings) {
-        if (settings.name == PollPage.routeName) {
+        if (settings.name == VoteMethodSelectionPage.routeName) {
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const PollPage(),
+                const VoteMethodSelectionPage(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               const begin = Offset(0.0, 1.0);
