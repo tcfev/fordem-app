@@ -1,6 +1,6 @@
 import 'package:fordem/app_state.dart';
 import 'package:fordem/pages/home/home_page.dart';
-import 'package:fordem/pages/poll/poll_page.dart';
+import 'package:fordem/pages/poll/voting_method_selection_page.dart';
 // import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
@@ -65,12 +65,12 @@ class MyApp extends StatelessWidget {
       home: platform != href.Platform.web
           ? const HomePage(title: 'ForDem')
           //  : const WelcomePage(),
-          : const VoteMethodSelectionPage(),
+          : const VotingMethodSelectionPage(),
       onGenerateRoute: (settings) {
-        if (settings.name == VoteMethodSelectionPage.routeName) {
+        if (settings.name == VotingMethodSelectionPage.routeName) {
           return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const VoteMethodSelectionPage(),
+                const VotingMethodSelectionPage(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               const begin = Offset(0.0, 1.0);

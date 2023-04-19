@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
-import 'package:fordem/pages/poll/poll_page.dart';
+import 'package:fordem/pages/poll/voting_method_selection_page.dart';
 // import 'package:fordem/pages/poll/poll_ballot.dart';
 
 class CreateStatusPage extends StatefulWidget {
@@ -133,7 +133,7 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                   onPressed: () async {
                     final ballot = await Navigator.pushNamed(
                       context,
-                      VoteMethodSelectionPage.routeName,
+                      VotingMethodSelectionPage.routeName,
                     );
                     // if (ballot is PollBallot) {
                     //   // Todo @armantorkzaban: add poll to the post

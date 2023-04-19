@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fordem/pages/poll/poll_ballot.dart';
 
-class MajorityBallotWidget extends StatefulWidget {
-  const MajorityBallotWidget({super.key, required this.poll});
+class PluralityVotingBallots extends StatefulWidget {
+  const PluralityVotingBallots({super.key, required this.poll});
   final Ballot poll;
 
   @override
-  State<MajorityBallotWidget> createState() => _MajorityBallotWidgetState();
+  State<PluralityVotingBallots> createState() => _PluralityVotingBallotsState();
 }
 
-class _MajorityBallotWidgetState extends State<MajorityBallotWidget> {
+class _PluralityVotingBallotsState extends State<PluralityVotingBallots> {
   String? _chosenPollEntry;
   bool _isPollReactionSent = false;
   PollReactionMajority? _pollReaction;
