@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fordem/pages/poll/approval_vote_widget.dart';
 import 'package:fordem/pages/poll/poll_ballot.dart';
-
+import 'package:fordem/pages/poll/ranked_pairs_widget.dart';
 
 class VoteMethodSelectionPage extends StatefulWidget {
   const VoteMethodSelectionPage({super.key});
@@ -174,7 +175,8 @@ class _PollWidgetState extends State<PollWidget> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: MajorityBallotWidget(
-                                                poll: majorityBallots),
+                                                poll:
+                                                    mockedApprovalVotingBallots),
                                           ),
                                         ),
                                       );
