@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fordem/pages/poll/poll_ballot.dart';
-
-
+import 'package:fordem/pages/poll/ballots.dart';
 
 class RankedPairsWidget extends StatefulWidget {
   const RankedPairsWidget({super.key, required this.poll});
@@ -20,7 +18,7 @@ class _RankedPairsWidgetState extends State<RankedPairsWidget> {
     print('adding reaction to entry: $entry');
     setState(() {
       _pollReactions[entry] = PollReactionRankedPairs(
-        reaction: {entry.entryId: reaction},
+        reaction: {entry.entryName: reaction},
         timeOfReaction: DateTime.now(),
         personWhoReacted: 'userID',
       );
@@ -63,7 +61,7 @@ class _RankedPairsWidgetState extends State<RankedPairsWidget> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(entity.entryId),
+                      child: Text(entity.entryName),
                     ),
                   ],
                 ),
@@ -106,10 +104,11 @@ class PollReactionRankedPairs {
 }
 
 var rankedPairsBallots = Ballot(
-    pollType: 'ranked_pairs',
+  anonymous: false,
+    pollType: PollType.rankedPairs,
     pollId: 'poll-id-2',
     pollEntries: [
-      PollEntry(entryId: 'entry-1')
+      PollEntry(entryName: 'entry-1')
         ..pollReactions.addAll([
           PollReactionRankedPairs(
               reaction: {'entry-1': 2},
@@ -128,7 +127,7 @@ var rankedPairsBallots = Ballot(
               timeOfReaction: DateTime(2022, 1, 1, 1, 4),
               personWhoReacted: 'person4'),
         ]),
-      PollEntry(entryId: 'entry-2')
+      PollEntry(entryName: 'entry-2')
         ..pollReactions.addAll([
           PollReactionRankedPairs(
               reaction: {'entry-2': 1},
@@ -147,7 +146,7 @@ var rankedPairsBallots = Ballot(
               timeOfReaction: DateTime(2022, 1, 1, 1, 2),
               personWhoReacted: 'person4'),
         ]),
-      PollEntry(entryId: 'entry-3')
+      PollEntry(entryName: 'entry-3')
         ..pollReactions.addAll([
           PollReactionRankedPairs(
               reaction: {'entry-3': 3},
@@ -166,7 +165,7 @@ var rankedPairsBallots = Ballot(
               timeOfReaction: DateTime(2022, 1, 1, 1, 4),
               personWhoReacted: 'person4'),
         ]),
-      PollEntry(entryId: 'entry-4')
+      PollEntry(entryName: 'entry-4')
         ..pollReactions.addAll([
           PollReactionRankedPairs(
               reaction: {'entry-4': 4},
@@ -189,6 +188,7 @@ var rankedPairsBallots = Ballot(
     timeCreated: DateTime(2022),
     timeEnded: null,
     pollCreator: 'userID-1');
+
 class RankedPairEntryWidget extends StatefulWidget {
   const RankedPairEntryWidget({
     super.key,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fordem/pages/poll/poll_ballot.dart';
+import 'package:fordem/pages/poll/ballots.dart';
 
 class PluralityVotingBallots extends StatefulWidget {
   const PluralityVotingBallots({super.key, required this.poll});
@@ -24,7 +24,7 @@ class _PluralityVotingBallotsState extends State<PluralityVotingBallots> {
   revertReaction() {
     poll!.pollEntries
         .firstWhere(
-            (PollEntry element) => element.entryId == _pollReaction!.entryId)
+            (PollEntry element) => element.entryName == _pollReaction!.entryId)
         .pollReactions
         .remove(_pollReaction!);
     // todo @armantorkzaban: send it back to server
@@ -33,8 +33,8 @@ class _PluralityVotingBallotsState extends State<PluralityVotingBallots> {
   addReactionToPollEntity() {
     setState(() {
       poll!.pollEntries
-          .firstWhere(
-              (PollEntry element) => element.entryId == _pollReaction!.entryId)
+          .firstWhere((PollEntry element) =>
+              element.entryName == _pollReaction!.entryId)
           .pollReactions
           .add(_pollReaction!);
       print(_pollReaction!.entryId);
@@ -63,14 +63,14 @@ class _PluralityVotingBallotsState extends State<PluralityVotingBallots> {
               ListTile(
                 leading: !_isPollReactionSent
                     ? Radio<String>(
-                        value: pollEntry.entryId,
+                        value: pollEntry.entryName,
                         groupValue: _chosenPollEntry,
                         onChanged: (String? str) {
                           setState(
                             () {
                               _chosenPollEntry = str;
                               _pollReaction = PollReactionMajority(
-                                  entryId: pollEntry.entryId,
+                                  entryId: pollEntry.entryName,
                                   reaction: 1,
                                   timeOfReaction: DateTime.now(),
                                   personWhoReacted: 'personWhoReacted');
@@ -79,7 +79,7 @@ class _PluralityVotingBallotsState extends State<PluralityVotingBallots> {
                         },
                       )
                     : null, // todo: @armantorkzaban: add checkbox for ranked pairs polls,
-                title: Text(pollEntry.entryId),
+                title: Text(pollEntry.entryName),
                 trailing: Text(
                     '${pollEntry.pollReactions.length / totalReactions * 100}%'),
               ),

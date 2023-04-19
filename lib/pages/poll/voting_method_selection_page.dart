@@ -46,10 +46,9 @@ class _VotingMethodSelectionPageState extends State<VotingMethodSelectionPage> {
               ],
             ),
           ),
-          if (pollType == PollType.rankedPairs)
-            const PluralityVotingCreation()
-          // else if (pollType == PollType.plurality)
-          //   const MajorityVote()
+          if (pollType == PollType.plurality) const PluralityVotingCreation()
+          // else if (pollType == PollType.rankedPairs)
+          //   const PluralityVotingCreation()
         ],
       ),
     );

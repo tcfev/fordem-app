@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:fordem/pages/poll/ballots.dart';
 import 'package:fordem/pages/poll/poll_entity.dart';
@@ -7,7 +6,8 @@ class PluralityVotingCreation extends StatefulWidget {
   const PluralityVotingCreation({super.key});
 
   @override
-  State<PluralityVotingCreation> createState() => _PluralityVotingCreationState();
+  State<PluralityVotingCreation> createState() =>
+      _PluralityVotingCreationState();
 }
 
 class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
@@ -18,6 +18,8 @@ class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
   bool isApproval = false;
   PluralityType? pluralityVoteType;
   bool isPollSubmitted = false;
+  UniqueKey pollID = UniqueKey();
+  late Ballot resultBallot;
 
   //todo @armantorkzaban: add a bool for approval/absolute/relative
 
@@ -26,7 +28,11 @@ class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
       _lastSubmitted = true;
       int index =
           _pollEntities.indexWhere((element) => element.key == pollEntity.key);
-      _pollEntitiesNames[index] = value;
+      if (index > _pollEntitiesNames.length - 1) {
+        _pollEntitiesNames.add(value);
+      } else {
+        _pollEntitiesNames[index] = value;
+      }
     });
   }
 
@@ -172,7 +178,8 @@ class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
                 children: [
                   ElevatedButton(
                     key: const ValueKey('add a poll entity'),
-                    onPressed: _pollEntities.isNotEmpty && !_lastSubmitted
+                    onPressed: _pollEntities.isNotEmpty && !_lastSubmitted ||
+                            isPollSubmitted
                         ? null
                         : () {
                             addPollEntity(PollEntity(
@@ -184,11 +191,25 @@ class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
                   ),
                   //submit button
                   ElevatedButton(
-                      onPressed: _pollEntities.isEmpty || !_lastSubmitted
+                      onPressed: _pollEntities.isEmpty ||
+                              !_lastSubmitted ||
+                              isPollSubmitted
                           ? null
                           : () {
                               setState(() {
                                 isPollSubmitted = true;
+                                resultBallot = Ballot(
+                                  anonymous: _anonymous,
+                                  pollId: pollID.toString(),
+                                  pollType: PollType.plurality,
+                                  pluralityType: pluralityVoteType,
+                                  timeCreated: DateTime.now(),
+                                  pollEntries: _pollEntitiesNames
+                                      .map((e) => PollEntry(entryName: e))
+                                      .toList(),
+                                  pollCreator:
+                                      '', //todo @armantorkzaban: add the user's name
+                                );
                               });
                               // Navigator.of(context).push(
                               //   MaterialPageRoute(
@@ -223,8 +244,8 @@ class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
                       ? Center(
                           child: Text('''
                   anonymous: $_anonymous, 
-                  approval: $pluralityVoteType,
                   isApproval: $isApproval,
+                  approval: $pluralityVoteType,
                   pollEntities: ${_pollEntitiesNames.toString()}
                   '''),
                         )
