@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fordem/pages/poll/ballots.dart';
+import 'package:fordem/pages/poll/plurality_voting_ballots.dart';
 import 'package:fordem/pages/poll/poll_entity.dart';
 
 class PluralityVotingCreation extends StatefulWidget {
@@ -67,7 +68,7 @@ class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 500,
+        height: 800,
         child: Column(children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -208,7 +209,7 @@ class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
                                       .map((e) => PollEntry(entryName: e))
                                       .toList(),
                                   pollCreator:
-                                      '', //todo @armantorkzaban: add the user's name
+                                      'User-I', //todo @armantorkzaban: add the user's name
                                 );
                               });
                               // Navigator.of(context).push(
@@ -240,18 +241,19 @@ class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
                               // );
                             },
                       child: const Text('Submit This Poll')),
-                  isPollSubmitted
-                      ? Center(
-                          child: Text('''
+                ],
+              )),
+          isPollSubmitted
+              ? Center(
+                  child: Text('''
                   anonymous: $_anonymous, 
                   isApproval: $isApproval,
                   approval: $pluralityVoteType,
                   pollEntities: ${_pollEntitiesNames.toString()}
                   '''),
-                        )
-                      : const Text(''),
-                ],
-              ))
+                )
+              : const Text(''),
+          if (isPollSubmitted) PluralityVotingBallots(poll: resultBallot)
         ]));
   }
 }
