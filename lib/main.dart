@@ -1,6 +1,7 @@
 import 'package:fordem/app_state.dart';
 import 'package:fordem/pages/home/home_page.dart';
-import 'package:fordem/pages/welcome/welcome_page.dart';
+import 'package:fordem/pages/poll/voting_method_selection_page.dart';
+// import 'package:fordem/pages/welcome/welcome_page.dart';
 import 'package:fordem/utils/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:protocol_handler/protocol_handler.dart';
@@ -61,9 +62,32 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'ForDem',
       theme: theme,
-      home: platform == href.Platform.web
+      home: platform != href.Platform.web
           ? const HomePage(title: 'ForDem')
-          : const WelcomePage(),
+          //  : const WelcomePage(),
+          : const VotingMethodSelectionPage(),
+      onGenerateRoute: (settings) {
+        if (settings.name == VotingMethodSelectionPage.routeName) {
+          return PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const VotingMethodSelectionPage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              const begin = Offset(0.0, 1.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+
+              var tween =
+                  Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          );
+        }
+        return null;
+      },
     );
   }
 }

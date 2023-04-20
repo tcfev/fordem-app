@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fordem/app_state.dart';
 import 'package:fordem/grpc/grpc.dart' as grpc;
+import 'package:fordem/pages/poll/voting_method_selection_page.dart';
+// import 'package:fordem/pages/poll/poll_ballot.dart';
 
 class CreateStatusPage extends StatefulWidget {
   const CreateStatusPage({Key? key}) : super(key: key);
@@ -60,7 +62,8 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
+            SizedBox(
+              height: 300,
               child: ListView(
                 padding: const EdgeInsets.all(4.0),
                 children: [
@@ -127,7 +130,20 @@ class _CreateStatusPageState extends State<CreateStatusPage> {
                 IconButton(
                   icon: const Icon(Icons.poll_outlined),
                   tooltip: 'Add a poll',
-                  onPressed: () {},
+                  onPressed: () async {
+                    final ballot = await Navigator.pushNamed(
+                      context,
+                      VotingMethodSelectionPage.routeName,
+                    );
+                    // if (ballot is PollBallot) {
+                    //   // Todo @armantorkzaban: add poll to the post
+                    //   setState(
+                    //     () {
+                    //       _pollBallot = sampleResult2;
+                    //     },
+                    //   );
+                    // }
+                  },
                 ),
                 FloatingActionButton(
                   mini: true,
