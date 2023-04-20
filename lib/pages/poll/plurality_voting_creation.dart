@@ -67,193 +67,192 @@ class _PluralityVotingCreationState extends State<PluralityVotingCreation> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 800,
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
+    return SingleChildScrollView(
+      child: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Checkbox(
+                        value: _anonymous,
+                        onChanged: (value) {
+                          setState(() {
+                            _anonymous = !_anonymous;
+                          });
+                        }),
+                  ),
+                  const Text('Is this an anonymous vote?'),
+                  IconButton(
+                      onPressed: () {
+                        //todo @armantorkzaban: add a help dialog
+                      },
+                      icon: const Icon(Icons.help_outline))
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Checkbox(
+                        value: isApproval,
+                        onChanged: (value) {
+                          setState(() {
+                            isApproval = !isApproval;
+                          });
+                        }),
+                  ),
+                  const Text('Is this an approval vote?'),
+                  IconButton(
+                      onPressed: () {
+                        //todo @armantorkzaban: add a help dialog
+                      },
+                      icon: const Icon(Icons.help_outline))
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RadioMenuButton(
+                        value: PluralityType.absolute,
+                        groupValue: pluralityVoteType,
+                        child: const Text('Is this an absolute majority vote?'),
+                        onChanged: (value) {
+                          setState(() {
+                            pluralityVoteType = value;
+                          });
+                        }),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        //todo @armantorkzaban: add a help dialog
+                      },
+                      icon: const Icon(Icons.help_outline))
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RadioMenuButton(
+                        value: PluralityType.relative,
+                        groupValue: pluralityVoteType,
+                        child: const Text('Is this a relative majority vote?'),
+                        onChanged: (value) {
+                          setState(() {
+                            pluralityVoteType = value;
+                          });
+                        }),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        //todo @armantorkzaban: add a help dialog
+                      },
+                      icon: const Icon(Icons.help_outline))
+                ],
+              ),
+            ],
+          ),
+        ),
+        Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Checkbox(
-                          value: _anonymous,
-                          onChanged: (value) {
-                            setState(() {
-                              _anonymous = !_anonymous;
-                            });
-                          }),
-                    ),
-                    const Text('Is this an anonymous vote?'),
-                    IconButton(
-                        onPressed: () {
-                          //todo @armantorkzaban: add a help dialog
+                ElevatedButton(
+                  key: const ValueKey('add a poll entity'),
+                  onPressed: _pollEntities.isNotEmpty && !_lastSubmitted ||
+                          isPollSubmitted
+                      ? null
+                      : () {
+                          addPollEntity(PollEntity(
+                              key: UniqueKey(),
+                              lastSubmitted: lastSubmitted,
+                              removeIndex: removeIndex));
                         },
-                        icon: const Icon(Icons.help_outline))
-                  ],
+                  child: const Text('Add A Poll Entity'),
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Checkbox(
-                          value: isApproval,
-                          onChanged: (value) {
-                            setState(() {
-                              isApproval = !isApproval;
-                            });
-                          }),
-                    ),
-                    const Text('Is this an approval vote?'),
-                    IconButton(
-                        onPressed: () {
-                          //todo @armantorkzaban: add a help dialog
-                        },
-                        icon: const Icon(Icons.help_outline))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: RadioMenuButton(
-                          value: PluralityType.absolute,
-                          groupValue: pluralityVoteType,
-                          child:
-                              const Text('Is this an absolute majority vote?'),
-                          onChanged: (value) {
-                            setState(() {
-                              pluralityVoteType = value;
-                            });
-                          }),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          //todo @armantorkzaban: add a help dialog
-                        },
-                        icon: const Icon(Icons.help_outline))
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: RadioMenuButton(
-                          value: PluralityType.relative,
-                          groupValue: pluralityVoteType,
-                          child:
-                              const Text('Is this a relative majority vote?'),
-                          onChanged: (value) {
-                            setState(() {
-                              pluralityVoteType = value;
-                            });
-                          }),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          //todo @armantorkzaban: add a help dialog
-                        },
-                        icon: const Icon(Icons.help_outline))
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: ReorderableListView(
-              onReorder: (oldIndex, newIndex) {
-                reorder(oldIndex, newIndex);
-              },
-              children: [
-                for (var entity in _pollEntities) entity,
-              ],
-            ),
-          ),
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    key: const ValueKey('add a poll entity'),
-                    onPressed: _pollEntities.isNotEmpty && !_lastSubmitted ||
+                //submit button
+                ElevatedButton(
+                    onPressed: _pollEntities.isEmpty ||
+                            !_lastSubmitted ||
                             isPollSubmitted
                         ? null
                         : () {
-                            addPollEntity(PollEntity(
-                                key: UniqueKey(),
-                                lastSubmitted: lastSubmitted,
-                                removeIndex: removeIndex));
+                            setState(() {
+                              isPollSubmitted = true;
+                              resultBallot = Ballot(
+                                anonymous: _anonymous,
+                                pollId: pollID.toString(),
+                                pollType: PollType.plurality,
+                                pluralityType: pluralityVoteType,
+                                timeCreated: DateTime.now(),
+                                pollEntries: _pollEntitiesNames
+                                    .map((e) => PollEntry(entryName: e))
+                                    .toList(),
+                                pollCreator:
+                                    'User-I', //todo @armantorkzaban: add the user's name
+                              );
+                            });
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return Material(
+                            //         child: Center(
+                            //           child: Padding(
+                            //             padding: const EdgeInsets.all(8.0),
+                            //             child: MajorityBallotWidget(
+                            //                 poll:
+                            //                     mockedApprovalVotingBallots),
+                            //           ),
+                            //         ),
+                            //       );
+                            //       // } else {
+                            //       //   return Material(
+                            //       //     child: Center(
+                            //       //       child: Padding(
+                            //       //         padding: const EdgeInsets.all(8.0),
+                            //       //         child: RankedPairsWidget(
+                            //       //             poll: rankedPairsBallots),
+                            //       //       ),
+                            //       //     ),
+                            //       //   );
+                            //       // }
+                            //     },
+                            //   ),
+                            // );
                           },
-                    child: const Text('Add A Poll Entity'),
-                  ),
-                  //submit button
-                  ElevatedButton(
-                      onPressed: _pollEntities.isEmpty ||
-                              !_lastSubmitted ||
-                              isPollSubmitted
-                          ? null
-                          : () {
-                              setState(() {
-                                isPollSubmitted = true;
-                                resultBallot = Ballot(
-                                  anonymous: _anonymous,
-                                  pollId: pollID.toString(),
-                                  pollType: PollType.plurality,
-                                  pluralityType: pluralityVoteType,
-                                  timeCreated: DateTime.now(),
-                                  pollEntries: _pollEntitiesNames
-                                      .map((e) => PollEntry(entryName: e))
-                                      .toList(),
-                                  pollCreator:
-                                      'User-I', //todo @armantorkzaban: add the user's name
-                                );
-                              });
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) {
-                              //       return Material(
-                              //         child: Center(
-                              //           child: Padding(
-                              //             padding: const EdgeInsets.all(8.0),
-                              //             child: MajorityBallotWidget(
-                              //                 poll:
-                              //                     mockedApprovalVotingBallots),
-                              //           ),
-                              //         ),
-                              //       );
-                              //       // } else {
-                              //       //   return Material(
-                              //       //     child: Center(
-                              //       //       child: Padding(
-                              //       //         padding: const EdgeInsets.all(8.0),
-                              //       //         child: RankedPairsWidget(
-                              //       //             poll: rankedPairsBallots),
-                              //       //       ),
-                              //       //     ),
-                              //       //   );
-                              //       // }
-                              //     },
-                              //   ),
-                              // );
-                            },
-                      child: const Text('Submit This Poll')),
-                ],
-              )),
-          isPollSubmitted
-              ? Center(
-                  child: Text('''
+                    child: const Text('Submit This Poll')),
+              ],
+            )),
+        SizedBox(
+          height: 150,
+          child: ReorderableListView(
+            onReorder: (oldIndex, newIndex) {
+              reorder(oldIndex, newIndex);
+            },
+            children: [
+              for (var entity in _pollEntities) entity,
+            ],
+          ),
+        ),
+        isPollSubmitted
+            ? Center(
+                child: Text('''
                   anonymous: $_anonymous, 
                   isApproval: $isApproval,
                   approval: $pluralityVoteType,
                   pollEntities: ${_pollEntitiesNames.toString()}
                   '''),
-                )
-              : const Text(''),
-          if (isPollSubmitted) PluralityVotingBallots(poll: resultBallot)
-        ]));
+              )
+            : const Text(''),
+        if (isPollSubmitted) PluralityVotingBallots(poll: resultBallot)
+      ]),
+    );
   }
 }
